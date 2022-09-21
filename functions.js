@@ -18,6 +18,11 @@ function displayTransition(layer,transition){
 		transition.anim=round(transition.anim+10-1)/10;
 	}
 }
+function displayBasePlate(layer,color){
+	layer.noStroke();
+    layer.fill(color[0],color[1],color[2])
+	layer.rect(game.edge.x/2,game.edge.y/2,game.edge.x+20,game.edge.y+20,10)
+}
 function rotatePoint(point,direction,origin){
 	return {x:dist(point.x-origin.x,point.y-origin.y,0,0)*sin(atan2(point.x-origin.x,point.y-origin.y)+direction),y:dist(point.x-origin.x,point.y-origin.y,0,0)*cos(atan2(point.x-origin.x,point.y-origin.y)+direction)}
 }
@@ -39,6 +44,12 @@ function circleInsideBox(box,circle){
 	else{
 		return false
 	}
+}
+function setMouse(){
+	inputs.mouse.x = mouseX;
+	inputs.mouse.y = mouseY;
+	inputs.rel.x = (inputs.mouse.x-graphics.full.width/2)/stage.zoom+stage.focus.x;
+	inputs.rel.y = (inputs.mouse.y-graphics.full.height/2)/stage.zoom+stage.focus.y;
 }
 function generateWorld(level){
 	game.edge.x = level[0].length*80;

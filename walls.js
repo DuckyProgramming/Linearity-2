@@ -54,8 +54,9 @@ class wall extends entity{
         for(e=0;e<this.collide.length;e++){
             for(f=0;f<this.collide[e].length;f++){
                 if(circleInsideBox(this,this.collide[e][f])){
-					this.collide[e][f].position.x = circleCollideBox(this,this.collide[e][f]).x
-					this.collide[e][f].position.y = circleCollideBox(this,this.collide[e][d]).y
+					this.collide[e][f].position.x=circleCollideBox(this,this.collide[e][f]).x
+					this.collide[e][f].position.y=circleCollideBox(this,this.collide[e][d]).y
+                    this.collide[e][f].speed=0
 				}
             }
         }
