@@ -13,5 +13,6 @@ class player extends entity{
     update(){
         this.position.x = constrain(this.position.x,0,game.edge.x)
         this.position.y = constrain(this.position.y,0,game.edge.y)
+        stage.focus = this.position;
     }
 }

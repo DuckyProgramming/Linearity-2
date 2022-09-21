@@ -4,6 +4,20 @@ function setupLayer(layer){
 	layer.rectMode(CENTER)
 	layer.colorMode(RGB,255,255,255,1)
 }
+function displayTransition(layer,transition){
+	layer.noStroke()
+	layer.fill(0)
+	if(transition.trigger){
+		transition.anim=round(transition.anim+10+1)/10;
+		if(transition.anim>=1){
+			transition.trigger = false;
+			stage.scene = transition.scene;
+		}
+	}
+	else if(transition.anim>0){
+		transition.anim=round(transition.anim+10-1)/10;
+	}
+}
 function rotatePoint(point,direction,origin){
 	return {x:dist(point.x-origin.x,point.y-origin.y,0,0)*sin(atan2(point.x-origin.x,point.y-origin.y)+direction),y:dist(point.x-origin.x,point.y-origin.y,0,0)*cos(atan2(point.x-origin.x,point.y-origin.y)+direction)}
 }
@@ -27,18 +41,18 @@ function circleInsideBox(box,circle){
 	}
 }
 function generateWorld(level){
-	game.edge.x = level[0].length*40;
-	game.edge.y = level.length*40;
+	game.edge.x = level[0].length*80;
+	game.edge.y = level.length*80;
 	for(i=0;i<level.length;i++){
         for(j=0;j<level[i].length;j++){
             if(level[i][j]>=100&&level[i][j]<10000){
-                entities.walls.push(new wall(graphics.full,j*40+floor((level[i][j]%100)/10)*20+20,i*40+(level[i][j]%10)*20+20,floor(level[i][j]/100),floor((level[i][j]%100)/10)*40+40,(level[i][j]%10)*40+40))
+                entities.walls.push(new wall(graphics.full,j*80+floor((level[i][j]%100)/10)*40+40,i*80+(level[i][j]%10)*40+40,floor(level[i][j]/100),floor((level[i][j]%100)/10)*80+80,(level[i][j]%10)*80+80))
             }
             else if(level[i][j]>=-1000&&level[i][j]<=0){
-                entities.walls.push(new wall(graphics.full,j*40+20,i*40+20,level[i][j],40,40))
+                entities.walls.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],80,80))
             }
-            else if(level[i][j]>=-10&&level[i][j]<0&&level[i][j] == -transition.spawn){
-                entities.players.push(new player(graphics.full,j*40+20,i*40+20))
+            else if(level[i][j] == 2){
+                entities.players.push(new player(graphics.full,j*80+40,i*80+40))
             }
         }
     }

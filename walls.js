@@ -1,16 +1,24 @@
 class wall extends entity{
     constructor(layer,x,y,type,width,height){
         super(layer,x,y)
-        this.type=type;
+        this.type=type
         this.width=width
         this.height=height
         this.collide=[entities.players]
-        this.control=random(0,1)
         switch(this.type){
             case 1:
                 this.ellipse=[]
-                for(e=0;e<4;e++){
-                    this.ellipse.push([random(20,30),random(20,30),random(60,80)])
+                this.control=[]
+                for(e=0;e<this.width/80;e++){
+                    this.ellipse.push([])
+                    this.control.push([])
+                    for(f=0;f<this.height/80;f++){
+                        this.ellipse[e].push([])
+                        this.control[e].push(random(0,1))
+                        for(g=0;g<4;g++){
+                            this.ellipse[e][f].push([random(15,25),random(15,25),random(60,80)])
+                        }
+                    }
                 }
             break
         }
@@ -20,13 +28,25 @@ class wall extends entity{
         this.layer.translate(this.position.x,this.position.y)
         switch(this.type){
             case 1:
-                this.layer.rotate(this.control*360)
                 this.layer.fill(255,50,100)
                 for(e=0;e<this.ellipse.length;e++){
-                    this.layer.ellipse(this.ellipse[e][0]*((e%2)*2-1),this.ellipse[e][1]*(floor(e/2)*2-1),this.ellipse[e][2],this.ellipse[e][2])
+                    for(f=0;f<this.ellipse[e].length;f++){
+                        this.layer.translate(-this.width/2+40+e*80,-this.height/2+40+f*80)
+                        this.layer.rotate(this.control[e][f]*360)
+                        for(g=0;g<this.ellipse[e][f].length;g++){
+                            this.layer.ellipse(this.ellipse[e][f][g][0]*((g%2)*2-1),this.ellipse[e][f][g][1]*(floor(g/2)*2-1),this.ellipse[e][f][g][2],this.ellipse[e][f][g][2])
+                        }
+                        this.layer.rotate(this.control[e][f]*-360)
+                        this.layer.translate(this.width/2-40-e*80,this.height/2-40-f*80)
+                    }
                 }
-                this.layer.rotate(-this.control*360)
             break
+        }
+        if(dev.box){
+            this.layer.noFill()
+            this.layer.stroke(0,255,0)
+            this.layer.strokeWeight(3)
+            this.layer.rect(0,0,this.width,this.height)
         }
         this.layer.translate(-this.position.x,-this.position.y)
     }
