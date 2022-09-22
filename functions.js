@@ -8,20 +8,28 @@ function displayTransition(layer,transition){
 	layer.noStroke()
 	layer.fill(0)
 	if(transition.trigger){
-		transition.anim=round(transition.anim+10+1)/10;
+		transition.anim=round(transition.anim+10+1)/10
 		if(transition.anim>=1){
 			transition.trigger = false;
 			stage.scene = transition.scene;
 		}
 	}
 	else if(transition.anim>0){
-		transition.anim=round(transition.anim+10-1)/10;
+		transition.anim=round(transition.anim+10-1)/10
 	}
 }
 function displayBasePlate(layer,color){
 	layer.noStroke();
     layer.fill(color[0],color[1],color[2])
 	layer.rect(game.edge.x/2,game.edge.y/2,game.edge.x+20,game.edge.y+20,10)
+}
+function displayInPuzzle(layer,game){
+	if(game.enter.trigger&&game.enter.anim<1){
+		game.enter.anim = round(game.enter.anim*10+1)/10
+	}
+	if(!game.enter.trigger&&game.enter.anim>0){
+		game.enter.anim = round(game.enter.anim*10-1)/10
+	}
 }
 function rotatePoint(point,direction,origin){
 	return {x:dist(point.x-origin.x,point.y-origin.y,0,0)*sin(atan2(point.x-origin.x,point.y-origin.y)+direction),y:dist(point.x-origin.x,point.y-origin.y,0,0)*cos(atan2(point.x-origin.x,point.y-origin.y)+direction)}
@@ -32,6 +40,14 @@ function pushPoint(point,origin,size){
 	}
 	else{
 		return {x:origin.x+sin(atan2(point.x-origin.x,point.y-origin.y))*size,y:origin.y+cos(atan2(point.x-origin.x,point.y-origin.y))*size}
+	}
+}
+function pointInsideBox(point,box){
+	if(point.position.x>box.position.x-box.width/2&&point.position.x<box.position.x+box.width/2&&point.position.y>box.position.y-box.height/2&&point.position.y<box.position.y+box.height/2){
+		return true;
+	}
+	else{
+		return false;
 	}
 }
 function circleCollideBox(box,circle){
@@ -60,7 +76,7 @@ function generateWorld(level){
                 entities.walls.push(new wall(graphics.full,j*80+floor((level[i][j]%100)/10)*40+40,i*80+(level[i][j]%10)*40+40,floor(level[i][j]/100),floor((level[i][j]%100)/10)*80+80,(level[i][j]%10)*80+80))
             }
             else if(level[i][j]>=-1000&&level[i][j]<=0){
-                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],50,50))
+                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],60,60))
             }
             else if(level[i][j] == 2){
                 entities.players.push(new player(graphics.full,j*80+40,i*80+40))

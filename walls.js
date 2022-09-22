@@ -5,8 +5,33 @@ class wall extends entity{
         this.width=width
         this.height=height
         this.collide=[entities.players]
-        if(this.type<0){
-            this.image = createGraphics(100,100)
+        if(this.type<=0){
+            this.screen = screens[-this.type]
+            this.image = createGraphics(this.screen[0].length*20,this.screen.length*20)
+            for(e=0;e<this.screen.length;e++){
+                for(f=0;f<this.screen[e].length;f++){
+                    switch(this.screen[e][f]){
+                        case '.': case 'O': case 'o':
+                            this.image.stroke(0)
+                            this.image.strokeWeight(5)
+                            if(e<this.screen.length-1&&(this.screen[e+1][f]=='.'||this.screen[e+1][f]=='O'||this.screen[e+1][f]=='o')){
+                                this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
+                            }
+                            if(f<this.screen[e].length-1&&(this.screen[e][f+1]=='.'||this.screen[e][f+1]=='O'||this.screen[e][f+1]=='o')){
+                                this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
+                            }
+                            if(this.screen[e][f]=='O'){
+                                this.image.strokeWeight(15)
+                                this.image.point(10+f*20,10+e*20)
+                            }
+                            if(this.screen[e][f]=='o'){
+                                this.image.strokeWeight(10)
+                                this.image.point(10+f*20,10+e*20)
+                            }
+                        break
+                    }
+                }
+            }
         }
         switch(this.type){
             case 1:
@@ -19,7 +44,7 @@ class wall extends entity{
                         this.ellipse[e].push([])
                         this.control[e].push(random(0,1))
                         for(g=0;g<4;g++){
-                            this.ellipse[e][f].push([random(15,25),random(15,25),random(50,70)])
+                            this.ellipse[e][f].push([random(15,25),random(15,25),random(60,70)])
                         }
                     }
                 }
@@ -29,12 +54,12 @@ class wall extends entity{
     display(){
         this.layer.noStroke()
         this.layer.translate(this.position.x,this.position.y)
-        if(this.type<0){
+        if(this.type<=0){
             this.layer.stroke(40)
             this.layer.strokeWeight(3)
             this.layer.fill(255,100,150)
-            this.layer.rect(0,0,50,50,3)
-            this.layer.image(this.image,-50,-50)
+            this.layer.rect(0,0,60,60,3)
+            this.layer.image(this.image,-25,-25,50,50)
         }
         switch(this.type){
             case 1:

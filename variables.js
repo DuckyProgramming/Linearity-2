@@ -1,5 +1,5 @@
 stage={scene:'level',focus:{x:0,y:0},zoom:1}
-game={edge:{x:0,y:0}}
+game={edge:{x:0,y:0},enter:{trigger:false,anim:0,id:0}}
 entities={screens:[],walls:[],players:[]}
 graphics={full:0}
 run={fore:[]}

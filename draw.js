@@ -16,6 +16,7 @@ function draw(){
                 }
             }
             graphics.full.pop()
+            displayInPuzzle(graphics.full,game)
         break
     }
     displayTransition(graphics.full,transition)
