@@ -60,12 +60,12 @@ function generateWorld(level){
                 entities.walls.push(new wall(graphics.full,j*80+floor((level[i][j]%100)/10)*40+40,i*80+(level[i][j]%10)*40+40,floor(level[i][j]/100),floor((level[i][j]%100)/10)*80+80,(level[i][j]%10)*80+80))
             }
             else if(level[i][j]>=-1000&&level[i][j]<=0){
-                entities.walls.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],80,80))
+                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],50,50))
             }
             else if(level[i][j] == 2){
                 entities.players.push(new player(graphics.full,j*80+40,i*80+40))
             }
         }
     }
-	run={fore:[entities.players,entities.walls]};
+	run={fore:[entities.players,entities.screens,entities.walls]};
 }

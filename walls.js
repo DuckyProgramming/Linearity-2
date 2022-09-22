@@ -5,6 +5,9 @@ class wall extends entity{
         this.width=width
         this.height=height
         this.collide=[entities.players]
+        if(this.type<0){
+            this.image = createGraphics(100,100)
+        }
         switch(this.type){
             case 1:
                 this.ellipse=[]
@@ -16,7 +19,7 @@ class wall extends entity{
                         this.ellipse[e].push([])
                         this.control[e].push(random(0,1))
                         for(g=0;g<4;g++){
-                            this.ellipse[e][f].push([random(15,25),random(15,25),random(60,80)])
+                            this.ellipse[e][f].push([random(15,25),random(15,25),random(50,70)])
                         }
                     }
                 }
@@ -26,6 +29,13 @@ class wall extends entity{
     display(){
         this.layer.noStroke()
         this.layer.translate(this.position.x,this.position.y)
+        if(this.type<0){
+            this.layer.stroke(40)
+            this.layer.strokeWeight(3)
+            this.layer.fill(255,100,150)
+            this.layer.rect(0,0,50,50,3)
+            this.layer.image(this.image,-50,-50)
+        }
         switch(this.type){
             case 1:
                 this.layer.fill(255,50,100)

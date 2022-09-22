@@ -1,8 +1,8 @@
 stage={scene:'level',focus:{x:0,y:0},zoom:1}
 game={edge:{x:0,y:0}}
-entities={walls:[],players:[]};
+entities={screens:[],walls:[],players:[]}
 graphics={full:0}
-run={fore:[]};
+run={fore:[]}
 inputs={mouse:{x:0,y:0},rel:{x:0,y:0}}
 transition={trigger:false,anim:0,scene:stage.scene}
 dev={box:false}
