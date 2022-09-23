@@ -6,8 +6,11 @@ class wall extends entity{
         this.height=height
         this.collide=[entities.players]
         if(this.type<=0){
+            this.complete = false;
+            this.completeAnim = 0;
             this.screen = screens[-this.type]
             this.image = createGraphics(this.screen[0].length*20,this.screen.length*20)
+            this.setupScreen(this.screen);
             for(e=0,le=this.screen.length;e<le;e++){
                 for(f=0,lf=this.screen[e].length;f<lf;f++){
                     switch(this.screen[e][f]){
@@ -51,11 +54,23 @@ class wall extends entity{
             break
         }
     }
+    setupScreen(){
+        this.active=[]
+        this.fade=[]
+        for(i=0,li=this.main.length;i<li;i++){
+            this.active.push([])
+            this.fade.push([])
+            for(j=0,lj=this.main[i].length;j<lj;j++){
+                this.active[i].push(0)
+                this.fade[i].push(0)
+            }
+        }
+    }
     display(){
         this.layer.noStroke()
         this.layer.translate(this.position.x,this.position.y)
         if(this.type<=0){
-            this.layer.stroke(40)
+            this.layer.stroke(40+this.completeAnim*215,40+this.completeAnim*165,40+this.completeAnim*185)
             this.layer.strokeWeight(3)
             this.layer.fill(255,100,150)
             this.layer.rect(0,0,60,60,3)
@@ -86,6 +101,9 @@ class wall extends entity{
         this.layer.translate(-this.position.x,-this.position.y)
     }
     update(){
+        if(this.type<=0&&this.complete&&this.completeAnim<1){
+            this.completeAnim=round(this.completeAnim*20+1)/20
+        }
         for(e=0,le=this.collide.length;e<le;e++){
             for(f=0,lf=this.collide[e].length;f<lf;f++){
                 if(circleInsideBox(this,this.collide[e][f])){

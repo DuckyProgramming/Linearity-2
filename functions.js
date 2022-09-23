@@ -5,12 +5,16 @@ function setupLayer(layer){
 	layer.colorMode(RGB,255,255,255,1)
 }
 function setupScreen(code){
-	screen.main = code
-	screen.active = []
+	screen.main=code
+	screen.trigger=false
+	screen.active=[]
+	screen.fade=[]
 	for(i=0,li=screen.main.length;i<li;i++){
 		screen.active.push([])
+		screen.fade.push([])
 		for(j=0,lj=screen.main[i].length;j<lj;j++){
 			screen.active[i].push(0)
+			screen.fade[i].push(0)
 		}
 	}
 }
@@ -41,7 +45,7 @@ function displayInPuzzle(layer,game){
 		game.enter.anim = round(game.enter.anim*10-1)/10
 	}
 	if(game.enter.anim>0){
-		layer.stroke(40)
+		layer.stroke(40+entities.screens[game.enter.select].completeAnim*215,40+entities.screens[game.enter.select].completeAnim*160,40+entities.screens[game.enter.select].completeAnim*185)
 		layer.strokeWeight(3+game.enter.anim*21)
 		layer.fill(255,100,150)
 		layer.push()
@@ -77,21 +81,30 @@ function displayInPuzzle(layer,game){
 			for(j=0,lj=screen.main[i].length;j<lj;j++){
 				switch(screen.main[i][j]){
 					case '.': case 'O': case 'o':
-						layer.stroke(255,200,225)
 						layer.strokeWeight(5)
-						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')&&screen.active[i][j]&&screen.active[i+1][j]){
+						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')){
+							layer.stroke(255,200,225,min(screen.fade[i+1][j],screen.fade[i][j]))
 							layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
 						}
-						if(j<screen.main[i].length-1&&(screen.main[i][j+1]=='.'||screen.main[i][j+1]=='O'||screen.main[i][j+1]=='o')&&screen.active[i][j]&&screen.active[i][j+1]){
+						if(j<screen.main[i].length-1&&(screen.main[i][j+1]=='.'||screen.main[i][j+1]=='O'||screen.main[i][j+1]=='o')){
+							layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+1]))
 							layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
 						}
-						if(screen.main[i][j]=='O'&&screen.active[i][j]){
+						if(screen.main[i][j]=='O'){
+							layer.stroke(255,200,225,screen.fade[i][j])
 							layer.strokeWeight(16)
 							layer.point(10+j*20,10+i*20)
 						}
-						if(screen.main[i][j]=='o'&&screen.active[i][j]){
+						if(screen.main[i][j]=='o'){
+							layer.stroke(255,200,225,screen.fade[i][j])
 							layer.strokeWeight(11)
 							layer.point(10+j*20,10+i*20)
+						}
+						if(screen.active[i][j]&&screen.fade[i][j]<1){
+							screen.fade[i][j]=round(screen.fade[i][j]*10+1)/10;
+						}
+						if(!screen.active[i][j]&&screen.fade[i][j]>0){
+							screen.fade[i][j]=round(screen.fade[i][j]*10-1)/10;
 						}
 					break
 				}
