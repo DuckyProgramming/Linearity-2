@@ -130,6 +130,14 @@ function circleInsideBox(box,circle){
 		return false
 	}
 }
+function legalMove(move){
+	if(move=='.'||move=='O'||move=='o'){
+		return true
+	}
+	else{
+		return false
+	}
+}
 function setMouse(){
 	inputs.mouse.x=mouseX;
 	inputs.mouse.y=mouseY;
