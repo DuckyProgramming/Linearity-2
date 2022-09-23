@@ -4,19 +4,19 @@ function setupLayer(layer){
 	layer.rectMode(CENTER)
 	layer.colorMode(RGB,255,255,255,1)
 }
-function setupScreen(code){
-	screen.main=code
+function setupScreen(base){
+	screen.main=base.screen
+	screen.active=base.details.active
+	screen.fade=base.details.fade
 	screen.trigger=false
-	screen.active=[]
-	screen.fade=[]
-	for(i=0,li=screen.main.length;i<li;i++){
-		screen.active.push([])
-		screen.fade.push([])
-		for(j=0,lj=screen.main[i].length;j<lj;j++){
-			screen.active[i].push(0)
-			screen.fade[i].push(0)
+}
+function resetScreen(){
+	for(i=0,li=screen.active.length;i<li;i++){
+		for(j=0,lj=screen.active[i].length;j<lj;j++){
+			screen.active[i][j]=0
 		}
 	}
+	screen.trigger=false
 }
 function displayTransition(layer,transition){
 	layer.noStroke()
@@ -82,13 +82,13 @@ function displayInPuzzle(layer,game){
 				switch(screen.main[i][j]){
 					case '.': case 'O': case 'o':
 						layer.strokeWeight(5)
-						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')){
-							layer.stroke(255,200,225,min(screen.fade[i+1][j],screen.fade[i][j]))
-							layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
+						if(i<screen.main.length-1&&i%2==0&&legalMove(screen.main[i+1][j])&&legalMove(screen.main[i+2][j])){
+							layer.stroke(255,200,225,min(screen.fade[i+2][j],screen.fade[i][j]))
+							layer.line(10+j*20,10+i*20,10+j*20,50+i*20)
 						}
-						if(j<screen.main[i].length-1&&(screen.main[i][j+1]=='.'||screen.main[i][j+1]=='O'||screen.main[i][j+1]=='o')){
-							layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+1]))
-							layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
+						if(j<screen.main[i].length-1&&j%2==0&&legalMove(screen.main[i][j+1])&&legalMove(screen.main[i][j+2])){
+							layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+2]))
+							layer.line(10+j*20,10+i*20,50+j*20,10+i*20)
 						}
 						if(screen.main[i][j]=='O'){
 							layer.stroke(255,200,225,screen.fade[i][j])

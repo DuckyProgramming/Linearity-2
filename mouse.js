@@ -10,7 +10,7 @@ function mousePressed(){
                         game.enter.select=a
                         game.enter.position.x=(inputs.rel.x-stage.focus.x)*stage.zoom+graphics.full.width/2
 	                    game.enter.position.y=(inputs.rel.y-stage.focus.y)*stage.zoom+graphics.full.height/2
-                        setupScreen(entities.screens[a].screen)
+                        setupScreen(entities.screens[a])
                     }
                 }
             }

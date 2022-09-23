@@ -39,7 +39,7 @@ function keyPressed(){
             screen.position[1]+=2
         }
     }
-    if(keyCode==BACKSPACE&&game.enter.trigger){
+    if(keyCode==SHIFT&&game.enter.trigger){
         game.enter.trigger=false
         entities.screens[game.enter.select].details.active=screen.active
         entities.screens[game.enter.select].details.fade=screen.fade
@@ -50,5 +50,8 @@ function keyPressed(){
         if(screen.main[screen.position[0]][screen.position[1]]=='o'){
             entities.screens[game.enter.select].complete=true
         }
+    }
+    if(keyCode==BACKSPACE){
+        resetScreen()
     }
 }
