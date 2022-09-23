@@ -40,12 +40,15 @@ function keyPressed(){
         }
     }
     if(keyCode==BACKSPACE&&game.enter.trigger){
-        game.enter.trigger=false;
+        game.enter.trigger=false
+        entities.screens[game.enter.select].details.active=screen.active
+        entities.screens[game.enter.select].details.fade=screen.fade
+        entities.screens[game.enter.select].image.clear()
+        entities.screens[game.enter.select].genImage()
     }
     if(keyCode==ENTER){
         if(screen.main[screen.position[0]][screen.position[1]]=='o'){
-            entities.screens[game.enter.select].active=true
-            screen.complete=true
+            entities.screens[game.enter.select].complete=true
         }
     }
 }

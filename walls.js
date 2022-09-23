@@ -9,32 +9,10 @@ class wall extends entity{
             this.complete = false;
             this.completeAnim = 0;
             this.screen = screens[-this.type]
+            this.details = {active:[],fade:[]}
             this.image = createGraphics(this.screen[0].length*20,this.screen.length*20)
             this.setupScreen(this.screen);
-            for(e=0,le=this.screen.length;e<le;e++){
-                for(f=0,lf=this.screen[e].length;f<lf;f++){
-                    switch(this.screen[e][f]){
-                        case '.': case 'O': case 'o':
-                            this.image.stroke(0)
-                            this.image.strokeWeight(4)
-                            if(e<this.screen.length-1&&(this.screen[e+1][f]=='.'||this.screen[e+1][f]=='O'||this.screen[e+1][f]=='o')){
-                                this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
-                            }
-                            if(f<this.screen[e].length-1&&(this.screen[e][f+1]=='.'||this.screen[e][f+1]=='O'||this.screen[e][f+1]=='o')){
-                                this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
-                            }
-                            if(this.screen[e][f]=='O'){
-                                this.image.strokeWeight(15)
-                                this.image.point(10+f*20,10+e*20)
-                            }
-                            if(this.screen[e][f]=='o'){
-                                this.image.strokeWeight(10)
-                                this.image.point(10+f*20,10+e*20)
-                            }
-                        break
-                    }
-                }
-            }
+            this.genImage();
         }
         switch(this.type){
             case 1:
@@ -54,15 +32,66 @@ class wall extends entity{
             break
         }
     }
-    setupScreen(){
-        this.active=[]
-        this.fade=[]
-        for(i=0,li=this.main.length;i<li;i++){
-            this.active.push([])
-            this.fade.push([])
-            for(j=0,lj=this.main[i].length;j<lj;j++){
-                this.active[i].push(0)
-                this.fade[i].push(0)
+    setupScreen(main){
+        for(e=0,le=main.length;e<le;e++){
+            this.details.active.push([])
+            this.details.fade.push([])
+            for(f=0,lf=main[f].length;f<lf;f++){
+                this.details.active[e].push(0)
+                this.details.fade[e].push(0)
+            }
+        }
+    }
+    genImage(){
+        for(e=0,le=this.screen.length;e<le;e++){
+            for(f=0,lf=this.screen[e].length;f<lf;f++){
+                switch(this.screen[e][f]){
+                    case '.': case 'O': case 'o':
+                        this.image.stroke(0)
+                        this.image.strokeWeight(4)
+                        if(e<this.screen.length-1&&(this.screen[e+1][f]=='.'||this.screen[e+1][f]=='O'||this.screen[e+1][f]=='o')){
+                            this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
+                        }
+                        if(f<this.screen[e].length-1&&(this.screen[e][f+1]=='.'||this.screen[e][f+1]=='O'||this.screen[e][f+1]=='o')){
+                            this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
+                        }
+                        if(this.screen[e][f]=='O'){
+                            this.image.strokeWeight(15)
+                            this.image.point(10+f*20,10+e*20)
+                        }
+                        if(this.screen[e][f]=='o'){
+                            this.image.strokeWeight(10)
+                            this.image.point(10+f*20,10+e*20)
+                        }
+                    break
+                }
+            }
+        }
+        for(e=0,le=this.screen.length;e<le;e++){
+            for(f=0,lf=this.screen[e].length;f<lf;f++){
+                switch(this.screen[e][f]){
+                    case '.': case 'O': case 'o':
+                        this.image.strokeWeight(5)
+                        if(e<this.screen.length-1&&(this.screen[e+1][f]=='.'||this.screen[e+1][f]=='O'||this.screen[e+1][f]=='o')){
+                            this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e+1][f]))
+                            this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
+                        }
+                        if(f<this.screen[e].length-1&&(this.screen[e][f+1]=='.'||this.screen[e][f+1]=='O'||this.screen[e][f+1]=='o')){
+                            this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e][f+1]))
+                            this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
+                        }
+                        if(this.screen[e][f]=='O'){
+                            this.image.stroke(255,200,225,this.details.fade[e][f])
+                            this.image.strokeWeight(16)
+                            this.image.point(10+f*20,10+e*20)
+                        }
+                        if(this.screen[e][f]=='o'){
+                            this.image.stroke(255,200,225,this.details.fade[e][f])
+                            this.image.strokeWeight(11)
+                            this.image.point(10+f*20,10+e*20)
+                        }
+                    break
+                }
             }
         }
     }
