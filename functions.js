@@ -37,7 +37,32 @@ function displayInPuzzle(layer,game){
 		layer.push()
 		layer.translate(game.enter.position.x*(1-game.enter.anim)+layer.width/2*game.enter.anim,game.enter.position.y*(1-game.enter.anim)+layer.height/2*game.enter.anim)
 		layer.rect(0,0,60+game.enter.anim*420,60+game.enter.anim*420,3+game.enter.anim*21)
-		layer.scale(1+game.anim*7)
+		layer.scale(25/screen.main[0].length/10*(1+game.enter.anim*7),25/screen.main.length/10*(1+game.enter.anim*7))
+		layer.translate(-screen.main[0].length*10,-screen.main.length*10)
+		for(e=0,le=screen.main.length;e<le;e++){
+			for(f=0,lf=screen.main[e].length;f<lf;f++){
+				switch(screen.main[e][f]){
+					case '.': case 'O': case 'o':
+						layer.stroke(0)
+						layer.strokeWeight(5)
+						if(e<screen.main.length-1&&(screen.main[e+1][f]=='.'||screen.main[e+1][f]=='O'||screen.main[e+1][f]=='o')){
+							layer.line(10+f*20,10+e*20,10+f*20,30+e*20)
+						}
+						if(f<screen.main[e].length-1&&(screen.main[e][f+1]=='.'||screen.main[e][f+1]=='O'||screen.main[e][f+1]=='o')){
+							layer.line(10+f*20,10+e*20,30+f*20,10+e*20)
+						}
+						if(screen.main[e][f]=='O'){
+							layer.strokeWeight(15)
+							layer.point(10+f*20,10+e*20)
+						}
+						if(screen.main[e][f]=='o'){
+							layer.strokeWeight(10)
+							layer.point(10+f*20,10+e*20)
+						}
+					break
+				}
+			}
+		}
 		layer.pop()
 	}
 }
@@ -80,15 +105,15 @@ function setMouse(){
 function generateWorld(level){
 	game.edge.x=level[0].length*80;
 	game.edge.y=level.length*80;
-	for(i=0;i<level.length;i++){
-        for(j=0;j<level[i].length;j++){
+	for(i=0,li=level.length;i<li;i++){
+        for(j=0,lj=level[i].length;j<lj;j++){
             if(level[i][j]>=100&&level[i][j]<10000){
                 entities.walls.push(new wall(graphics.full,j*80+floor((level[i][j]%100)/10)*40+40,i*80+(level[i][j]%10)*40+40,floor(level[i][j]/100),floor((level[i][j]%100)/10)*80+80,(level[i][j]%10)*80+80))
             }
             else if(level[i][j]>=-1000&&level[i][j]<=0){
                 entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],60,60))
             }
-            else if(level[i][j] == 2){
+            else if(level[i][j]==2){
                 entities.players.push(new player(graphics.full,j*80+40,i*80+40))
             }
         }

@@ -6,8 +6,8 @@ function draw(){
             graphics.full.translate(graphics.full.width/2-stage.focus.x,graphics.full.height/2-stage.focus.y)
             graphics.full.scale(stage.zoom)
             displayBasePlate(graphics.full,[220,200,120])
-            for(a=0;a<run.fore.length;a++){
-                for(b=0;b<run.fore[a].length;b++){
+            for(a=0,la=run.fore.length;a<la;a++){
+                for(b=0,lb=run.fore[a].length;b<lb;b++){
                     run.fore[a][b].display()
                     run.fore[a][b].update()
                     if(run.fore[a][b].remove){
