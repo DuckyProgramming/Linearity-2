@@ -1,5 +1,5 @@
 function keyPressed(){
-    if(key=="w"){
+    if((key=="w"||keyCode==UP_ARROW)&&screen.position[0]>0){
         if(legalMove(screen.main[screen.position[0]-1][screen.position[1]])&&
         legalMove(screen.main[screen.position[0]-2][screen.position[1]])&&
         screen.active[screen.position[0]-1][screen.position[1]]==0&&
@@ -8,8 +8,16 @@ function keyPressed(){
             screen.active[screen.position[0]-2][screen.position[1]]=1
             screen.position[0]-=2
         }
+        else if(legalMove(screen.main[screen.position[0]-1][screen.position[1]])&&
+        legalMove(screen.main[screen.position[0]-2][screen.position[1]])&&
+        screen.active[screen.position[0]-1][screen.position[1]]==1&&
+        screen.active[screen.position[0]-2][screen.position[1]]==1){
+            screen.active[screen.position[0]][screen.position[1]]=0
+            screen.active[screen.position[0]-1][screen.position[1]]=0
+            screen.position[0]-=2
+        }
     }
-    if(key=="s"&&screen.position[0]<screen.main.length-2){
+    if((key=="s"||keyCode==DOWN_ARROW)&&screen.position[0]<screen.main.length-2){
         if(legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
         legalMove(screen.main[screen.position[0]+2][screen.position[1]])&&
         screen.active[screen.position[0]+1][screen.position[1]]==0&&
@@ -18,8 +26,16 @@ function keyPressed(){
             screen.active[screen.position[0]+2][screen.position[1]]=1
             screen.position[0]+=2
         }
+        else if(legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
+        legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
+        screen.active[screen.position[0]+1][screen.position[1]]==1&&
+        screen.active[screen.position[0]+2][screen.position[1]]==1){
+            screen.active[screen.position[0]][screen.position[1]]=0
+            screen.active[screen.position[0]+1][screen.position[1]]=0
+            screen.position[0]+=2
+        }
     }
-    if(key=="a"){
+    if((key=="a"||keyCode==LEFT_ARROW)&&screen.position[1]>0){
         if(legalMove(screen.main[screen.position[0]][screen.position[1]-1])&&
         legalMove(screen.main[screen.position[0]][screen.position[1]-2])&&
         screen.active[screen.position[0]][screen.position[1]-1]==0&&
@@ -28,14 +44,30 @@ function keyPressed(){
             screen.active[screen.position[0]][screen.position[1]-2]=1
             screen.position[1]-=2
         }
+        else if(legalMove(screen.main[screen.position[0]][screen.position[1]-1])&&
+        legalMove(screen.main[screen.position[0]][screen.position[1]-2])&&
+        screen.active[screen.position[0]][screen.position[1]-1]==1&&
+        screen.active[screen.position[0]][screen.position[1]-2]==1){
+            screen.active[screen.position[0]][screen.position[1]]=0
+            screen.active[screen.position[0]][screen.position[1]-1]=0
+            screen.position[1]-=2
+        }
     }
-    if(key=="d"){
+    if((key=="d"||keyCode==RIGHT_ARROW)&&screen.position[1]<screen.main[0].length-2){
         if(legalMove(screen.main[screen.position[0]][screen.position[1]+1])&&
         legalMove(screen.main[screen.position[0]][screen.position[1]+2])&&
         screen.active[screen.position[0]][screen.position[1]+1]==0&&
         screen.active[screen.position[0]][screen.position[1]+2]==0){
             screen.active[screen.position[0]][screen.position[1]+1]=1
             screen.active[screen.position[0]][screen.position[1]+2]=1
+            screen.position[1]+=2
+        }
+        else if(legalMove(screen.main[screen.position[0]][screen.position[1]+1])&&
+        legalMove(screen.main[screen.position[0]][screen.position[1]+2])&&
+        screen.active[screen.position[0]][screen.position[1]+1]==1&&
+        screen.active[screen.position[0]][screen.position[1]+2]==1){
+            screen.active[screen.position[0]][screen.position[1]]=0
+            screen.active[screen.position[0]][screen.position[1]+1]=0
             screen.position[1]+=2
         }
     }
