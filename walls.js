@@ -11,6 +11,7 @@ class wall extends entity{
             this.screen = screens[-this.type]
             this.details = {active:[],fade:[]}
             this.image = createGraphics(this.screen[0].length*20,this.screen.length*20)
+            setupLayer(this.image)
             this.setupScreen(this.screen);
             this.genImage();
         }
@@ -81,6 +82,7 @@ class wall extends entity{
                             this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
                         }
                         if(this.screen[e][f]=='O'){
+                            print(this.details.fade[e][f])
                             this.image.stroke(255,200,225,this.details.fade[e][f])
                             this.image.strokeWeight(16)
                             this.image.point(10+f*20,10+e*20)
