@@ -54,7 +54,7 @@ function displayInPuzzle(layer,game){
 				switch(screen.main[i][j]){
 					case '.': case 'O': case 'o':
 						layer.stroke(0)
-						layer.strokeWeight(5)
+						layer.strokeWeight(4)
 						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')){
 							layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
 						}
@@ -86,11 +86,11 @@ function displayInPuzzle(layer,game){
 							layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
 						}
 						if(screen.main[i][j]=='O'&&screen.active[i][j]){
-							layer.strokeWeight(15)
+							layer.strokeWeight(16)
 							layer.point(10+j*20,10+i*20)
 						}
 						if(screen.main[i][j]=='o'&&screen.active[i][j]){
-							layer.strokeWeight(10)
+							layer.strokeWeight(11)
 							layer.point(10+j*20,10+i*20)
 						}
 					break

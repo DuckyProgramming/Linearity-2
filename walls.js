@@ -13,7 +13,7 @@ class wall extends entity{
                     switch(this.screen[e][f]){
                         case '.': case 'O': case 'o':
                             this.image.stroke(0)
-                            this.image.strokeWeight(5)
+                            this.image.strokeWeight(4)
                             if(e<this.screen.length-1&&(this.screen[e+1][f]=='.'||this.screen[e+1][f]=='O'||this.screen[e+1][f]=='o')){
                                 this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
                             }
