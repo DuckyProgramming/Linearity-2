@@ -4,6 +4,16 @@ function setupLayer(layer){
 	layer.rectMode(CENTER)
 	layer.colorMode(RGB,255,255,255,1)
 }
+function setupScreen(code){
+	screen.main = code
+	screen.active = []
+	for(i=0,li=screen.main.length;i<li;i++){
+		screen.active.push([])
+		for(j=0,lj=screen.main[i].length;j<lj;j++){
+			screen.active[i].push(0)
+		}
+	}
+}
 function displayTransition(layer,transition){
 	layer.noStroke()
 	layer.fill(0)
@@ -20,7 +30,7 @@ function displayTransition(layer,transition){
 }
 function displayBasePlate(layer,color){
 	layer.noStroke()
-    layer.fill(color[0],color[1],color[2])
+	layer.fill(color[0],color[1],color[2])
 	layer.rect(game.edge.x/2,game.edge.y/2,game.edge.x+20,game.edge.y+20,10)
 }
 function displayInPuzzle(layer,game){
@@ -39,25 +49,49 @@ function displayInPuzzle(layer,game){
 		layer.rect(0,0,60+game.enter.anim*420,60+game.enter.anim*420,3+game.enter.anim*21)
 		layer.scale(25/screen.main[0].length/10*(1+game.enter.anim*7),25/screen.main.length/10*(1+game.enter.anim*7))
 		layer.translate(-screen.main[0].length*10,-screen.main.length*10)
-		for(e=0,le=screen.main.length;e<le;e++){
-			for(f=0,lf=screen.main[e].length;f<lf;f++){
-				switch(screen.main[e][f]){
+		for(i=0,li=screen.main.length;i<li;i++){
+			for(j=0,lj=screen.main[i].length;j<lj;j++){
+				switch(screen.main[i][j]){
 					case '.': case 'O': case 'o':
 						layer.stroke(0)
 						layer.strokeWeight(5)
-						if(e<screen.main.length-1&&(screen.main[e+1][f]=='.'||screen.main[e+1][f]=='O'||screen.main[e+1][f]=='o')){
-							layer.line(10+f*20,10+e*20,10+f*20,30+e*20)
+						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')){
+							layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
 						}
-						if(f<screen.main[e].length-1&&(screen.main[e][f+1]=='.'||screen.main[e][f+1]=='O'||screen.main[e][f+1]=='o')){
-							layer.line(10+f*20,10+e*20,30+f*20,10+e*20)
+						if(j<screen.main[i].length-1&&(screen.main[i][j+1]=='.'||screen.main[i][j+1]=='O'||screen.main[i][j+1]=='o')){
+							layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
 						}
-						if(screen.main[e][f]=='O'){
+						if(screen.main[i][j]=='O'){
 							layer.strokeWeight(15)
-							layer.point(10+f*20,10+e*20)
+							layer.point(10+j*20,10+i*20)
 						}
-						if(screen.main[e][f]=='o'){
+						if(screen.main[i][j]=='o'){
 							layer.strokeWeight(10)
-							layer.point(10+f*20,10+e*20)
+							layer.point(10+j*20,10+i*20)
+						}
+					break
+				}
+			}
+		}
+		for(i=0,li=screen.main.length;i<li;i++){
+			for(j=0,lj=screen.main[i].length;j<lj;j++){
+				switch(screen.main[i][j]){
+					case '.': case 'O': case 'o':
+						layer.stroke(255,200,225)
+						layer.strokeWeight(5)
+						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')&&screen.active[i][j]&&screen.active[i+1][j]){
+							layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
+						}
+						if(j<screen.main[i].length-1&&(screen.main[i][j+1]=='.'||screen.main[i][j+1]=='O'||screen.main[i][j+1]=='o')&&screen.active[i][j]&&screen.active[i][j+1]){
+							layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
+						}
+						if(screen.main[i][j]=='O'&&screen.active[i][j]){
+							layer.strokeWeight(15)
+							layer.point(10+j*20,10+i*20)
+						}
+						if(screen.main[i][j]=='o'&&screen.active[i][j]){
+							layer.strokeWeight(10)
+							layer.point(10+j*20,10+i*20)
 						}
 					break
 				}
@@ -79,10 +113,10 @@ function pushPoint(point,origin,size){
 }
 function pointInsideBox(point,box){
 	if(point.position.x>box.position.x-box.width/2&&point.position.x<box.position.x+box.width/2&&point.position.y>box.position.y-box.height/2&&point.position.y<box.position.y+box.height/2){
-		return true;
+		return true
 	}
 	else{
-		return false;
+		return false
 	}
 }
 function circleCollideBox(box,circle){
