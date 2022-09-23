@@ -19,7 +19,7 @@ function displayTransition(layer,transition){
 	}
 }
 function displayBasePlate(layer,color){
-	layer.noStroke();
+	layer.noStroke()
     layer.fill(color[0],color[1],color[2])
 	layer.rect(game.edge.x/2,game.edge.y/2,game.edge.x+20,game.edge.y+20,10)
 }
@@ -29,6 +29,16 @@ function displayInPuzzle(layer,game){
 	}
 	if(!game.enter.trigger&&game.enter.anim>0){
 		game.enter.anim = round(game.enter.anim*10-1)/10
+	}
+	if(game.enter.anim>0){
+		layer.stroke(40)
+		layer.strokeWeight(3+game.enter.anim*21)
+		layer.fill(255,100,150)
+		layer.push()
+		layer.translate(game.enter.position.x*(1-game.enter.anim)+layer.width/2*game.enter.anim,game.enter.position.y*(1-game.enter.anim)+layer.height/2*game.enter.anim)
+		layer.rect(0,0,60+game.enter.anim*420,60+game.enter.anim*420,3+game.enter.anim*21)
+		layer.scale(1+game.anim*7)
+		layer.pop()
 	}
 }
 function rotatePoint(point,direction,origin){
@@ -62,14 +72,14 @@ function circleInsideBox(box,circle){
 	}
 }
 function setMouse(){
-	inputs.mouse.x = mouseX;
-	inputs.mouse.y = mouseY;
-	inputs.rel.x = (inputs.mouse.x-graphics.full.width/2)/stage.zoom+stage.focus.x;
-	inputs.rel.y = (inputs.mouse.y-graphics.full.height/2)/stage.zoom+stage.focus.y;
+	inputs.mouse.x=mouseX;
+	inputs.mouse.y=mouseY;
+	inputs.rel.x=(inputs.mouse.x-graphics.full.width/2)/stage.zoom+stage.focus.x;
+	inputs.rel.y=(inputs.mouse.y-graphics.full.height/2)/stage.zoom+stage.focus.y;
 }
 function generateWorld(level){
-	game.edge.x = level[0].length*80;
-	game.edge.y = level.length*80;
+	game.edge.x=level[0].length*80;
+	game.edge.y=level.length*80;
 	for(i=0;i<level.length;i++){
         for(j=0;j<level[i].length;j++){
             if(level[i][j]>=100&&level[i][j]<10000){

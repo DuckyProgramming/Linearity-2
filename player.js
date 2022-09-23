@@ -23,10 +23,10 @@ class player extends entity{
         this.direction=atan2(inputs.rel.x-this.position.x,this.position.y-inputs.rel.y)
         this.position.x+=sin(this.direction)*this.speed
         this.position.y-=cos(this.direction)*this.speed
-        if(dist(inputs.rel.x,inputs.rel.y,this.position.x,this.position.y)>=100&&this.speed<5){
+        if(dist(inputs.rel.x,inputs.rel.y,this.position.x,this.position.y)>=100&&!game.enter.trigger&&this.speed<5){
             this.speed = round(this.speed+1)
         }
-        else if(dist(inputs.rel.x,inputs.rel.y,this.position.x,this.position.y)<100&&this.speed>0){
+        else if((dist(inputs.rel.x,inputs.rel.y,this.position.x,this.position.y)<100||game.enter.trigger)&&this.speed>0){
             this.speed = round(this.speed-1)
         }
         stage.focus=this.position;
