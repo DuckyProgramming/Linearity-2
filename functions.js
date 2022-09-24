@@ -55,63 +55,77 @@ function displayInPuzzle(layer,game){
 		layer.translate(-screen.main[0].length*10,-screen.main.length*10)
 		for(i=0,li=screen.main.length;i<li;i++){
 			for(j=0,lj=screen.main[i].length;j<lj;j++){
-				switch(screen.main[i][j]){
-					case '.': case 'O': case 'o':
-						layer.stroke(0)
-						layer.strokeWeight(4)
-						if(i<screen.main.length-1&&(screen.main[i+1][j]=='.'||screen.main[i+1][j]=='O'||screen.main[i+1][j]=='o')){
-							layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
-						}
-						if(j<screen.main[i].length-1&&(screen.main[i][j+1]=='.'||screen.main[i][j+1]=='O'||screen.main[i][j+1]=='o')){
-							layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
-						}
-						if(screen.main[i][j]=='O'){
-							layer.strokeWeight(15)
-							layer.point(10+j*20,10+i*20)
-						}
-						if(screen.main[i][j]=='o'){
-							layer.strokeWeight(10)
-							layer.point(10+j*20,10+i*20)
-						}
-					break
+				if(legalMove(screen.main[i][j])){
+					layer.stroke(0)
+					layer.strokeWeight(4)
+					if(i<screen.main.length-1&&legalMove(screen.main[i+1][j])){
+						layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
+					}
+					if(j<screen.main[i].length-1&&legalMove(screen.main[i][j+1])){
+						layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
+					}
+					if(screen.main[i][j]=='O'){
+						layer.strokeWeight(15)
+						layer.point(10+j*20,10+i*20)
+					}
+					if(screen.main[i][j]=='o'){
+						layer.strokeWeight(10)
+						layer.point(10+j*20,10+i*20)
+					}
 				}
 			}
 		}
 		for(i=0,li=screen.main.length;i<li;i++){
 			for(j=0,lj=screen.main[i].length;j<lj;j++){
+				if(legalMove(screen.main[i][j])){
+					layer.strokeWeight(5)
+					if(i<screen.main.length-1&&i%2==0&&legalMove(screen.main[i+1][j])&&legalMove(screen.main[i+2][j])){
+						layer.stroke(255,200,225,min(screen.fade[i+2][j],screen.fade[i][j]))
+						layer.line(10+j*20,10+i*20,10+j*20,50+i*20)
+					}
+					if(j<screen.main[i].length-1&&j%2==0&&legalMove(screen.main[i][j+1])&&legalMove(screen.main[i][j+2])){
+						layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+2]))
+						layer.line(10+j*20,10+i*20,50+j*20,10+i*20)
+					}
+					if(screen.main[i][j]=='O'){
+						layer.stroke(255,200,225,screen.fade[i][j])
+						layer.strokeWeight(16)
+						layer.point(10+j*20,10+i*20)
+					}
+					if(screen.main[i][j]=='o'){
+						layer.stroke(255,200,225,screen.fade[i][j])
+						layer.strokeWeight(11)
+						layer.point(10+j*20,10+i*20)
+					}
+					if(screen.active[i][j]&&screen.fade[i][j]<1){
+						screen.fade[i][j]=round(screen.fade[i][j]*10+1)/10;
+					}
+					if(!screen.active[i][j]&&screen.fade[i][j]>0){
+						screen.fade[i][j]=round(screen.fade[i][j]*10-1)/10;
+					}
+				}
+			}
+		}
+		layer.noStroke()
+		for(i=0,li=screen.main.length;i<li;i++){
+			for(j=0,lj=screen.main[i].length;j<lj;j++){
 				switch(screen.main[i][j]){
-					case '.': case 'O': case 'o':
-						layer.strokeWeight(5)
-						if(i<screen.main.length-1&&i%2==0&&legalMove(screen.main[i+1][j])&&legalMove(screen.main[i+2][j])){
-							layer.stroke(255,200,225,min(screen.fade[i+2][j],screen.fade[i][j]))
-							layer.line(10+j*20,10+i*20,10+j*20,50+i*20)
-						}
-						if(j<screen.main[i].length-1&&j%2==0&&legalMove(screen.main[i][j+1])&&legalMove(screen.main[i][j+2])){
-							layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+2]))
-							layer.line(10+j*20,10+i*20,50+j*20,10+i*20)
-						}
-						if(screen.main[i][j]=='O'){
-							layer.stroke(255,200,225,screen.fade[i][j])
-							layer.strokeWeight(16)
-							layer.point(10+j*20,10+i*20)
-						}
-						if(screen.main[i][j]=='o'){
-							layer.stroke(255,200,225,screen.fade[i][j])
-							layer.strokeWeight(11)
-							layer.point(10+j*20,10+i*20)
-						}
-						if(screen.active[i][j]&&screen.fade[i][j]<1){
-							screen.fade[i][j]=round(screen.fade[i][j]*10+1)/10;
-						}
-						if(!screen.active[i][j]&&screen.fade[i][j]>0){
-							screen.fade[i][j]=round(screen.fade[i][j]*10-1)/10;
-						}
+					case '*':
+						layer.fill(200)
+						regPoly(layer,10+j*20,10+i*20,6,4,30)
 					break
 				}
 			}
 		}
 		layer.pop()
 	}
+}
+function regPoly(layer,x,y,sides,radius,direction){
+	layer.beginShape()
+	for(k=0,lk=sides;k<lk;k++){
+		layer.vertex(x+sin(direction+k*360/sides)*radius,y+cos(direction+k*360/sides)*radius)
+	}
+	layer.endShape(CLOSE)
 }
 function rotatePoint(point,direction,origin){
 	return {x:dist(point.x-origin.x,point.y-origin.y,0,0)*sin(atan2(point.x-origin.x,point.y-origin.y)+direction),y:dist(point.x-origin.x,point.y-origin.y,0,0)*cos(atan2(point.x-origin.x,point.y-origin.y)+direction)}
@@ -144,7 +158,7 @@ function circleInsideBox(box,circle){
 	}
 }
 function legalMove(move){
-	if(move=='.'||move=='O'||move=='o'){
+	if(move=='.'||move=='O'||move=='o'||move=='*'){
 		return true
 	}
 	else{

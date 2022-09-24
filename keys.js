@@ -78,8 +78,20 @@ function keyPressed(){
         entities.screens[game.enter.select].image.clear()
         entities.screens[game.enter.select].genImage()
     }
-    if(keyCode==ENTER){
-        if(screen.main[screen.position[0]][screen.position[1]]=='o'){
+    if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]=='o'){
+        screen.complete=true
+        for(a=0,la=screen.main.length;a<la;a++){
+			for(b=0,lb=screen.main[a].length;b<lb;b++){
+				switch(screen.main[a][b]){
+					case '*':
+                        if(screen.active[a][b]==0){
+                            screen.complete=false
+                        }
+                    break
+                }
+            }
+        }
+        if(screen.complete){
             entities.screens[game.enter.select].complete=true
         }
     }
