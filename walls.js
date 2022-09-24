@@ -132,8 +132,8 @@ class wall extends entity{
             this.layer.stroke(40+this.completeAnim*215,40+this.completeAnim*165,40+this.completeAnim*185)
             this.layer.strokeWeight(3)
             this.layer.fill(255,100,150)
-            this.layer.rect(0,0,60,60,3)
-            this.layer.image(this.image,-25,-25,50,50)
+            this.layer.rect(0,0,70,70,3)
+            this.layer.image(this.image,-30,-30,60,60)
         }
         switch(this.type){
             case 1:

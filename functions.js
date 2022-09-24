@@ -41,7 +41,7 @@ function displayBasePlate(color){
 }
 function displayPath(layer,level,color){
 	layer.stroke(color[0],color[1],color[2])
-	layer.strokeWeight(80)
+	layer.strokeWeight(60)
 	for(i=0,li=level.path.length;i<li;i++){
         for(j=0,lj=level.path[i].length;j<lj;j++){
 			if(i<level.path.length-1&&level.path[i][j]==0&&level.path[i+1][j]==0){
@@ -66,8 +66,8 @@ function displayInPuzzle(layer,game){
 		layer.fill(255,100,150)
 		layer.push()
 		layer.translate(game.enter.position.x*(1-game.enter.anim)+layer.width/2*game.enter.anim,game.enter.position.y*(1-game.enter.anim)+layer.height/2*game.enter.anim)
-		layer.rect(0,0,60+game.enter.anim*420,60+game.enter.anim*420,3+game.enter.anim*21)
-		layer.scale(25/screen.main[0].length/10*(1+game.enter.anim*7),25/screen.main.length/10*(1+game.enter.anim*7))
+		layer.rect(0,0,70+game.enter.anim*410,70+game.enter.anim*410,3+game.enter.anim*21)
+		layer.scale(30/screen.main[0].length/10*(1+game.enter.anim*41/7),30/screen.main.length/10*(1+game.enter.anim*41/7))
 		layer.translate(-screen.main[0].length*10,-screen.main.length*10)
 		for(i=0,li=screen.main.length;i<li;i++){
 			for(j=0,lj=screen.main[i].length;j<lj;j++){
@@ -214,7 +214,7 @@ function generateWorld(level){
                 entities.walls.push(new wall(graphics.full,j*80+floor((level.main[i][j]%100)/10)*40+40,i*80+(level.main[i][j]%10)*40+40,floor(level.main[i][j]/100),floor((level.main[i][j]%100)/10)*80+80,(level.main[i][j]%10)*80+80,level.id[i][j]))
             }
             else if(level.main[i][j]>=-1000&&level.main[i][j]<=0){
-                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level.main[i][j],60,60,level.id[i][j]))
+                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level.main[i][j],70,70,level.id[i][j]))
             }
             else if(level.main[i][j]==2){
                 entities.players.push(new player(graphics.full,j*80+40,i*80+40))
