@@ -88,6 +88,32 @@ function keyPressed(){
                             screen.complete=false
                         }
                     break
+                    case '1':
+                        if(!(screen.active[a-1][b]==1&&screen.active[a+1][b]==0&&screen.active[a][b-1]==0&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==1&&screen.active[a][b-1]==0&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==0&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==0&&screen.active[a][b-1]==0&&screen.active[a][b+1]==1)){
+                            screen.complete=false
+                        }
+                    break
+                    case '2':
+                        if(!(screen.active[a-1][b]==1&&screen.active[a+1][b]==1&&screen.active[a][b-1]==0&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==1&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==0&&screen.active[a][b-1]==1&&screen.active[a][b+1]==1||
+                            screen.active[a-1][b]==1&&screen.active[a+1][b]==0&&screen.active[a][b-1]==0&&screen.active[a][b+1]==1||
+                            screen.active[a-1][b]==1&&screen.active[a+1][b]==0&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==1&&screen.active[a][b-1]==0&&screen.active[a][b+1]==1)){
+                            screen.complete=false
+                        }
+                    break
+                    case '3':
+                        if(!(screen.active[a-1][b]==1&&screen.active[a+1][b]==0&&screen.active[a][b-1]==1&&screen.active[a][b+1]==1||
+                            screen.active[a-1][b]==1&&screen.active[a+1][b]==1&&screen.active[a][b-1]==0&&screen.active[a][b+1]==1||
+                            screen.active[a-1][b]==1&&screen.active[a+1][b]==1&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
+                            screen.active[a-1][b]==0&&screen.active[a+1][b]==1&&screen.active[a][b-1]==1&&screen.active[a][b+1]==1)){
+                            screen.complete=false
+                        }
+                    break
                 }
             }
         }

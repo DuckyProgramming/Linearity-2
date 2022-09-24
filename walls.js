@@ -1,9 +1,10 @@
 class wall extends entity{
-    constructor(layer,x,y,type,width,height){
+    constructor(layer,x,y,type,width,height,id){
         super(layer,x,y)
         this.type=type
         this.width=width
         this.height=height
+        this.id=id
         this.collide=[entities.players]
         if(this.type<=0){
             this.complete = false;
@@ -31,6 +32,12 @@ class wall extends entity{
                     }
                 }
             break
+            case 3:
+                this.width*=0.5
+            break
+            case 4:
+                this.height*=0.5
+            break
         }
     }
     setupScreen(main){
@@ -48,7 +55,7 @@ class wall extends entity{
             for(f=0,lf=this.screen[e].length;f<lf;f++){
                 if(legalMove(this.screen[e][f])){
                     this.image.stroke(0)
-                    this.image.strokeWeight(4)
+                    this.image.strokeWeight(3)
                     if(e<this.screen.length-1&&legalMove(this.screen[e+1][f])){
                         this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
                     }
@@ -56,11 +63,11 @@ class wall extends entity{
                         this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
                     }
                     if(this.screen[e][f]=='O'){
-                        this.image.strokeWeight(15)
+                        this.image.strokeWeight(12)
                         this.image.point(10+f*20,10+e*20)
                     }
                     if(this.screen[e][f]=='o'){
-                        this.image.strokeWeight(10)
+                        this.image.strokeWeight(8)
                         this.image.point(10+f*20,10+e*20)
                     }
                 }
@@ -69,23 +76,23 @@ class wall extends entity{
         for(e=0,le=this.screen.length;e<le;e++){
             for(f=0,lf=this.screen[e].length;f<lf;f++){
                 if(legalMove(this.screen[e][f])){
-                    this.image.strokeWeight(5)
+                    this.image.strokeWeight(4)
                     if(e<this.screen.length-1&&e%2==0&&legalMove(this.screen[e+1][f])&&legalMove(this.screen[e+2][f])){
-                        this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e+2][f]))
+                        this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e+1][f],this.details.fade[e+2][f]))
                         this.image.line(10+f*20,10+e*20,10+f*20,50+e*20)
                     }
                     if(f<this.screen[e].length-1&&f%2==0&&legalMove(this.screen[e][f+1])&&legalMove(this.screen[e][f+2])){
-                        this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e][f+2]))
+                        this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e][f+1],this.details.fade[e][f+2]))
                         this.image.line(10+f*20,10+e*20,50+f*20,10+e*20)
                     }
                     if(this.screen[e][f]=='O'){
                         this.image.stroke(255,200,225,this.details.fade[e][f])
-                        this.image.strokeWeight(16)
+                        this.image.strokeWeight(13)
                         this.image.point(10+f*20,10+e*20)
                     }
                     if(this.screen[e][f]=='o'){
                         this.image.stroke(255,200,225,this.details.fade[e][f])
-                        this.image.strokeWeight(11)
+                        this.image.strokeWeight(9)
                         this.image.point(10+f*20,10+e*20)
                     }
                 }
@@ -98,6 +105,21 @@ class wall extends entity{
                     case '*':
                         this.image.fill(200)
                         regPoly(this.image,10+f*20,10+e*20,6,4,30)
+                    break
+                    case '1':
+                        this.image.fill(255,50,100)
+                        regTriangle(this.image,10+f*20,10+e*20,5,-30)
+                    break
+                    case '2':
+                        this.image.fill(255,50,100)
+                        regTriangle(this.image,6+f*20,10+e*20,5,-30)
+                        regTriangle(this.image,14+f*20,10+e*20,5,-30)
+                    break
+                    case '3':
+                        this.image.fill(255,50,100)
+                        regTriangle(this.image,2+f*20,10+e*20,5,-30)
+                        regTriangle(this.image,10+f*20,10+e*20,5,-30)
+                        regTriangle(this.image,18+f*20,10+e*20,5,-30)
                     break
                 }
             }
@@ -115,7 +137,7 @@ class wall extends entity{
         }
         switch(this.type){
             case 1:
-                this.layer.fill(255,50,100)
+                this.layer.fill(250,230,240)
                 for(e=0,le=this.ellipse.length;e<le;e++){
                     for(f=0,lf=this.ellipse[e].length;f<lf;f++){
                         this.layer.translate(-this.width/2+40+e*80,-this.height/2+40+f*80)
@@ -127,6 +149,18 @@ class wall extends entity{
                         this.layer.translate(this.width/2-40-e*80,this.height/2-40-f*80)
                     }
                 }
+            break
+            case 2:
+                this.layer.fill(245,250,255)
+                this.layer.stroke(170,110,135)
+                this.layer.strokeWeight(6)
+                this.layer.rect(0,0,this.width,this.height,6)
+            break
+            case 3: case 4:
+                this.layer.fill(245,250,255)
+                this.layer.stroke(170,110,135)
+                this.layer.strokeWeight(6)
+                this.layer.rect(0,0,this.width,this.height)
             break
         }
         if(dev.box){
@@ -146,7 +180,7 @@ class wall extends entity{
                 if(circleInsideBox(this,this.collide[e][f])){
 					this.collide[e][f].position.x=circleCollideBox(this,this.collide[e][f]).x
 					this.collide[e][f].position.y=circleCollideBox(this,this.collide[e][d]).y
-                    this.collide[e][f].speed=0
+                    this.collide[e][f].speed*=0.9
 				}
             }
         }

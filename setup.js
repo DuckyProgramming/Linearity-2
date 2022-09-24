@@ -7,7 +7,7 @@ function setup(){
 	rectMode(CENTER)
 	colorMode(RGB,255,255,255,1)
     setupLayer(graphics.full)
-    generateWorld(level)
+    generateWorld(levels[stage.level])
 }
 function windowResized(){
     cnv.position((windowWidth-width)/2,(windowHeight-height)/2)

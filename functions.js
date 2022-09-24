@@ -57,7 +57,7 @@ function displayInPuzzle(layer,game){
 			for(j=0,lj=screen.main[i].length;j<lj;j++){
 				if(legalMove(screen.main[i][j])){
 					layer.stroke(0)
-					layer.strokeWeight(4)
+					layer.strokeWeight(3)
 					if(i<screen.main.length-1&&legalMove(screen.main[i+1][j])){
 						layer.line(10+j*20,10+i*20,10+j*20,30+i*20)
 					}
@@ -65,11 +65,11 @@ function displayInPuzzle(layer,game){
 						layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
 					}
 					if(screen.main[i][j]=='O'){
-						layer.strokeWeight(15)
+						layer.strokeWeight(12)
 						layer.point(10+j*20,10+i*20)
 					}
 					if(screen.main[i][j]=='o'){
-						layer.strokeWeight(10)
+						layer.strokeWeight(8)
 						layer.point(10+j*20,10+i*20)
 					}
 				}
@@ -78,23 +78,23 @@ function displayInPuzzle(layer,game){
 		for(i=0,li=screen.main.length;i<li;i++){
 			for(j=0,lj=screen.main[i].length;j<lj;j++){
 				if(legalMove(screen.main[i][j])){
-					layer.strokeWeight(5)
+					layer.strokeWeight(4)
 					if(i<screen.main.length-1&&i%2==0&&legalMove(screen.main[i+1][j])&&legalMove(screen.main[i+2][j])){
-						layer.stroke(255,200,225,min(screen.fade[i+2][j],screen.fade[i][j]))
+						layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i+1][j],screen.fade[i+2][j]))
 						layer.line(10+j*20,10+i*20,10+j*20,50+i*20)
 					}
 					if(j<screen.main[i].length-1&&j%2==0&&legalMove(screen.main[i][j+1])&&legalMove(screen.main[i][j+2])){
-						layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+2]))
+						layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+1],screen.fade[i][j+2]))
 						layer.line(10+j*20,10+i*20,50+j*20,10+i*20)
 					}
 					if(screen.main[i][j]=='O'){
 						layer.stroke(255,200,225,screen.fade[i][j])
-						layer.strokeWeight(16)
+						layer.strokeWeight(13)
 						layer.point(10+j*20,10+i*20)
 					}
 					if(screen.main[i][j]=='o'){
 						layer.stroke(255,200,225,screen.fade[i][j])
-						layer.strokeWeight(11)
+						layer.strokeWeight(9)
 						layer.point(10+j*20,10+i*20)
 					}
 					if(screen.active[i][j]&&screen.fade[i][j]<1){
@@ -114,11 +114,29 @@ function displayInPuzzle(layer,game){
 						layer.fill(200)
 						regPoly(layer,10+j*20,10+i*20,6,4,30)
 					break
+					case '1':
+						layer.fill(255,50,100)
+                        regTriangle(layer,10+j*20,10+i*20,5,-30)
+                    break
+                    case '2':
+                        layer.fill(255,50,100)
+                        regTriangle(layer,6+j*20,10+i*20,5,-30)
+                        regTriangle(layer,14+j*20,10+i*20,5,-30)
+                    break
+                    case '3':
+                        layer.fill(255,50,100)
+                        regTriangle(layer,2+j*20,10+i*20,5,-30)
+                        regTriangle(layer,10+j*20,10+i*20,5,-30)
+                        regTriangle(layer,18+j*20,10+i*20,5,-30)
+                    break
 				}
 			}
 		}
 		layer.pop()
 	}
+}
+function regTriangle(layer,x,y,radius,direction){
+	layer.triangle(x+sin(direction)*radius,y+cos(direction)*radius,x+sin(direction+120)*radius,y+cos(direction+120)*radius,x+sin(direction+240)*radius,y+cos(direction+240)*radius);
 }
 function regPoly(layer,x,y,sides,radius,direction){
 	layer.beginShape()
@@ -166,24 +184,26 @@ function legalMove(move){
 	}
 }
 function setMouse(){
-	inputs.mouse.x=mouseX;
-	inputs.mouse.y=mouseY;
-	inputs.rel.x=(inputs.mouse.x-graphics.full.width/2)/stage.zoom+stage.focus.x;
-	inputs.rel.y=(inputs.mouse.y-graphics.full.height/2)/stage.zoom+stage.focus.y;
+	inputs.mouse.x=mouseX
+	inputs.mouse.y=mouseY
+	inputs.rel.x=(inputs.mouse.x-graphics.full.width/2)/stage.zoom+stage.focus.x
+	inputs.rel.y=(inputs.mouse.y-graphics.full.height/2)/stage.zoom+stage.focus.y
 }
 function generateWorld(level){
-	game.edge.x=level[0].length*80;
-	game.edge.y=level.length*80;
-	for(i=0,li=level.length;i<li;i++){
-        for(j=0,lj=level[i].length;j<lj;j++){
-            if(level[i][j]>=100&&level[i][j]<10000){
-                entities.walls.push(new wall(graphics.full,j*80+floor((level[i][j]%100)/10)*40+40,i*80+(level[i][j]%10)*40+40,floor(level[i][j]/100),floor((level[i][j]%100)/10)*80+80,(level[i][j]%10)*80+80))
+	game.edge.x=level.main[0].length*80
+	game.edge.y=level.main.length*80
+	for(i=0,li=level.main.length;i<li;i++){
+        for(j=0,lj=level.main[i].length;j<lj;j++){
+            if(level.main[i][j]>=100&&level.main[i][j]<10000){
+                entities.walls.push(new wall(graphics.full,j*80+floor((level.main[i][j]%100)/10)*40+40,i*80+(level.main[i][j]%10)*40+40,floor(level.main[i][j]/100),floor((level.main[i][j]%100)/10)*80+80,(level.main[i][j]%10)*80+80,level.id[i][j]))
             }
-            else if(level[i][j]>=-1000&&level[i][j]<=0){
-                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level[i][j],60,60))
+            else if(level.main[i][j]>=-1000&&level.main[i][j]<=0){
+                entities.screens.push(new wall(graphics.full,j*80+40,i*80+40,level.main[i][j],60,60,level.id[i][j]))
             }
-            else if(level[i][j]==2){
+            else if(level.main[i][j]==2){
                 entities.players.push(new player(graphics.full,j*80+40,i*80+40))
+				stage.focus.x=j*80+40
+				stage.focus.x=i*80+40
             }
         }
     }
