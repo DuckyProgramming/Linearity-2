@@ -5,7 +5,7 @@ function draw(){
             graphics.full.push()
             graphics.full.translate(graphics.full.width/2-stage.focus.x,graphics.full.height/2-stage.focus.y)
             graphics.full.scale(stage.zoom)
-            displayBasePlate(graphics.full,[100,105,110])
+            graphics.full.image(graphics.base,-100,-100)
             for(a=0,la=run.fore.length;a<la;a++){
                 for(b=0,lb=run.fore[a].length;b<lb;b++){
                     run.fore[a][b].display()

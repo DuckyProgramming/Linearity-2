@@ -32,10 +32,26 @@ function displayTransition(layer,transition){
 		transition.anim=round(transition.anim+10-1)/10
 	}
 }
-function displayBasePlate(layer,color){
-	layer.noStroke()
-	layer.fill(color[0],color[1],color[2])
-	layer.rect(game.edge.x/2,game.edge.y/2,game.edge.x+20,game.edge.y+20,10)
+function displayBasePlate(color){
+	graphics.base=createGraphics(game.edge.x+200,game.edge.y+200)
+	setupLayer(graphics.base)
+	graphics.base.noStroke()
+	graphics.base.fill(color[0],color[1],color[2])
+	graphics.base.rect(game.edge.x/2+100,game.edge.y/2+100,game.edge.x+20,game.edge.y+20,10)
+}
+function displayPath(layer,level,color){
+	layer.stroke(color[0],color[1],color[2])
+	layer.strokeWeight(80)
+	for(i=0,li=level.path.length;i<li;i++){
+        for(j=0,lj=level.path[i].length;j<lj;j++){
+			if(i<level.path.length-1&&level.path[i][j]==0&&level.path[i+1][j]==0){
+				layer.line(j*80+140,i*80+140,j*80+140,i*80+220)
+			}
+			if(j<level.path[i].length-1&&level.path[i][j]==0&&level.path[i][j+1]==0){
+				layer.line(j*80+140,i*80+140,j*80+220,i*80+140)
+			}
+		}
+	}
 }
 function displayInPuzzle(layer,game){
 	if(game.enter.trigger&&game.enter.anim<1){
