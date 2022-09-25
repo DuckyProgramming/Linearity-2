@@ -146,32 +146,36 @@ function displayScreen(layer,screen){
 					regTriangle(layer,10+j*20,10+i*20,5,-30)
 					regTriangle(layer,18+j*20,10+i*20,5,-30)
 				break
-				case '4':
+				case 'a':
 					layer.fill(250)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
-				case '5':
+				case 'b':
 					layer.fill(50)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
-				case '6':
-					layer.fill(180,210,210)
+				case 'c':
+					layer.fill(200,175,165)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
-				case '7':
-					layer.fill(130,105,195)
+				case 'd':
+					layer.fill(130,110,180)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
-				case '8':
+				case 'e':
 					layer.fill(120,120,90)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
-				case '9':
+				case 'f':
 					layer.fill(140,80,90)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
-				case '0':
+				case 'g':
 					layer.fill(50,65,125)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
+				case 'h':
+					layer.fill(165,190,255)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 			}
