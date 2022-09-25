@@ -167,19 +167,10 @@ function keyPressed(){
                                 screen.complete=false
                             }
                         break
-                        case '4':
+                        case '4': case '5': case '6': case '7': case '8':
                             for(c=0,lc=grouping.screen.length;c<lc;c++){
                                 for(d=0,ld=grouping.screen[c].length;d<ld;d++){
-                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]=='5'){
-                                        screen.complete=false
-                                    }
-                                }
-                            }
-                        break
-                        case '5':
-                            for(c=0,lc=grouping.screen.length;c<lc;c++){
-                                for(d=0,ld=grouping.screen[c].length;d<ld;d++){
-                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]=='4'){
+                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]!=screen.main[a][b]&&(screen.main[c*2+1][d*2+1]=='4'||screen.main[c*2+1][d*2+1]=='5'||screen.main[c*2+1][d*2+1]=='6'||screen.main[c*2+1][d*2+1]=='7'||screen.main[c*2+1][d*2+1]=='8')){
                                         screen.complete=false
                                     }
                                 }

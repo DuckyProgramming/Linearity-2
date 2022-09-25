@@ -154,6 +154,18 @@ function displayScreen(layer,screen){
 					layer.fill(50)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
+				case '6':
+					layer.fill(180,210,210)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
+				case '7':
+					layer.fill(130,105,195)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
+				case '8':
+					layer.fill(120,120,90)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
 			}
 		}
 	}
