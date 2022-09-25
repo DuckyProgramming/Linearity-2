@@ -37,4 +37,5 @@ screens = {
     active:[],
     fade:[],
     complete:[],
+    trigger:[],
 }

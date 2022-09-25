@@ -1,6 +1,6 @@
 function keyPressed(){
     if(game.enter.anim>=1&&screen.trigger){
-        if((key=="w"||keyCode==UP_ARROW)&&screen.position[0]>0){
+        if((key=="w"||keyCode==UP_ARROW)&&screen.position[0]>0&&screen.main[screen.position[0]][screen.position[1]]!='o'){
             if(legalMove(screen.main[screen.position[0]-1][screen.position[1]])&&
             legalMove(screen.main[screen.position[0]-2][screen.position[1]])&&
             screen.active[screen.position[0]-1][screen.position[1]]==0&&
@@ -18,7 +18,7 @@ function keyPressed(){
                 screen.position[0]-=2
             }
         }
-        if((key=="s"||keyCode==DOWN_ARROW)&&screen.position[0]<screen.main.length-2){
+        if((key=="s"||keyCode==DOWN_ARROW)&&screen.position[0]<screen.main.length-2&&screen.main[screen.position[0]][screen.position[1]]!='o'){
             if(legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
             legalMove(screen.main[screen.position[0]+2][screen.position[1]])&&
             screen.active[screen.position[0]+1][screen.position[1]]==0&&
@@ -36,7 +36,7 @@ function keyPressed(){
                 screen.position[0]+=2
             }
         }
-        if((key=="a"||keyCode==LEFT_ARROW)&&screen.position[1]>0){
+        if((key=="a"||keyCode==LEFT_ARROW)&&screen.position[1]>0&&screen.main[screen.position[0]][screen.position[1]]!='o'){
             if(legalMove(screen.main[screen.position[0]][screen.position[1]-1])&&
             legalMove(screen.main[screen.position[0]][screen.position[1]-2])&&
             screen.active[screen.position[0]][screen.position[1]-1]==0&&
@@ -54,7 +54,7 @@ function keyPressed(){
                 screen.position[1]-=2
             }
         }
-        if((key=="d"||keyCode==RIGHT_ARROW)&&screen.position[1]<screen.main[0].length-2){
+        if((key=="d"||keyCode==RIGHT_ARROW)&&screen.position[1]<screen.main[0].length-2&&screen.main[screen.position[0]][screen.position[1]]!='o'){
             if(legalMove(screen.main[screen.position[0]][screen.position[1]+1])&&
             legalMove(screen.main[screen.position[0]][screen.position[1]+2])&&
             screen.active[screen.position[0]][screen.position[1]+1]==0&&
@@ -76,10 +76,12 @@ function keyPressed(){
             game.enter.trigger=false
             entities.screens[game.enter.select].screen.active=screen.active
             entities.screens[game.enter.select].screen.fade=screen.fade
+            entities.screens[game.enter.select].screen.trigger=screen.trigger
             entities.screens[game.enter.select].image.clear()
             displayScreen(entities.screens[game.enter.select].image,entities.screens[game.enter.select].screen)
             screens.active[-entities.screens[game.enter.select].type]=screen.active
             screens.fade[-entities.screens[game.enter.select].type]=screen.fade
+            screens.trigger[-entities.screens[game.enter.select].type]=screen.trigger
         }
         if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]=='o'){
             screen.complete=true
@@ -166,7 +168,22 @@ function keyPressed(){
                             }
                         break
                         case '4':
-
+                            for(c=0,lc=grouping.screen.length;c<lc;c++){
+                                for(d=0,ld=grouping.screen[c].length;d<ld;d++){
+                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]=='5'){
+                                        screen.complete=false
+                                    }
+                                }
+                            }
+                        break
+                        case '5':
+                            for(c=0,lc=grouping.screen.length;c<lc;c++){
+                                for(d=0,ld=grouping.screen[c].length;d<ld;d++){
+                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]=='4'){
+                                        screen.complete=false
+                                    }
+                                }
+                            }
                         break
                     }
                 }

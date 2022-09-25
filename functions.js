@@ -8,11 +8,12 @@ function setupScreen(base){
 	screen.main=base.screen.main
 	screen.active=base.screen.active
 	screen.fade=base.screen.fade
-	screen.trigger=false
+	screen.trigger=base.screen.trigger
 }
 function generateScreens(screens){
 	for(i=0,li=screens.main.length;i<li;i++){
 		screens.complete.push(false)
+		screens.trigger.push(false)
 		screens.active.push([])
 		screens.fade.push([])
 		for(j=0,lj=screens.main[i].length;j<lj;j++){

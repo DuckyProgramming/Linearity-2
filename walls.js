@@ -6,10 +6,11 @@ class wall extends entity{
         this.height=height
         this.id=id
         this.collide=[entities.players]
+        this.collideInfo={x:0,y:0}
         if(this.type<=0){
             this.complete = false
             this.completeAnim = 0
-            this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type]}
+            this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type],trigger:screens.trigger[-this.type]}
             this.image = createGraphics(this.screen.main[0].length*20,this.screen.main.length*20)
             setupLayer(this.image)
             displayScreen(this.image,this.screen)
@@ -91,8 +92,9 @@ class wall extends entity{
         for(e=0,le=this.collide.length;e<le;e++){
             for(f=0,lf=this.collide[e].length;f<lf;f++){
                 if(circleInsideBox(this,this.collide[e][f])){
-					this.collide[e][f].position.x=circleCollideBox(this,this.collide[e][f]).x
-					this.collide[e][f].position.y=circleCollideBox(this,this.collide[e][d]).y
+                    this.collideInfo=circleCollideBox(this,this.collide[e][f])
+					this.collide[e][f].position.x=this.collideInfo.x
+					this.collide[e][f].position.y=this.collideInfo.y
                     this.collide[e][f].speed*=0.9
 				}
             }
