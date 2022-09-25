@@ -145,6 +145,14 @@ function displayScreen(layer,screen){
 					regTriangle(layer,10+j*20,10+i*20,5,-30)
 					regTriangle(layer,18+j*20,10+i*20,5,-30)
 				break
+				case '4':
+					layer.fill(250)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
+				case '5':
+					layer.fill(50)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
 			}
 		}
 	}
