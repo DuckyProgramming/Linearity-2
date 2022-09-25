@@ -5,10 +5,25 @@ function setupLayer(layer){
 	layer.colorMode(RGB,255,255,255,1)
 }
 function setupScreen(base){
-	screen.main=base.screen
-	screen.active=base.details.active
-	screen.fade=base.details.fade
+	screen.main=base.screen.main
+	screen.active=base.screen.active
+	screen.fade=base.screen.fade
 	screen.trigger=false
+}
+function generateScreens(screens){
+	for(i=0,li=screens.main.length;i<li;i++){
+		screens.complete.push(false)
+		screens.active.push([])
+		screens.fade.push([])
+		for(j=0,lj=screens.main[i].length;j<lj;j++){
+			screens.active[i].push([])
+			screens.fade[i].push([])
+			for(k=0,lk=screens.main[i][j].length;k<lk;k++){
+				screens.active[i][j].push(0)
+				screens.fade[i][j].push(0)
+			}
+		}
+	}
 }
 function resetScreen(){
 	for(i=0,li=screen.active.length;i<li;i++){

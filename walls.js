@@ -7,13 +7,11 @@ class wall extends entity{
         this.id=id
         this.collide=[entities.players]
         if(this.type<=0){
-            this.complete = false;
-            this.completeAnim = 0;
-            this.screen = screens[-this.type]
-            this.details = {active:[],fade:[]}
-            this.image = createGraphics(this.screen[0].length*20,this.screen.length*20)
+            this.complete = false
+            this.completeAnim = 0
+            this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type]}
+            this.image = createGraphics(this.screen.main[0].length*20,this.screen.main.length*20)
             setupLayer(this.image)
-            this.setupScreen(this.screen);
             this.genImage();
         }
         switch(this.type){
@@ -40,58 +38,48 @@ class wall extends entity{
             break
         }
     }
-    setupScreen(main){
-        for(e=0,le=main.length;e<le;e++){
-            this.details.active.push([])
-            this.details.fade.push([])
-            for(f=0,lf=main[f].length;f<lf;f++){
-                this.details.active[e].push(0)
-                this.details.fade[e].push(0)
-            }
-        }
-    }
     genImage(){
-        for(e=0,le=this.screen.length;e<le;e++){
-            for(f=0,lf=this.screen[e].length;f<lf;f++){
-                if(legalMove(this.screen[e][f])){
+        for(e=0,le=this.screen.main.length;e<le;e++){
+            for(f=0,lf=this.screen.main[e].length;f<lf;f++){
+                if(legalMove(this.screen.main[e][f])){
                     this.image.stroke(0)
                     this.image.strokeWeight(3)
-                    if(e<this.screen.length-1&&legalMove(this.screen[e+1][f])){
+                    if(e<this.screen.main.length-1&&legalMove(this.screen.main[e+1][f])){
                         this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
                     }
-                    if(f<this.screen[e].length-1&&legalMove(this.screen[e][f+1])){
+                    if(f<this.screen.main[e].length-1&&legalMove(this.screen.main[e][f+1])){
                         this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
                     }
-                    if(this.screen[e][f]=='O'){
+                    if(this.screen.main[e][f]=='O'){
                         this.image.strokeWeight(12)
                         this.image.point(10+f*20,10+e*20)
                     }
-                    if(this.screen[e][f]=='o'){
+                    if(this.screen.main[e][f]=='o'){
                         this.image.strokeWeight(8)
                         this.image.point(10+f*20,10+e*20)
                     }
                 }
             }
         }
-        for(e=0,le=this.screen.length;e<le;e++){
-            for(f=0,lf=this.screen[e].length;f<lf;f++){
-                if(legalMove(this.screen[e][f])){
+        for(e=0,le=this.screen.main.length;e<le;e++){
+            for(f=0,lf=this.screen.main[e].length;f<lf;f++){
+                if(legalMove(this.screen.main[e][f])){
                     this.image.strokeWeight(4)
-                    if(e<this.screen.length-1&&e%2==0&&legalMove(this.screen[e+1][f])&&legalMove(this.screen[e+2][f])){
-                        this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e+1][f],this.details.fade[e+2][f]))
+                    if(e<this.screen.main.length-1&&e%2==0&&legalMove(this.screen.main[e+1][f])&&legalMove(this.screen.main[e+2][f])){
+                        this.image.stroke(255,200,225,min(this.screen.fade[e][f],this.screen.fade[e+1][f],this.screen.fade[e+2][f]))
                         this.image.line(10+f*20,10+e*20,10+f*20,50+e*20)
                     }
-                    if(f<this.screen[e].length-1&&f%2==0&&legalMove(this.screen[e][f+1])&&legalMove(this.screen[e][f+2])){
-                        this.image.stroke(255,200,225,min(this.details.fade[e][f],this.details.fade[e][f+1],this.details.fade[e][f+2]))
+                    if(f<this.screen.main[e].length-1&&f%2==0&&legalMove(this.screen.main[e][f+1])&&legalMove(this.screen.main[e][f+2])){
+                        this.image.stroke(255,200,225,min(this.screen.fade[e][f],this.screen.fade[e][f+1],this.screen.fade[e][f+2]))
                         this.image.line(10+f*20,10+e*20,50+f*20,10+e*20)
                     }
-                    if(this.screen[e][f]=='O'){
-                        this.image.stroke(255,200,225,this.details.fade[e][f])
+                    if(this.screen.main[e][f]=='O'){
+                        this.image.stroke(255,200,225,this.screen.fade[e][f])
                         this.image.strokeWeight(13)
                         this.image.point(10+f*20,10+e*20)
                     }
-                    if(this.screen[e][f]=='o'){
-                        this.image.stroke(255,200,225,this.details.fade[e][f])
+                    if(this.screen.main[e][f]=='o'){
+                        this.image.stroke(255,200,225,this.screen.fade[e][f])
                         this.image.strokeWeight(9)
                         this.image.point(10+f*20,10+e*20)
                     }
@@ -99,9 +87,9 @@ class wall extends entity{
             }
         }
         this.image.noStroke()
-        for(e=0,le=this.screen.length;e<le;e++){
-            for(f=0,lf=this.screen[e].length;f<lf;f++){
-                switch(this.screen[e][f]){
+        for(e=0,le=this.screen.main.length;e<le;e++){
+            for(f=0,lf=this.screen.main[e].length;f<lf;f++){
+                switch(this.screen.main[e][f]){
                     case '*':
                         this.image.fill(200)
                         regPoly(this.image,10+f*20,10+e*20,6,4,30)

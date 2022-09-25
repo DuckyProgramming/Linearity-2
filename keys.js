@@ -73,10 +73,12 @@ function keyPressed(){
     }
     if(keyCode==SHIFT&&game.enter.trigger){
         game.enter.trigger=false
-        entities.screens[game.enter.select].details.active=screen.active
-        entities.screens[game.enter.select].details.fade=screen.fade
+        entities.screens[game.enter.select].screen.active=screen.active
+        entities.screens[game.enter.select].screen.fade=screen.fade
         entities.screens[game.enter.select].image.clear()
         entities.screens[game.enter.select].genImage()
+        screens.active[-entities.screens[game.enter.select].type]=screen.active
+        screens.fade[-entities.screens[game.enter.select].type]=screen.fade
     }
     if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]=='o'){
         screen.complete=true

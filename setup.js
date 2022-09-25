@@ -7,6 +7,7 @@ function setup(){
 	rectMode(CENTER)
 	colorMode(RGB,255,255,255,1)
     setupLayer(graphics.full)
+    generateScreens(screens)
     generateWorld(levels[stage.level])
     displayBasePlate([100,105,110])
     displayPath(graphics.base,levels[stage.level],[250,240,245])
