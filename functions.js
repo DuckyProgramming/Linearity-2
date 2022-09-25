@@ -166,6 +166,14 @@ function displayScreen(layer,screen){
 					layer.fill(120,120,90)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
+				case '9':
+					layer.fill(140,80,90)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
+				case '0':
+					layer.fill(50,65,125)
+					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
 			}
 		}
 	}
