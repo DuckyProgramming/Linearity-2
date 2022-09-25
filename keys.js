@@ -76,7 +76,7 @@ function keyPressed(){
         entities.screens[game.enter.select].screen.active=screen.active
         entities.screens[game.enter.select].screen.fade=screen.fade
         entities.screens[game.enter.select].image.clear()
-        entities.screens[game.enter.select].genImage()
+        displayScreen(entities.screens[game.enter.select].image,entities.screens[game.enter.select].screen)
         screens.active[-entities.screens[game.enter.select].type]=screen.active
         screens.fade[-entities.screens[game.enter.select].type]=screen.fade
     }

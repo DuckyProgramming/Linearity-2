@@ -12,7 +12,7 @@ class wall extends entity{
             this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type]}
             this.image = createGraphics(this.screen.main[0].length*20,this.screen.main.length*20)
             setupLayer(this.image)
-            this.genImage();
+            displayScreen(this.image,this.screen)
         }
         switch(this.type){
             case 1:
@@ -36,81 +36,6 @@ class wall extends entity{
             case 4:
                 this.height*=0.5
             break
-        }
-    }
-    genImage(){
-        for(e=0,le=this.screen.main.length;e<le;e++){
-            for(f=0,lf=this.screen.main[e].length;f<lf;f++){
-                if(legalMove(this.screen.main[e][f])){
-                    this.image.stroke(0)
-                    this.image.strokeWeight(3)
-                    if(e<this.screen.main.length-1&&legalMove(this.screen.main[e+1][f])){
-                        this.image.line(10+f*20,10+e*20,10+f*20,30+e*20)
-                    }
-                    if(f<this.screen.main[e].length-1&&legalMove(this.screen.main[e][f+1])){
-                        this.image.line(10+f*20,10+e*20,30+f*20,10+e*20)
-                    }
-                    if(this.screen.main[e][f]=='O'){
-                        this.image.strokeWeight(12)
-                        this.image.point(10+f*20,10+e*20)
-                    }
-                    if(this.screen.main[e][f]=='o'){
-                        this.image.strokeWeight(8)
-                        this.image.point(10+f*20,10+e*20)
-                    }
-                }
-            }
-        }
-        for(e=0,le=this.screen.main.length;e<le;e++){
-            for(f=0,lf=this.screen.main[e].length;f<lf;f++){
-                if(legalMove(this.screen.main[e][f])){
-                    this.image.strokeWeight(4)
-                    if(e<this.screen.main.length-1&&e%2==0&&legalMove(this.screen.main[e+1][f])&&legalMove(this.screen.main[e+2][f])){
-                        this.image.stroke(255,200,225,min(this.screen.fade[e][f],this.screen.fade[e+1][f],this.screen.fade[e+2][f]))
-                        this.image.line(10+f*20,10+e*20,10+f*20,50+e*20)
-                    }
-                    if(f<this.screen.main[e].length-1&&f%2==0&&legalMove(this.screen.main[e][f+1])&&legalMove(this.screen.main[e][f+2])){
-                        this.image.stroke(255,200,225,min(this.screen.fade[e][f],this.screen.fade[e][f+1],this.screen.fade[e][f+2]))
-                        this.image.line(10+f*20,10+e*20,50+f*20,10+e*20)
-                    }
-                    if(this.screen.main[e][f]=='O'){
-                        this.image.stroke(255,200,225,this.screen.fade[e][f])
-                        this.image.strokeWeight(13)
-                        this.image.point(10+f*20,10+e*20)
-                    }
-                    if(this.screen.main[e][f]=='o'){
-                        this.image.stroke(255,200,225,this.screen.fade[e][f])
-                        this.image.strokeWeight(9)
-                        this.image.point(10+f*20,10+e*20)
-                    }
-                }
-            }
-        }
-        this.image.noStroke()
-        for(e=0,le=this.screen.main.length;e<le;e++){
-            for(f=0,lf=this.screen.main[e].length;f<lf;f++){
-                switch(this.screen.main[e][f]){
-                    case '*':
-                        this.image.fill(200)
-                        regPoly(this.image,10+f*20,10+e*20,6,4,30)
-                    break
-                    case '1':
-                        this.image.fill(255,50,100)
-                        regTriangle(this.image,10+f*20,10+e*20,5,-30)
-                    break
-                    case '2':
-                        this.image.fill(255,50,100)
-                        regTriangle(this.image,6+f*20,10+e*20,5,-30)
-                        regTriangle(this.image,14+f*20,10+e*20,5,-30)
-                    break
-                    case '3':
-                        this.image.fill(255,50,100)
-                        regTriangle(this.image,2+f*20,10+e*20,5,-30)
-                        regTriangle(this.image,10+f*20,10+e*20,5,-30)
-                        regTriangle(this.image,18+f*20,10+e*20,5,-30)
-                    break
-                }
-            }
         }
     }
     display(){
