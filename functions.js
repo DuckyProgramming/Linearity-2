@@ -12,12 +12,14 @@ function setupScreen(base){
 	screen.flash=base.screen.flash
 	screen.trigger=base.screen.trigger
 	screen.start=base.screen.start
+	screen.position=base.screen.position
 }
 function generateScreens(screens){
 	for(i=0,li=screens.main.length;i<li;i++){
 		screens.complete.push(false)
 		screens.trigger.push(false)
 		screens.start.push([0,0])
+		screens.position.push([0,0])
 		screens.generate=[screens.active,screens.fade,screens.error,screens.flash]
 		for(j=0,lj=screens.generate.length;j<lj;j++){
 			screens.generate[j].push([])
