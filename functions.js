@@ -293,11 +293,11 @@ function dots(layer,x,y,amount,direction,flash){
 	}
 }
 function minusDots(layer,x,y,amount,direction,flash){
-	layer.strokeWeight(2)
+	layer.strokeWeight(1.5)
 	layer.noFill()
 	for(k=0;k<amount;k++){
 		layer.stroke(errorLerp([255-dotcolor[(k+(amount-1)*amount/2)%8][0],255-dotcolor[(k+(amount-1)*amount/2)%8][1],255-dotcolor[(k+(amount-1)*amount/2)%8][2]],flash))
-		layer.ellipse(x+cos(direction+k*360/amount)*sqrt(amount-1)*4,y+sin(direction+k*360/amount)*sqrt(amount-1)*4,4,4)
+		layer.ellipse(x+cos(direction+k*360/amount)*sqrt(amount-1)*4,y+sin(direction+k*360/amount)*sqrt(amount-1)*4,4.5,4.5)
 	}
 }
 function errorLerp(color,amount){

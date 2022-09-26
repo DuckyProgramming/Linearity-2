@@ -215,7 +215,7 @@ function keyPressed(){
                                 }
                             break
                             case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'I': case 'J': case 'K': case 'L': case 'M': case 'N': case 'O': case 'P':
-                                if(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]!=grouping.size[grouping.screen[(a-1)/2][(b-1)/2]]||grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]==0){
+                                if(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]!=grouping.size[grouping.screen[(a-1)/2][(b-1)/2]]&&grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]!=0){
                                     screen.complete=false
                                     screen.error[a][b]=1
                                 }
