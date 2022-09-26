@@ -90,31 +90,32 @@ function keyPressed(){
             for(a=0,la=screen.main.length/2-1;a<la;a++){
                 grouping.screen.push([])
                 for(b=0,lb=screen.main[a].length/2-1;b<lb;b++){
-                    grouping.screen[a].push(0)
+                    grouping.screen[a].push(-1)
                 }
             }
-            grouping.screen[0][0]=1
-            grouping.create=2
+            grouping.screen[0][0]=0
+            grouping.star=[[0,0,0,0,0,0,0,0]]
+            grouping.create=1
             while(!grouping.complete){
                 grouping.complete=true
                 grouping.add=true
                 for(a=0,la=grouping.screen.length;a<la;a++){
                     for(b=0,lb=grouping.screen[a].length;b<lb;b++){
-                        if(grouping.screen[a][b]==0){
+                        if(grouping.screen[a][b]<0){
                             grouping.complete=false
-                            if(a>0&&grouping.screen[a-1][b]>0&&screen.active[a*2][b*2+1]==0){
+                            if(a>0&&grouping.screen[a-1][b]>=0&&screen.active[a*2][b*2+1]==0){
                                 grouping.screen[a][b]=grouping.screen[a-1][b]
                                 grouping.add=false
                             }
-                            if(a<grouping.screen.length-1&&grouping.screen[a+1][b]>0&&screen.active[a*2+2][b*2+1]==0){
+                            if(a<grouping.screen.length-1&&grouping.screen[a+1][b]>=0&&screen.active[a*2+2][b*2+1]==0){
                                 grouping.screen[a][b]=grouping.screen[a+1][b]
                                 grouping.add=false
                             }
-                            if(b>0&&grouping.screen[a][b-1]>0&&screen.active[a*2+1][b*2]==0){
+                            if(b>0&&grouping.screen[a][b-1]>=0&&screen.active[a*2+1][b*2]==0){
                                 grouping.screen[a][b]=grouping.screen[a][b-1]
                                 grouping.add=false
                             }
-                            if(b<grouping.screen[a].length-1&&grouping.screen[a][b+1]>0&&screen.active[a*2+1][b*2+2]==0){
+                            if(b<grouping.screen[a].length-1&&grouping.screen[a][b+1]>=0&&screen.active[a*2+1][b*2+2]==0){
                                 grouping.screen[a][b]=grouping.screen[a][b+1]
                                 grouping.add=false
                             }
@@ -124,13 +125,19 @@ function keyPressed(){
                 if(grouping.add){
                     for(a=0,la=grouping.screen.length;a<la;a++){
                         for(b=0,lb=grouping.screen[a].length;b<lb;b++){
-                            if(grouping.screen[a][b]==0&&grouping.add){
+                            if(grouping.screen[a][b]<0&&grouping.add){
                                 grouping.screen[a][b]=grouping.create
                                 grouping.create++
                                 grouping.add=false
+                                grouping.star.push([0,0,0,0,0,0,0,0])
                             }
                         }
                     }
+                }
+            }
+            for(a=0,la=grouping.screen.length;a<la;a++){
+                for(b=0,lb=grouping.screen[a].length;b<lb;b++){
+                    grouping.star[grouping.screen[a][b]][colorNumber(screen.main[a*2+1][b*2+1])]++
                 }
             }
             for(a=0,la=screen.main.length;a<la;a++){
@@ -170,12 +177,19 @@ function keyPressed(){
                         case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h':
                             for(c=0,lc=grouping.screen.length;c<lc;c++){
                                 for(d=0,ld=grouping.screen[c].length;d<ld;d++){
-                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]!=screen.main[a][b]&&(
+                                    if(grouping.screen[c][d]==grouping.screen[(a-1)/2][(b-1)/2]&&screen.main[c*2+1][d*2+1]!=screen.main[a][b]&&screen.main[c*2+1][d*2+1]!=capital(screen.main[a][b])&&(
                                         screen.main[c*2+1][d*2+1]=='a'||screen.main[c*2+1][d*2+1]=='b'||screen.main[c*2+1][d*2+1]=='c'||screen.main[c*2+1][d*2+1]=='d'||
-                                        screen.main[c*2+1][d*2+1]=='e'||screen.main[c*2+1][d*2+1]=='f'||screen.main[c*2+1][d*2+1]=='g'||screen.main[c*2+1][d*2+1]=='h')){
+                                        screen.main[c*2+1][d*2+1]=='e'||screen.main[c*2+1][d*2+1]=='f'||screen.main[c*2+1][d*2+1]=='g'||screen.main[c*2+1][d*2+1]=='h'||
+                                        screen.main[c*2+1][d*2+1]=='A'||screen.main[c*2+1][d*2+1]=='B'||screen.main[c*2+1][d*2+1]=='C'||screen.main[c*2+1][d*2+1]=='D'||
+                                        screen.main[c*2+1][d*2+1]=='E'||screen.main[c*2+1][d*2+1]=='F'||screen.main[c*2+1][d*2+1]=='G'||screen.main[c*2+1][d*2+1]=='H')){
                                         screen.complete=false
                                     }
                                 }
+                            }
+                        break
+                        case 'A': case 'B': case 'C': case 'D': case 'E': case 'F': case 'G': case 'H':
+                            if(grouping.star[grouping.screen[(a-1)/2][(b-1)/2]][colorNumber(screen.main[a][b])]!=2){
+                                screen.complete=false
                             }
                         break
                     }
