@@ -8,20 +8,22 @@ function setupScreen(base){
 	screen.main=base.screen.main
 	screen.active=base.screen.active
 	screen.fade=base.screen.fade
+	screen.error=base.screen.error
+	screen.flash=base.screen.flash
 	screen.trigger=base.screen.trigger
 }
 function generateScreens(screens){
 	for(i=0,li=screens.main.length;i<li;i++){
 		screens.complete.push(false)
 		screens.trigger.push(false)
-		screens.active.push([])
-		screens.fade.push([])
-		for(j=0,lj=screens.main[i].length;j<lj;j++){
-			screens.active[i].push([])
-			screens.fade[i].push([])
-			for(k=0,lk=screens.main[i][j].length;k<lk;k++){
-				screens.active[i][j].push(0)
-				screens.fade[i][j].push(0)
+		screens.generate=[screens.active,screens.fade,screens.error,screens.flash]
+		for(j=0,lj=screens.generate.length;j<lj;j++){
+			screens.generate[j].push([])
+			for(k=0,lk=screens.main[i].length;k<lk;k++){
+				screens.generate[j][i].push([])
+				for(l=0,ll=screens.main[i][k].length;l<ll;l++){
+					screens.generate[j][i][k].push(0)
+				}
 			}
 		}
 	}
@@ -114,12 +116,21 @@ function displayScreen(layer,screen){
 					layer.strokeWeight(9)
 					layer.point(10+j*20,10+i*20)
 				}
-				if(screen.active[i][j]&&screen.fade[i][j]<1){
+				if(screen.active[i][j]==1&&screen.fade[i][j]<1){
 					screen.fade[i][j]=round(screen.fade[i][j]*10+1)/10;
 				}
-				if(!screen.active[i][j]&&screen.fade[i][j]>0){
+				if(screen.active[i][j]==0&&screen.fade[i][j]>0){
 					screen.fade[i][j]=round(screen.fade[i][j]*10-1)/10;
 				}
+			}
+			if(screen.error[i][j]==1&&screen.flash[i][j]<1){
+				screen.flash[i][j]=round(screen.flash[i][j]*10+1)/10;
+			}
+			if(screen.error[i][j]==0&&screen.flash[i][j]>0){
+				screen.flash[i][j]=round(screen.flash[i][j]*10-1)/10;
+			}
+			if(screen.error[i][j]==1&&screen.flash[i][j]>=1){
+				screen.error[i][j]=0
 			}
 		}
 	}
@@ -128,86 +139,86 @@ function displayScreen(layer,screen){
 		for(j=0,lj=screen.main[i].length;j<lj;j++){
 			switch(screen.main[i][j]){
 				case '*':
-					layer.fill(200)
+					layer.fill(errorLerp([200,200,200],screen.flash[i][j]))
 					regPoly(layer,10+j*20,10+i*20,6,4,30)
 				break
 				case '1':
-					layer.fill(255,50,100)
+					layer.fill(errorLerp([255,50,100],screen.flash[i][j]))
 					regTriangle(layer,10+j*20,10+i*20,5,-30)
 				break
 				case '2':
-					layer.fill(255,50,100)
+					layer.fill(errorLerp([255,50,100],screen.flash[i][j]))
 					regTriangle(layer,6+j*20,10+i*20,5,-30)
 					regTriangle(layer,14+j*20,10+i*20,5,-30)
 				break
 				case '3':
-					layer.fill(255,50,100)
+					layer.fill(errorLerp([255,50,100],screen.flash[i][j]))
 					regTriangle(layer,2+j*20,10+i*20,5,-30)
 					regTriangle(layer,10+j*20,10+i*20,5,-30)
 					regTriangle(layer,18+j*20,10+i*20,5,-30)
 				break
 				case 'a':
-					layer.fill(240)
+					layer.fill(errorLerp([240,240,240],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'b':
-					layer.fill(40)
+					layer.fill(errorLerp([40,40,40],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'c':
-					layer.fill(200,175,165)
+					layer.fill(errorLerp([200,175,165],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'd':
-					layer.fill(130,110,180)
+					layer.fill(errorLerp([130,110,180],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'e':
-					layer.fill(120,120,90)
+					layer.fill(errorLerp([120,120,90],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'f':
-					layer.fill(140,80,90)
+					layer.fill(errorLerp([140,80,90],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'g':
-					layer.fill(50,65,125)
+					layer.fill(errorLerp([50,65,125],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'h':
-					layer.fill(165,190,255)
+					layer.fill(errorLerp([165,190,255],screen.flash[i][j]))
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'A':
-					layer.fill(240)
+					layer.fill(errorLerp([240,240,240],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'B':
-					layer.fill(40)
+					layer.fill(errorLerp([40,40,40],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'C':
-					layer.fill(200,175,165)
+					layer.fill(errorLerp([200,175,165],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'D':
-					layer.fill(130,110,180)
+					layer.fill(errorLerp([130,110,180],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'E':
-					layer.fill(120,120,90)
+					layer.fill(errorLerp([120,120,90],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'F':
-					layer.fill(140,80,90)
+					layer.fill(errorLerp([140,80,90],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'G':
-					layer.fill(50,65,125)
+					layer.fill(errorLerp([50,65,125],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'H':
-					layer.fill(165,190,255)
+					layer.fill(errorLerp([165,190,255],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 			}
@@ -250,6 +261,9 @@ function regStar(layer,x,y,sides,radius,direction){
 		layer.vertex(x+sin(direction+k*180/sides)*radius[k%2],y+cos(direction+k*180/sides)*radius[k%2])
 	}
 	layer.endShape(CLOSE)
+}
+function errorLerp(color,amount){
+	return [color[0]*(1-amount)+240*amount,color[1]*(1-amount),color[2]*(1-amount)]
 }
 function rotatePoint(point,direction,origin){
 	return {x:dist(point.x-origin.x,point.y-origin.y,0,0)*sin(atan2(point.x-origin.x,point.y-origin.y)+direction),y:dist(point.x-origin.x,point.y-origin.y,0,0)*cos(atan2(point.x-origin.x,point.y-origin.y)+direction)}

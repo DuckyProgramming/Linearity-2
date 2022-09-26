@@ -76,6 +76,8 @@ function keyPressed(){
             game.enter.trigger=false
             entities.screens[game.enter.select].screen.active=screen.active
             entities.screens[game.enter.select].screen.fade=screen.fade
+            entities.screens[game.enter.select].screen.error=screen.error
+            entities.screens[game.enter.select].screen.flash=screen.flash
             entities.screens[game.enter.select].screen.trigger=screen.trigger
             entities.screens[game.enter.select].image.clear()
             displayScreen(entities.screens[game.enter.select].image,entities.screens[game.enter.select].screen)
@@ -146,6 +148,7 @@ function keyPressed(){
                         case '*':
                             if(screen.active[a][b]==0){
                                 screen.complete=false
+                                screen.error[a][b]=1
                             }
                         break
                         case '1':
@@ -154,6 +157,7 @@ function keyPressed(){
                                 screen.active[a-1][b]==0&&screen.active[a+1][b]==0&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
                                 screen.active[a-1][b]==0&&screen.active[a+1][b]==0&&screen.active[a][b-1]==0&&screen.active[a][b+1]==1)){
                                 screen.complete=false
+                                screen.error[a][b]=1
                             }
                         break
                         case '2':
@@ -164,6 +168,7 @@ function keyPressed(){
                                 screen.active[a-1][b]==1&&screen.active[a+1][b]==0&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
                                 screen.active[a-1][b]==0&&screen.active[a+1][b]==1&&screen.active[a][b-1]==0&&screen.active[a][b+1]==1)){
                                 screen.complete=false
+                                screen.error[a][b]=1
                             }
                         break
                         case '3':
@@ -172,6 +177,7 @@ function keyPressed(){
                                 screen.active[a-1][b]==1&&screen.active[a+1][b]==1&&screen.active[a][b-1]==1&&screen.active[a][b+1]==0||
                                 screen.active[a-1][b]==0&&screen.active[a+1][b]==1&&screen.active[a][b-1]==1&&screen.active[a][b+1]==1)){
                                 screen.complete=false
+                                screen.error[a][b]=1
                             }
                         break
                         case 'a': case 'b': case 'c': case 'd': case 'e': case 'f': case 'g': case 'h':
@@ -183,6 +189,7 @@ function keyPressed(){
                                         screen.main[c*2+1][d*2+1]=='A'||screen.main[c*2+1][d*2+1]=='B'||screen.main[c*2+1][d*2+1]=='C'||screen.main[c*2+1][d*2+1]=='D'||
                                         screen.main[c*2+1][d*2+1]=='E'||screen.main[c*2+1][d*2+1]=='F'||screen.main[c*2+1][d*2+1]=='G'||screen.main[c*2+1][d*2+1]=='H')){
                                         screen.complete=false
+                                        screen.error[a][b]=1
                                     }
                                 }
                             }
@@ -190,6 +197,7 @@ function keyPressed(){
                         case 'A': case 'B': case 'C': case 'D': case 'E': case 'F': case 'G': case 'H':
                             if(grouping.star[grouping.screen[(a-1)/2][(b-1)/2]][colorNumber(screen.main[a][b])]!=2){
                                 screen.complete=false
+                                screen.error[a][b]=1
                             }
                         break
                     }

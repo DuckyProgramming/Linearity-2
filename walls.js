@@ -10,7 +10,7 @@ class wall extends entity{
         if(this.type<=0){
             this.complete = false
             this.completeAnim = 0
-            this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type],trigger:screens.trigger[-this.type]}
+            this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type],error:screens.error[-this.type],flash:screens.flash[-this.type],trigger:screens.trigger[-this.type]}
             this.image = createGraphics(this.screen.main[0].length*20,this.screen.main.length*20)
             setupLayer(this.image)
             displayScreen(this.image,this.screen)
