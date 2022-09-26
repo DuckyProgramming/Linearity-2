@@ -134,9 +134,9 @@ function displayScreen(layer,screen){
 			}
 		}
 	}
-	layer.noStroke()
 	for(i=0,li=screen.main.length;i<li;i++){
 		for(j=0,lj=screen.main[i].length;j<lj;j++){
+			layer.noStroke()
 			switch(screen.main[i][j]){
 				case '*':
 					layer.fill(errorLerp([200,200,200],screen.flash[i][j]))
@@ -222,7 +222,10 @@ function displayScreen(layer,screen){
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 				case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p':
-					dots(layer,10+j*20,10+i*20,dotNumber(screen.main[i][j])+1,0,screen.flash[i][j])
+					dots(layer,10+j*20,10+i*20,dotNumber(screen.main[i][j]),0,screen.flash[i][j])
+				break
+				case 'I': case 'J': case 'K': case 'L': case 'M': case 'N': case 'O': case 'P':
+					minusDots(layer,10+j*20,10+i*20,-dotNumber(screen.main[i][j]),0,screen.flash[i][j])
 				break
 			}
 		}
@@ -269,6 +272,14 @@ function dots(layer,x,y,amount,direction,flash){
 	for(k=0;k<amount;k++){
 		layer.fill(errorLerp(dotcolor[(k+(amount-1)*amount/2)%8],flash))
 		layer.ellipse(x+cos(direction+k*360/amount)*sqrt(amount-1)*4,y+sin(direction+k*360/amount)*sqrt(amount-1)*4,6,6)
+	}
+}
+function minusDots(layer,x,y,amount,direction,flash){
+	layer.strokeWeight(2)
+	layer.noFill()
+	for(k=0;k<amount;k++){
+		layer.stroke(errorLerp([255-dotcolor[(k+(amount-1)*amount/2)%8][0],255-dotcolor[(k+(amount-1)*amount/2)%8][1],255-dotcolor[(k+(amount-1)*amount/2)%8][2]],flash))
+		layer.ellipse(x+cos(direction+k*360/amount)*sqrt(amount-1)*4,y+sin(direction+k*360/amount)*sqrt(amount-1)*4,4,4)
 	}
 }
 function errorLerp(color,amount){
@@ -348,16 +359,24 @@ function colorNumber(letter){
 }
 function dotNumber(letter){
 	switch(letter){
-		case 'i': return 0; break
-		case 'j': return 1; break
-		case 'k': return 2; break
-		case 'l': return 3; break
-		case 'm': return 4; break
-		case 'n': return 5; break
-		case 'o': return 6; break
-		case 'p': return 7; break
+		case 'i': return 1; break
+		case 'j': return 2; break
+		case 'k': return 3; break
+		case 'l': return 4; break
+		case 'm': return 5; break
+		case 'n': return 6; break
+		case 'o': return 7; break
+		case 'p': return 8; break
+		case 'I': return -1; break
+		case 'J': return -2; break
+		case 'K': return -3; break
+		case 'L': return -4; break
+		case 'M': return -5; break
+		case 'N': return -6; break
+		case 'O': return -7; break
+		case 'P': return -8; break
 	}
-	return -1
+	return 0
 }
 function setMouse(){
 	inputs.mouse.x=mouseX

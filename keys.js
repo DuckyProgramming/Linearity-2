@@ -147,8 +147,8 @@ function keyPressed(){
                     if(colorNumber(screen.main[a*2+1][b*2+1])>=0){
                         grouping.star[grouping.screen[a][b]][colorNumber(screen.main[a*2+1][b*2+1])]++
                     }
-                    if(dotNumber(screen.main[a*2+1][b*2+1])>=0){
-                        grouping.dot[grouping.screen[a][b]]+=dotNumber(screen.main[a*2+1][b*2+1])+1
+                    if(dotNumber(screen.main[a*2+1][b*2+1])!=0){
+                        grouping.dot[grouping.screen[a][b]]+=dotNumber(screen.main[a*2+1][b*2+1])
                     }
                 }
             }
@@ -210,9 +210,8 @@ function keyPressed(){
                                 screen.error[a][b]=1
                             }
                         break
-                        case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p':
-                            print(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]],grouping.size[grouping.screen[(a-1)/2][(b-1)/2]])
-                            if(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]!=grouping.size[grouping.screen[(a-1)/2][(b-1)/2]]){
+                        case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p': case 'I': case 'J': case 'K': case 'L': case 'M': case 'N': case 'O': case 'P':
+                            if(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]!=grouping.size[grouping.screen[(a-1)/2][(b-1)/2]]||grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]==0){
                                 screen.complete=false
                                 screen.error[a][b]=1
                             }
