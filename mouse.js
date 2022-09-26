@@ -25,6 +25,7 @@ function mousePressed(){
                                     screen.active[a][b]=true
                                     screen.trigger=true
                                     screen.position=[a,b]
+                                    screen.start=[a,b]
                                 }
                             break
                         }

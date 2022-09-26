@@ -79,11 +79,12 @@ function keyPressed(){
             entities.screens[game.enter.select].screen.error=screen.error
             entities.screens[game.enter.select].screen.flash=screen.flash
             entities.screens[game.enter.select].screen.trigger=screen.trigger
-            entities.screens[game.enter.select].image.clear()
-            displayScreen(entities.screens[game.enter.select].image,entities.screens[game.enter.select].screen)
+            entities.screens[game.enter.select].screen.start=screen.start
             screens.active[-entities.screens[game.enter.select].type]=screen.active
             screens.fade[-entities.screens[game.enter.select].type]=screen.fade
             screens.trigger[-entities.screens[game.enter.select].type]=screen.trigger
+            screens.start[-entities.screens[game.enter.select].type]=screen.start
+            displayScreen(entities.screens[game.enter.select].image,entities.screens[game.enter.select].screen)
         }
         if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]==')'){
             screen.complete=true

@@ -11,11 +11,13 @@ function setupScreen(base){
 	screen.error=base.screen.error
 	screen.flash=base.screen.flash
 	screen.trigger=base.screen.trigger
+	screen.start=base.screen.start
 }
 function generateScreens(screens){
 	for(i=0,li=screens.main.length;i<li;i++){
 		screens.complete.push(false)
 		screens.trigger.push(false)
+		screens.start.push([0,0])
 		screens.generate=[screens.active,screens.fade,screens.error,screens.flash]
 		for(j=0,lj=screens.generate.length;j<lj;j++){
 			screens.generate[j].push([])
@@ -106,7 +108,7 @@ function displayScreen(layer,screen){
 					layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+1],screen.fade[i][j+2]))
 					layer.line(10+j*20,10+i*20,50+j*20,10+i*20)
 				}
-				if(screen.main[i][j]=='('){
+				if(screen.main[i][j]=='('&&screen.start[0] == i&&screen.start[1] == j){
 					layer.stroke(255,200,225,screen.fade[i][j])
 					layer.strokeWeight(13)
 					layer.point(10+j*20,10+i*20)
@@ -116,21 +118,6 @@ function displayScreen(layer,screen){
 					layer.strokeWeight(9)
 					layer.point(10+j*20,10+i*20)
 				}
-				if(screen.active[i][j]==1&&screen.fade[i][j]<1){
-					screen.fade[i][j]=round(screen.fade[i][j]*10+1)/10;
-				}
-				if(screen.active[i][j]==0&&screen.fade[i][j]>0){
-					screen.fade[i][j]=round(screen.fade[i][j]*10-1)/10;
-				}
-			}
-			if(screen.error[i][j]==1&&screen.flash[i][j]<1){
-				screen.flash[i][j]=round(screen.flash[i][j]*10+1)/10;
-			}
-			if(screen.error[i][j]==0&&screen.flash[i][j]>0){
-				screen.flash[i][j]=round(screen.flash[i][j]*10-1)/10;
-			}
-			if(screen.error[i][j]==1&&screen.flash[i][j]>=1){
-				screen.error[i][j]=0
 			}
 		}
 	}
@@ -231,6 +218,34 @@ function displayScreen(layer,screen){
 		}
 	}
 }
+function updateScreen(screen){
+	for(i=0,li=screen.main.length;i<li;i++){
+		for(j=0,lj=screen.main[i].length;j<lj;j++){
+			if(legalMove(screen.main[i][j])){
+				if(screen.active[i][j]==1&&screen.fade[i][j]<1){
+					screen.fade[i][j]=round(screen.fade[i][j]*10+1)/10;
+					k=1
+				}
+				if(screen.active[i][j]==0&&screen.fade[i][j]>0){
+					screen.fade[i][j]=round(screen.fade[i][j]*10-1)/10;
+					k=1
+				}
+			}
+			if(screen.error[i][j]==1&&screen.flash[i][j]<1){
+				screen.flash[i][j]=round(screen.flash[i][j]*10+1)/10;
+				k=1
+			}
+			if(screen.error[i][j]==0&&screen.flash[i][j]>0){
+				screen.flash[i][j]=round(screen.flash[i][j]*10-1)/10;
+				k=1
+			}
+			if(screen.error[i][j]==1&&screen.flash[i][j]>=1){
+				screen.error[i][j]=0
+				k=1
+			}
+		}
+	}
+}
 function displayInScreen(layer,game){
 	if(game.enter.trigger&&game.enter.anim<1){
 		game.enter.anim = round(game.enter.anim*10+1)/10
@@ -248,6 +263,7 @@ function displayInScreen(layer,game){
 		layer.scale(30/screen.main[0].length/10*(1+game.enter.anim*41/7),30/screen.main.length/10*(1+game.enter.anim*41/7))
 		layer.translate(-screen.main[0].length*10,-screen.main.length*10)
 		displayScreen(layer,screen)
+		updateScreen(screen)
 		layer.pop()
 	}
 }
