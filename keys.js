@@ -84,7 +84,7 @@ function keyPressed(){
             screens.fade[-entities.screens[game.enter.select].type]=screen.fade
             screens.trigger[-entities.screens[game.enter.select].type]=screen.trigger
             screens.start[-entities.screens[game.enter.select].type]=screen.start
-            displayScreen(entities.screens[game.enter.select].image,entities.screens[game.enter.select].screen)
+            entities.screens[game.enter.select].displayScreen()
         }
         if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]==')'){
             screen.complete=true

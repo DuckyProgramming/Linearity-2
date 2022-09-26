@@ -260,7 +260,7 @@ function displayInScreen(layer,game){
 		layer.push()
 		layer.translate(game.enter.position.x*(1-game.enter.anim)+layer.width/2*game.enter.anim,game.enter.position.y*(1-game.enter.anim)+layer.height/2*game.enter.anim)
 		layer.rect(0,0,70+game.enter.anim*410,70+game.enter.anim*410,3+game.enter.anim*21)
-		layer.scale(30/screen.main[0].length/10*(1+game.enter.anim*41/7),30/screen.main.length/10*(1+game.enter.anim*41/7))
+		layer.scale(min(30/screen.main[0].length/10*(1+game.enter.anim*41/7),30/screen.main.length/10*(1+game.enter.anim*41/7)))
 		layer.translate(-screen.main[0].length*10,-screen.main.length*10)
 		displayScreen(layer,screen)
 		updateScreen(screen)

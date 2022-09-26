@@ -13,7 +13,7 @@ class wall extends entity{
             this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type],error:screens.error[-this.type],flash:screens.flash[-this.type],trigger:screens.trigger[-this.type],start:screens.start[-this.type]}
             this.image = createGraphics(this.screen.main[0].length*20,this.screen.main.length*20)
             setupLayer(this.image)
-            displayScreen(this.image,this.screen)
+            this.displayScreen()
         }
         switch(this.type){
             case 1:
@@ -39,6 +39,15 @@ class wall extends entity{
             break
         }
     }
+    displayScreen(){
+        this.image.clear()
+        this.image.push()
+        this.image.translate(30,30)
+        this.image.scale(min(3/this.screen.main[0].length,3/this.screen.main.length))
+        this.image.translate(-this.screen.main[0].length*10,-this.screen.main.length*10)
+        displayScreen(this.image,this.screen)
+        this.image.pop()
+    }
     display(){
         this.layer.noStroke()
         this.layer.translate(this.position.x,this.position.y)
@@ -50,10 +59,9 @@ class wall extends entity{
             k=0
             updateScreen(this.screen)
             if(k>0){
-                this.image.clear()
-                displayScreen(this.image,this.screen)
+                this.displayScreen()
             }
-            this.layer.image(this.image,-30,-30,60,60)
+            this.layer.image(this.image,-30,-30)
         }
         switch(this.type){
             case 1:
