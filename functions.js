@@ -147,11 +147,11 @@ function displayScreen(layer,screen){
 					regTriangle(layer,18+j*20,10+i*20,5,-30)
 				break
 				case 'a':
-					layer.fill(250)
+					layer.fill(240)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'b':
-					layer.fill(50)
+					layer.fill(40)
 					layer.rect(10+j*20,10+i*20,12,12,2)
 				break
 				case 'c':
@@ -177,6 +177,38 @@ function displayScreen(layer,screen){
 				case 'h':
 					layer.fill(165,190,255)
 					layer.rect(10+j*20,10+i*20,12,12,2)
+				break
+				case 'A':
+					layer.fill(240)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'B':
+					layer.fill(40)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'C':
+					layer.fill(200,175,165)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'D':
+					layer.fill(130,110,180)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'E':
+					layer.fill(120,120,90)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'F':
+					layer.fill(140,80,90)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'G':
+					layer.fill(50,65,125)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
+				break
+				case 'H':
+					layer.fill(165,190,255)
+					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
 			}
 		}
@@ -207,8 +239,15 @@ function regTriangle(layer,x,y,radius,direction){
 }
 function regPoly(layer,x,y,sides,radius,direction){
 	layer.beginShape()
-	for(k=0,lk=sides;k<lk;k++){
+	for(k=0;k<sides;k++){
 		layer.vertex(x+sin(direction+k*360/sides)*radius,y+cos(direction+k*360/sides)*radius)
+	}
+	layer.endShape(CLOSE)
+}
+function regStar(layer,x,y,sides,radius,direction){
+	layer.beginShape()
+	for(k=0;k<sides*2;k++){
+		layer.vertex(x+sin(direction+k*180/sides)*radius[k%2],y+cos(direction+k*180/sides)*radius[k%2])
 	}
 	layer.endShape(CLOSE)
 }
@@ -248,6 +287,38 @@ function legalMove(move){
 	}
 	else{
 		return false
+	}
+}
+function capital(letter){
+	switch(letter){
+		case 'a': return 'A'; break
+		case 'b': return 'B'; break
+		case 'c': return 'C'; break
+		case 'd': return 'D'; break
+		case 'e': return 'E'; break
+		case 'f': return 'F'; break
+		case 'g': return 'G'; break
+		case 'h': return 'H'; break
+		case 'A': return 'a'; break
+		case 'B': return 'b'; break
+		case 'C': return 'c'; break
+		case 'D': return 'd'; break
+		case 'E': return 'e'; break
+		case 'F': return 'f'; break
+		case 'G': return 'g'; break
+		case 'H': return 'h'; break
+	}
+}
+function colorNumber(letter){
+	switch(letter){
+		case 'a': case 'A': return 0; break
+		case 'b': case 'B': return 1; break
+		case 'c': case 'C': return 2; break
+		case 'd': case 'D': return 3; break
+		case 'e': case 'E': return 4; break
+		case 'f': case 'F': return 5; break
+		case 'g': case 'G': return 6; break
+		case 'h': case 'H': return 7; break
 	}
 }
 function setMouse(){
