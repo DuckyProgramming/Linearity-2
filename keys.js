@@ -1,6 +1,6 @@
 function keyPressed(){
     if(game.enter.anim>=1&&screen.trigger){
-        if((key=="w"||keyCode==UP_ARROW)&&screen.position[0]>0&&screen.main[screen.position[0]][screen.position[1]]!='o'){
+        if((key=="w"||keyCode==UP_ARROW)&&screen.position[0]>0&&screen.main[screen.position[0]][screen.position[1]]!=')'){
             if(legalMove(screen.main[screen.position[0]-1][screen.position[1]])&&
             legalMove(screen.main[screen.position[0]-2][screen.position[1]])&&
             screen.active[screen.position[0]-1][screen.position[1]]==0&&
@@ -18,7 +18,7 @@ function keyPressed(){
                 screen.position[0]-=2
             }
         }
-        if((key=="s"||keyCode==DOWN_ARROW)&&screen.position[0]<screen.main.length-2&&screen.main[screen.position[0]][screen.position[1]]!='o'){
+        if((key=="s"||keyCode==DOWN_ARROW)&&screen.position[0]<screen.main.length-2&&screen.main[screen.position[0]][screen.position[1]]!=')'){
             if(legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
             legalMove(screen.main[screen.position[0]+2][screen.position[1]])&&
             screen.active[screen.position[0]+1][screen.position[1]]==0&&
@@ -36,7 +36,7 @@ function keyPressed(){
                 screen.position[0]+=2
             }
         }
-        if((key=="a"||keyCode==LEFT_ARROW)&&screen.position[1]>0&&screen.main[screen.position[0]][screen.position[1]]!='o'){
+        if((key=="a"||keyCode==LEFT_ARROW)&&screen.position[1]>0&&screen.main[screen.position[0]][screen.position[1]]!=')'){
             if(legalMove(screen.main[screen.position[0]][screen.position[1]-1])&&
             legalMove(screen.main[screen.position[0]][screen.position[1]-2])&&
             screen.active[screen.position[0]][screen.position[1]-1]==0&&
@@ -54,7 +54,7 @@ function keyPressed(){
                 screen.position[1]-=2
             }
         }
-        if((key=="d"||keyCode==RIGHT_ARROW)&&screen.position[1]<screen.main[0].length-2&&screen.main[screen.position[0]][screen.position[1]]!='o'){
+        if((key=="d"||keyCode==RIGHT_ARROW)&&screen.position[1]<screen.main[0].length-2&&screen.main[screen.position[0]][screen.position[1]]!=')'){
             if(legalMove(screen.main[screen.position[0]][screen.position[1]+1])&&
             legalMove(screen.main[screen.position[0]][screen.position[1]+2])&&
             screen.active[screen.position[0]][screen.position[1]+1]==0&&
@@ -85,7 +85,7 @@ function keyPressed(){
             screens.fade[-entities.screens[game.enter.select].type]=screen.fade
             screens.trigger[-entities.screens[game.enter.select].type]=screen.trigger
         }
-        if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]=='o'){
+        if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]==')'){
             screen.complete=true
             grouping.complete=false
             grouping.screen=[]
@@ -96,7 +96,9 @@ function keyPressed(){
                 }
             }
             grouping.screen[0][0]=0
+            grouping.size=[0]
             grouping.star=[[0,0,0,0,0,0,0,0]]
+            grouping.dot=[0]
             grouping.create=1
             while(!grouping.complete){
                 grouping.complete=true
@@ -131,7 +133,9 @@ function keyPressed(){
                                 grouping.screen[a][b]=grouping.create
                                 grouping.create++
                                 grouping.add=false
+                                grouping.size.push(0)
                                 grouping.star.push([0,0,0,0,0,0,0,0])
+                                grouping.dot.push(0)
                             }
                         }
                     }
@@ -139,7 +143,13 @@ function keyPressed(){
             }
             for(a=0,la=grouping.screen.length;a<la;a++){
                 for(b=0,lb=grouping.screen[a].length;b<lb;b++){
-                    grouping.star[grouping.screen[a][b]][colorNumber(screen.main[a*2+1][b*2+1])]++
+                    grouping.size[grouping.screen[a][b]]++
+                    if(colorNumber(screen.main[a*2+1][b*2+1])>=0){
+                        grouping.star[grouping.screen[a][b]][colorNumber(screen.main[a*2+1][b*2+1])]++
+                    }
+                    if(dotNumber(screen.main[a*2+1][b*2+1])>=0){
+                        grouping.dot[grouping.screen[a][b]]+=dotNumber(screen.main[a*2+1][b*2+1])+1
+                    }
                 }
             }
             for(a=0,la=screen.main.length;a<la;a++){
@@ -196,6 +206,13 @@ function keyPressed(){
                         break
                         case 'A': case 'B': case 'C': case 'D': case 'E': case 'F': case 'G': case 'H':
                             if(grouping.star[grouping.screen[(a-1)/2][(b-1)/2]][colorNumber(screen.main[a][b])]!=2){
+                                screen.complete=false
+                                screen.error[a][b]=1
+                            }
+                        break
+                        case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p':
+                            print(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]],grouping.size[grouping.screen[(a-1)/2][(b-1)/2]])
+                            if(grouping.dot[grouping.screen[(a-1)/2][(b-1)/2]]!=grouping.size[grouping.screen[(a-1)/2][(b-1)/2]]){
                                 screen.complete=false
                                 screen.error[a][b]=1
                             }

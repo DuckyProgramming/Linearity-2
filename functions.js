@@ -83,11 +83,11 @@ function displayScreen(layer,screen){
 				if(j<screen.main[i].length-1&&legalMove(screen.main[i][j+1])){
 					layer.line(10+j*20,10+i*20,30+j*20,10+i*20)
 				}
-				if(screen.main[i][j]=='O'){
+				if(screen.main[i][j]=='('){
 					layer.strokeWeight(12)
 					layer.point(10+j*20,10+i*20)
 				}
-				if(screen.main[i][j]=='o'){
+				if(screen.main[i][j]==')'){
 					layer.strokeWeight(8)
 					layer.point(10+j*20,10+i*20)
 				}
@@ -106,12 +106,12 @@ function displayScreen(layer,screen){
 					layer.stroke(255,200,225,min(screen.fade[i][j],screen.fade[i][j+1],screen.fade[i][j+2]))
 					layer.line(10+j*20,10+i*20,50+j*20,10+i*20)
 				}
-				if(screen.main[i][j]=='O'){
+				if(screen.main[i][j]=='('){
 					layer.stroke(255,200,225,screen.fade[i][j])
 					layer.strokeWeight(13)
 					layer.point(10+j*20,10+i*20)
 				}
-				if(screen.main[i][j]=='o'){
+				if(screen.main[i][j]==')'){
 					layer.stroke(255,200,225,screen.fade[i][j])
 					layer.strokeWeight(9)
 					layer.point(10+j*20,10+i*20)
@@ -221,6 +221,9 @@ function displayScreen(layer,screen){
 					layer.fill(errorLerp([165,190,255],screen.flash[i][j]))
 					regStar(layer,10+j*20,10+i*20,8,[8,4],0)
 				break
+				case 'i': case 'j': case 'k': case 'l': case 'm': case 'n': case 'o': case 'p':
+					dots(layer,10+j*20,10+i*20,dotNumber(screen.main[i][j])+1,0,screen.flash[i][j])
+				break
 			}
 		}
 	}
@@ -262,6 +265,12 @@ function regStar(layer,x,y,sides,radius,direction){
 	}
 	layer.endShape(CLOSE)
 }
+function dots(layer,x,y,amount,direction,flash){
+	for(k=0;k<amount;k++){
+		layer.fill(errorLerp(dotcolor[(k+(amount-1)*amount/2)%8],flash))
+		layer.ellipse(x+cos(direction+k*360/amount)*sqrt(amount-1)*4,y+sin(direction+k*360/amount)*sqrt(amount-1)*4,6,6)
+	}
+}
 function errorLerp(color,amount){
 	return [color[0]*(1-amount)+240*amount,color[1]*(1-amount),color[2]*(1-amount)]
 }
@@ -296,7 +305,7 @@ function circleInsideBox(box,circle){
 	}
 }
 function legalMove(move){
-	if(move=='.'||move=='O'||move=='o'||move=='*'){
+	if(move=='.'||move=='('||move==')'||move=='*'){
 		return true
 	}
 	else{
@@ -322,6 +331,7 @@ function capital(letter){
 		case 'G': return 'g'; break
 		case 'H': return 'h'; break
 	}
+	return -1
 }
 function colorNumber(letter){
 	switch(letter){
@@ -334,6 +344,20 @@ function colorNumber(letter){
 		case 'g': case 'G': return 6; break
 		case 'h': case 'H': return 7; break
 	}
+	return -1
+}
+function dotNumber(letter){
+	switch(letter){
+		case 'i': return 0; break
+		case 'j': return 1; break
+		case 'k': return 2; break
+		case 'l': return 3; break
+		case 'm': return 4; break
+		case 'n': return 5; break
+		case 'o': return 6; break
+		case 'p': return 7; break
+	}
+	return -1
 }
 function setMouse(){
 	inputs.mouse.x=mouseX
