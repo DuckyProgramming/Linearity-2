@@ -10,6 +10,11 @@ class wall extends entity{
         this.collide=[entities.players]
         this.collideInfo={x:0,y:0}
         if(this.type<=0){
+            if(this.id==1){
+                this.trigger.start=true
+                this.trigger.end=true
+                this.anim.main=30
+            }
             this.complete = false
             this.completeAnim = 0
             this.screen = {main:screens.main[-this.type],active:screens.active[-this.type],fade:screens.fade[-this.type],error:screens.error[-this.type],flash:screens.flash[-this.type],trigger:screens.trigger[-this.type],start:screens.start[-this.type],position:screens.position[-this.type]}
@@ -54,20 +59,15 @@ class wall extends entity{
         this.image.pop()
     }
     activate(id){
-        switch(this.type){
-            case 5:
-                if(this.id==id){
-                    this.trigger.start=true
-                }
-            break
+        if(-this.id==id){
+            this.trigger.start=true
         }
     }
     display(){
         this.layer.noStroke()
         this.layer.translate(this.position.x,this.position.y)
         if(this.type<=0){
-            this.layer.stroke(40+this.completeAnim*215,40+this.completeAnim*165,40+this.completeAnim*185)
-            this.layer.strokeWeight(3)
+            this.layer.noStroke()
             this.layer.fill(255,100,150)
             this.layer.rect(0,0,70,70,3)
             k=0
@@ -76,6 +76,10 @@ class wall extends entity{
                 this.displayScreen()
             }
             this.layer.image(this.image,-30,-30)
+            this.layer.stroke(40+this.completeAnim*215,40+this.completeAnim*165,40+this.completeAnim*185)
+            this.layer.strokeWeight(3)
+            this.layer.fill(0,1-this.anim.main/30)
+            this.layer.rect(0,0,70,70,3)
         }
         switch(this.type){
             case 1:
@@ -124,6 +128,14 @@ class wall extends entity{
     }
     update(){
         if(this.trigger.start&&!this.trigger.end){
+            if(this.type<=0){
+                if(this.anim.main<30){
+                    this.anim.main++
+                }
+                else{
+                    this.trigger.end=true
+                }
+            }
             switch(this.type){
                 case 5:
                     if(this.anim.main<120){

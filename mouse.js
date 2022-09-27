@@ -4,7 +4,7 @@ function mousePressed(){
         case 'level':
             if(!game.enter.trigger){
                 for(a=0,la=entities.screens.length;a<la;a++){
-                    if(pointInsideBox({position:inputs.rel},entities.screens[a])&&dist(entities.screens[a].position.x,entities.screens[a].position.y,stage.focus.x,stage.focus.y)<120){
+                    if(entities.screens[a].trigger.start&&pointInsideBox({position:inputs.rel},entities.screens[a])&&dist(entities.screens[a].position.x,entities.screens[a].position.y,stage.focus.x,stage.focus.y)<120){
                         game.enter.trigger=true
                         game.enter.id=-entities.screens[a].type
                         game.enter.select=a

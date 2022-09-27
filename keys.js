@@ -128,6 +128,9 @@ function keyPressed(){
                 for(a=0,la=entities.walls.length;a<la;a++){
                     entities.walls[a].activate(game.enter.id)
                 }
+                for(a=0,la=entities.screens.length;a<la;a++){
+                    entities.screens[a].activate(game.enter.id)
+                }
                 grouping.screen[0][0]=0
                 grouping.size=[0]
                 grouping.star=[[0,0,0,0,0,0,0,0]]
