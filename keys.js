@@ -1,5 +1,31 @@
 function keyPressed(){
+    if(key=="w"||key=='W'||keyCode==UP_ARROW){
+        inputs.keys[0]=true
+    }
+    if(key=="s"||key=='S'||keyCode==DOWN_ARROW){
+        inputs.keys[1]=true
+    }
+    if(key=="a"||key=='A'||keyCode==LEFT_ARROW){
+        inputs.keys[2]=true
+    }
+    if(key=="d"||key=='D'||keyCode==RIGHT_ARROW){
+        inputs.keys[3]=true
+    }
     if(game.enter.anim>=1){
+        if(key=='e'||key=='E'){
+            for(a=1,la=screen.main.length+1;a<la;a++){
+                for(b=0,lb=screen.main[a].length;b<lb;b++){
+                    if(screen.main[(screen.position[0]+a)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=='('){
+                        screen.active[(screen.position[0]+a)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=true
+                        screen.trigger=true
+                        screen.start=[(screen.position[0]+a)%screen.main.length,(screen.position[1]+b)%screen.main[a].length]
+                        screen.position=[(screen.position[0]+a)%screen.main.length,(screen.position[1]+b)%screen.main[a].length]
+                        a=la
+                        b=lb
+                    }
+                }
+            }
+        }
         if(keyCode==SHIFT&&game.enter.trigger){
             game.enter.trigger=false
             entities.screens[game.enter.select].screen.active=screen.active
@@ -231,5 +257,19 @@ function keyPressed(){
                 resetScreen()
             }
         }
+    }
+}
+function keyReleased(){
+    if(key=="w"||key=='W'||keyCode==UP_ARROW){
+        inputs.keys[0]=false
+    }
+    if(key=="s"||key=='S'||keyCode==DOWN_ARROW){
+        inputs.keys[1]=false
+    }
+    if(key=="a"||key=='A'||keyCode==LEFT_ARROW){
+        inputs.keys[2]=false
+    }
+    if(key=="d"||key=='D'||keyCode==RIGHT_ARROW){
+        inputs.keys[3]=false
     }
 }
