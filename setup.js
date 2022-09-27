@@ -10,7 +10,7 @@ function setup(){
     generateScreens(screens)
     generateWorld(levels[stage.level])
     displayBasePlate([100,105,110])
-    displayPath(graphics.base,levels[stage.level],[250,240,245])
+    displayPath(graphics.base,levels[stage.level],[175,175,180])
 }
 function windowResized(){
     cnv.position((windowWidth-width)/2,(windowHeight-height)/2)

@@ -5,6 +5,8 @@ class wall extends entity{
         this.width=width
         this.height=height
         this.id=id
+        this.trigger={start:false,end:false}
+        this.anim={main:0}
         this.collide=[entities.players]
         this.collideInfo={x:0,y:0}
         if(this.type<=0){
@@ -37,6 +39,9 @@ class wall extends entity{
             case 4:
                 this.height*=0.5
             break
+            case 5:
+                this.height*=0.25
+            break
         }
     }
     displayScreen(){
@@ -47,6 +52,15 @@ class wall extends entity{
         this.image.translate(-this.screen.main[0].length*10,-this.screen.main.length*10)
         displayScreen(this.image,this.screen)
         this.image.pop()
+    }
+    activate(id){
+        switch(this.type){
+            case 5:
+                if(this.id==id){
+                    this.trigger.start=true
+                }
+            break
+        }
     }
     display(){
         this.layer.noStroke()
@@ -90,6 +104,15 @@ class wall extends entity{
                 this.layer.strokeWeight(6)
                 this.layer.rect(0,0,this.width,this.height)
             break
+            case 5:
+                this.layer.noStroke()
+                this.layer.fill(120,110,100)
+                this.layer.rect(0,0,max(0,this.width-6),this.height)
+                this.layer.fill(80,70,60)
+                for(e=0,le=this.height/10;e<le;e++){
+                    this.layer.rect(0,-this.height/2+e*10+5,max(0,this.width-6),2)
+                }
+            break
         }
         if(dev.box){
             this.layer.noFill()
@@ -100,6 +123,20 @@ class wall extends entity{
         this.layer.translate(-this.position.x,-this.position.y)
     }
     update(){
+        if(this.trigger.start&&!this.trigger.end){
+            switch(this.type){
+                case 5:
+                    if(this.anim.main<120){
+                        this.position.x--
+                        this.width-=2
+                        this.anim.main++
+                    }
+                    else{
+                        this.trigger.end=true
+                    }
+                break
+            }
+        }
         if(this.type<=0&&this.complete&&this.completeAnim<1){
             this.completeAnim=round(this.completeAnim*20+1)/20
         }

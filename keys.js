@@ -125,6 +125,9 @@ function keyPressed(){
                         grouping.screen[a].push(-1)
                     }
                 }
+                for(a=0,la=entities.walls.length;a<la;a++){
+                    entities.walls[a].activate(game.enter.id)
+                }
                 grouping.screen[0][0]=0
                 grouping.size=[0]
                 grouping.star=[[0,0,0,0,0,0,0,0]]
