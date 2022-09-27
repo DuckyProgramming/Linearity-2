@@ -13,8 +13,8 @@ function draw(){
                     run.fore[a][b].position.y+run.fore[a][b].height/2>-graphics.full.height/2-100+stage.focus.y&&
                     run.fore[a][b].position.y-run.fore[a][b].height/2<graphics.full.height/2+100+stage.focus.y){
                         run.fore[a][b].display()
+                        run.fore[a][b].update()
                     }
-                    run.fore[a][b].update()
                     if(run.fore[a][b].remove){
                         run.fore[a].splice(b,1)
                     }
