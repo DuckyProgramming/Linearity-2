@@ -8,7 +8,12 @@ function draw(){
             graphics.full.image(graphics.base,-100,-100)
             for(a=0,la=run.fore.length;a<la;a++){
                 for(b=0,lb=run.fore[a].length;b<lb;b++){
-                    run.fore[a][b].display()
+                    if(run.fore[a][b].position.x+run.fore[a][b].width/2>-graphics.full.width/2-100+stage.focus.x&&
+                    run.fore[a][b].position.x-run.fore[a][b].width/2<graphics.full.width/2+100+stage.focus.x&&
+                    run.fore[a][b].position.y+run.fore[a][b].height/2>-graphics.full.height/2-100+stage.focus.y&&
+                    run.fore[a][b].position.y-run.fore[a][b].height/2<graphics.full.height/2+100+stage.focus.y){
+                        run.fore[a][b].display()
+                    }
                     run.fore[a][b].update()
                     if(run.fore[a][b].remove){
                         run.fore[a].splice(b,1)

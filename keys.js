@@ -159,7 +159,7 @@ function keyPressed(){
                 for(a=0,la=screen.main.length;a<la;a++){
                     for(b=0,lb=screen.main[a].length;b<lb;b++){
                         switch(screen.main[a][b]){
-                            case '*':
+                            case '*': case ',':
                                 if(screen.active[a][b]==0){
                                     screen.complete=false
                                     screen.error[a][b]=1

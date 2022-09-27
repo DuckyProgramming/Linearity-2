@@ -334,7 +334,7 @@ function circleInsideBox(box,circle){
 	}
 }
 function legalMove(move){
-	if(move=='.'||move=='('||move==')'||move=='*'){
+	if(move=='.'||move=='('||move==')'||move=='*'||move==','){
 		return true
 	}
 	else{

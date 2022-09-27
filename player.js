@@ -3,6 +3,8 @@ class player extends entity{
         super(layer,x,y)
         this.direction=0
         this.size=16
+        this.width=16
+        this.height=16
         this.speed=0
     }
     display(){
