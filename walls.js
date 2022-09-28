@@ -68,6 +68,9 @@ class wall extends entity{
                 this.width-=32
                 this.position.x-=19.5
             break
+            case 13:
+                this.width-=8
+            break
         }
     }
     displayScreen(){
@@ -156,6 +159,15 @@ class wall extends entity{
                     this.layer.rect(0,-this.height/2+e*this.height/4+this.height/8,this.width,2)
                 }
             break
+            case 13:
+                this.layer.noStroke()
+                this.layer.fill(130,120,110)
+                this.layer.rect(0,0,this.width,max(0,this.height-16))
+                this.layer.fill(90,80,70)
+                for(e=0,le=4;e<le;e++){
+                    this.layer.rect(-this.width/2+e*this.width/4+this.width/8,0,2,max(0,this.height-16))
+                }
+            break
         }
         if(dev.box||this.type==7||this.type==8){
             this.layer.noFill()
@@ -211,7 +223,7 @@ class wall extends entity{
         if(this.type<=0&&this.complete&&this.completeAnim<1){
             this.completeAnim=round(this.completeAnim*20+1)/20
         }
-        if(this.type!=6){
+        if(this.type!=6&&this.type!=13){
             for(e=0,le=this.collide.length;e<le;e++){
                 for(f=0,lf=this.collide[e].length;f<lf;f++){
                     if(circleInsideBox(this,this.collide[e][f])){

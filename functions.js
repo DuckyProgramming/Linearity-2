@@ -66,6 +66,7 @@ function displayBasePlate(color,color2){
 			graphics.base.rect(380,380,250,250,10)
 			graphics.base.rect(460,700,250,250,10)
 			graphics.base.rect(1340,380,250,250,10)
+			graphics.base.rect(1660,460,250,250,10)
 			graphics.base.rect(1260,700,250,250,10)
 		break
 		case 1:
@@ -419,7 +420,7 @@ function generateWorld(level){
 	game.edge.y=level.main.length*80
 	for(m=0,lm=level.main.length;m<lm;m++){
         for(n=0,ln=level.main[m].length;n<ln;n++){
-            if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==6){
+            if(level.main[m][n]>=100&&level.main[m][n]<10000&&(floor(level.main[m][n]/100)==6||floor(level.main[m][n]/100)==13)){
                 entities.base.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
             else if(level.main[m][n]>=100&&level.main[m][n]<10000){
