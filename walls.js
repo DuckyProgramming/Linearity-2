@@ -45,7 +45,10 @@ class wall extends entity{
             case 4:
                 this.height*=0.5
             break
-            case 5:
+            case 12:
+                this.width*=0.25
+            break
+            case 5: case 11:
                 this.height*=0.25
             break
             case 6:
@@ -120,7 +123,7 @@ class wall extends entity{
                 this.layer.strokeWeight(6)
                 this.layer.rect(0,0,this.width,this.height,6)
             break
-            case 3: case 4:
+            case 3: case 4: case 11: case 12:
                 this.layer.fill(245,250,255)
                 this.layer.stroke(170,110,135)
                 this.layer.strokeWeight(6)
@@ -177,6 +180,26 @@ class wall extends entity{
                     if(this.anim.main<this.base.width/2){
                         this.position.x--
                         this.width-=2
+                        this.anim.main++
+                    }
+                    else{
+                        this.trigger.end=true
+                    }
+                break
+                case 11:
+                    if(this.anim.main<this.base.width){
+                        this.position.x-=1/2
+                        this.width--
+                        this.anim.main++
+                    }
+                    else{
+                        this.trigger.end=true
+                    }
+                break
+                case 12:
+                    if(this.anim.main<this.base.height){
+                        this.position.y-=1/2
+                        this.height--
                         this.anim.main++
                     }
                     else{
