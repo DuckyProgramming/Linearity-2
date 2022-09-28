@@ -416,7 +416,7 @@ function generateWorld(level){
             else if(level.main[m][n]==2){
                 entities.players.push(new player(graphics.full,n*80+40,m*80+40))
 				stage.focus.x=n*80+40
-				stage.focus.x=m*80+40
+				stage.focus.y=m*80+40
             }
         }
     }

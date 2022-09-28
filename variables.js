@@ -1,4 +1,4 @@
-stage={scene:'level',level:0,focus:{x:0,y:0},zoom:1}
+stage={scene:'level',level:1,focus:{x:0,y:0},zoom:1}
 game={edge:{x:0,y:0},enter:{trigger:false,anim:0,id:0,select:-1,position:{x:0,y:0}}}
 entities={screens:[],walls:[],players:[]}
 graphics={full:0,base:0}
