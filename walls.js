@@ -71,6 +71,19 @@ class wall extends entity{
             case 13:
                 this.width-=8
             break
+            case 14:
+                this.ellipse=[]
+                this.control=[]
+                for(e=0,le=this.width/80;e<le;e++){
+                    this.ellipse.push([])
+                    this.control.push([])
+                    for(f=0,lf=this.height/80;f<lf;f++){
+                        this.ellipse[e].push([])
+                        this.control[e].push(random(0,1))
+                        this.ellipse[e][f].push([random(5,10),random(5,10),random(90,105)])
+                    }
+                }
+            break
         }
     }
     displayScreen(){
@@ -106,8 +119,13 @@ class wall extends entity{
             this.layer.rect(0,0,70,70,3)
         }
         switch(this.type){
-            case 1:
-                this.layer.fill(250,230,240)
+            case 1: case 14:
+                if(this.type==1){
+                    this.layer.fill(250,230,240)
+                }
+                else if(this.type==14){
+                    this.layer.fill(65,60,65)
+                }
                 for(e=0,le=this.ellipse.length;e<le;e++){
                     for(f=0,lf=this.ellipse[e].length;f<lf;f++){
                         this.layer.translate(-this.width/2+40+e*80,-this.height/2+40+f*80)
