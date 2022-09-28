@@ -49,13 +49,21 @@ class wall extends entity{
                 this.height*=0.25
             break
             case 6:
-                this.height-=20
+                this.height-=8
             break
             case 7:
                 this.width-=20
             break
             case 8:
                 this.height-=20
+            break
+            case 9:
+                this.width-=32
+                this.position.x+=19.5
+            break
+            case 10:
+                this.width-=32
+                this.position.x-=19.5
             break
         }
     }
@@ -129,15 +137,24 @@ class wall extends entity{
             break
             case 6:
                 this.layer.noStroke()
-                this.layer.fill(120,110,100)
-                this.layer.rect(0,0,max(0,this.width-20),this.height)
-                this.layer.fill(80,70,60)
-                for(e=0,le=this.height/20;e<le;e++){
-                    this.layer.rect(0,-this.height/2+e*20+10,max(0,this.width-20),2)
+                this.layer.fill(130,120,110)
+                this.layer.rect(0,0,max(0,this.width-16),this.height)
+                this.layer.fill(90,80,70)
+                for(e=0,le=4;e<le;e++){
+                    this.layer.rect(0,-this.height/2+e*this.height/4+this.height/8,max(0,this.width-16),2)
+                }
+            break
+            case 9: case 10:
+                this.layer.noStroke()
+                this.layer.fill(110,100,90)
+                this.layer.rect(0,0,this.width,this.height)
+                this.layer.fill(70,60,50)
+                for(e=0,le=4;e<le;e++){
+                    this.layer.rect(0,-this.height/2+e*this.height/4+this.height/8,this.width,2)
                 }
             break
         }
-        if(dev.box){
+        if(dev.box||this.type==7||this.type==8){
             this.layer.noFill()
             this.layer.stroke(0,255,0)
             this.layer.strokeWeight(3)

@@ -61,13 +61,13 @@ function displayBasePlate(color,color2){
 	graphics.base.fill(color[0],color[1],color[2])
 	switch(stage.level){
 		case 0:
-			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+500,game.edge.x+20,game.edge.y+20-800,10)
+			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+500,game.edge.x+10,game.edge.y+10-800,10)
 			graphics.base.fill(color[0],color[1],color[2])
 			graphics.base.rect(380,380,250,250,10)
 			graphics.base.rect(460,700,250,250,10)
 		break
 		case 1:
-			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+100,game.edge.x+20,game.edge.y+20,10)
+			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+100,game.edge.x+10,game.edge.y+10,10)
 		break
 	}
 }

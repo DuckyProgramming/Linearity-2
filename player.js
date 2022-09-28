@@ -51,6 +51,7 @@ class player extends entity{
         }
         this.position.x=constrain(this.position.x,0,game.edge.x)
         this.position.y=constrain(this.position.y,0,game.edge.y)
+        this.direction=atan2(inputs.rel.x-this.position.x,this.position.y-inputs.rel.y)
         stage.focus=this.position;
     }
 }
