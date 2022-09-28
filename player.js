@@ -21,9 +21,6 @@ class player extends entity{
         this.layer.translate(-this.position.x,-this.position.y)
     }
     update(){
-        this.position.x=constrain(this.position.x,0,game.edge.x)
-        this.position.y=constrain(this.position.y,0,game.edge.y)
-        this.direction=atan2(inputs.rel.x-this.position.x,this.position.y-inputs.rel.y)
         if(dev.control==0){
             this.position.x+=this.vel.x
             this.position.y+=this.vel.y
@@ -52,6 +49,8 @@ class player extends entity{
                 this.speed = round(this.speed-1)
             }
         }
+        this.position.x=constrain(this.position.x,0,game.edge.x)
+        this.position.y=constrain(this.position.y,0,game.edge.y)
         stage.focus=this.position;
     }
 }

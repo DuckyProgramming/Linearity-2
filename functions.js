@@ -54,12 +54,22 @@ function displayTransition(layer,transition){
 		transition.anim=round(transition.anim+10-1)/10
 	}
 }
-function displayBasePlate(color){
+function displayBasePlate(color,color2){
 	graphics.base=createGraphics(game.edge.x+200,game.edge.y+200)
 	setupLayer(graphics.base)
 	graphics.base.noStroke()
 	graphics.base.fill(color[0],color[1],color[2])
-	graphics.base.rect(game.edge.x/2+100,game.edge.y/2+100,game.edge.x+20,game.edge.y+20,10)
+	switch(stage.level){
+		case 0:
+			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+500,game.edge.x+20,game.edge.y+20-800,10)
+			graphics.base.fill(color[0],color[1],color[2])
+			graphics.base.rect(380,380,250,250,10)
+			graphics.base.rect(460,700,250,250,10)
+		break
+		case 1:
+			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+100,game.edge.x+20,game.edge.y+20,10)
+		break
+	}
 }
 function displayPath(layer,level,color){
 	layer.stroke(color[0],color[1],color[2])
@@ -407,11 +417,8 @@ function generateWorld(level){
 	game.edge.y=level.main.length*80
 	for(m=0,lm=level.main.length;m<lm;m++){
         for(n=0,ln=level.main[m].length;n<ln;n++){
-            if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==8){
+            if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==6){
                 entities.base.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
-            }
-            else if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==6){
-                entities.ground.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
             else if(level.main[m][n]>=100&&level.main[m][n]<10000){
                 entities.walls.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
@@ -426,5 +433,5 @@ function generateWorld(level){
             }
         }
     }
-	run={fore:[entities.base,entities.ground,entities.players,entities.screens,entities.walls]};
+	run={fore:[entities.base,entities.players,entities.screens,entities.walls]};
 }

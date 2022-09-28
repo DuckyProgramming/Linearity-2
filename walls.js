@@ -48,8 +48,14 @@ class wall extends entity{
             case 5:
                 this.height*=0.25
             break
+            case 6:
+                this.height-=20
+            break
+            case 7:
+                this.width-=20
+            break
             case 8:
-                this.position.x-=80
+                this.height-=20
             break
         }
     }
@@ -123,13 +129,12 @@ class wall extends entity{
             break
             case 6:
                 this.layer.noStroke()
-                this.layer.fill(100,105,110)
-                this.layer.rect(0,0,this.width+1,this.height+1,10)
-            break
-            case 8: case 9:
-                this.layer.noStroke()
-                this.layer.fill(160,200,240)
-                this.layer.rect(0,0,this.width,this.height,10)
+                this.layer.fill(120,110,100)
+                this.layer.rect(0,0,max(0,this.width-20),this.height)
+                this.layer.fill(80,70,60)
+                for(e=0,le=this.height/20;e<le;e++){
+                    this.layer.rect(0,-this.height/2+e*20+10,max(0,this.width-20),2)
+                }
             break
         }
         if(dev.box){
@@ -166,7 +171,7 @@ class wall extends entity{
         if(this.type<=0&&this.complete&&this.completeAnim<1){
             this.completeAnim=round(this.completeAnim*20+1)/20
         }
-        if(this.type!=6&&this.type!=8){
+        if(this.type!=6){
             for(e=0,le=this.collide.length;e<le;e++){
                 for(f=0,lf=this.collide[e].length;f<lf;f++){
                     if(circleInsideBox(this,this.collide[e][f])){
