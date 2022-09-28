@@ -80,7 +80,7 @@ class wall extends entity{
                     for(f=0,lf=this.height/80;f<lf;f++){
                         this.ellipse[e].push([])
                         this.control[e].push(random(0,1))
-                        this.ellipse[e][f].push([random(5,10),random(5,10),random(90,105)])
+                        this.ellipse[e][f].push([random(5,10),random(5,10),random(100,120)])
                     }
                 }
             break
