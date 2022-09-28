@@ -30,16 +30,16 @@ class player extends entity{
             this.vel.x*=0.9
             this.vel.y*=0.9
             if(inputs.keys[0]&&!game.enter.trigger){
-                this.vel.y-=0.8
+                this.vel.y-=0.6
             }
             if(inputs.keys[1]&&!game.enter.trigger){
-                this.vel.y+=0.8
+                this.vel.y+=0.6
             }
             if(inputs.keys[2]&&!game.enter.trigger){
-                this.vel.x-=0.8
+                this.vel.x-=0.6
             }
             if(inputs.keys[3]&&!game.enter.trigger){
-                this.vel.x+=0.8
+                this.vel.x+=0.6
             }
         }
         else{

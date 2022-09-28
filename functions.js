@@ -407,7 +407,13 @@ function generateWorld(level){
 	game.edge.y=level.main.length*80
 	for(m=0,lm=level.main.length;m<lm;m++){
         for(n=0,ln=level.main[m].length;n<ln;n++){
-            if(level.main[m][n]>=100&&level.main[m][n]<10000){
+            if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==8){
+                entities.base.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
+            }
+            else if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==6){
+                entities.ground.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
+            }
+            else if(level.main[m][n]>=100&&level.main[m][n]<10000){
                 entities.walls.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
             else if(level.main[m][n]>=-1000&&level.main[m][n]<=0){
@@ -420,5 +426,5 @@ function generateWorld(level){
             }
         }
     }
-	run={fore:[entities.players,entities.screens,entities.walls]};
+	run={fore:[entities.base,entities.ground,entities.players,entities.screens,entities.walls]};
 }

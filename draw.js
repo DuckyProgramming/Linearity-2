@@ -1,5 +1,5 @@
 function draw(){
-    graphics.full.background(120,170,220)
+    graphics.full.background(160,200,240)
     switch(stage.scene){
         case 'level':
             graphics.full.push()

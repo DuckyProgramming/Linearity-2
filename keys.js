@@ -13,13 +13,13 @@ function keyPressed(){
     }
     if(game.enter.anim>=1){
         if(key=='e'||key=='E'){
-            for(a=1,la=screen.main.length+1;a<la;a++){
+            for(a=0,la=screen.main.length;a<la;a++){
                 for(b=0,lb=screen.main[a].length;b<lb;b++){
-                    if(screen.main[(screen.position[0]+a)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=='('){
-                        screen.active[(screen.position[0]+a)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=true
+                    if(screen.main[(screen.position[0]+a+1)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=='('){
+                        screen.active[(screen.position[0]+a+1)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=true
                         screen.trigger=true
-                        screen.start=[(screen.position[0]+a)%screen.main.length,(screen.position[1]+b)%screen.main[a].length]
-                        screen.position=[(screen.position[0]+a)%screen.main.length,(screen.position[1]+b)%screen.main[a].length]
+                        screen.start=[(screen.position[0]+a+1)%screen.main.length,(screen.position[1]+b)%screen.main[a].length]
+                        screen.position=[(screen.position[0]+a+1)%screen.main.length,(screen.position[1]+b)%screen.main[a].length]
                         a=la
                         b=lb
                     }

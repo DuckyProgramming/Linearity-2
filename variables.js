@@ -1,11 +1,11 @@
-stage={scene:'level',level:1,focus:{x:0,y:0},zoom:1}
+stage={scene:'level',level:0,focus:{x:0,y:0},zoom:1}
 game={edge:{x:0,y:0},enter:{trigger:false,anim:0,id:0,select:-1,position:{x:0,y:0}}}
-entities={screens:[],walls:[],players:[]}
+entities={base:[],ground:[],screens:[],walls:[],players:[]}
 graphics={full:0,base:0}
 run={fore:[]}
 inputs={mouse:{x:0,y:0},rel:{x:0,y:0},keys:[false,false,false,false]}
 transition={trigger:false,anim:0,scene:stage.scene}
-dev={box:false,control:0}
+dev={box:true,control:0}
 dotcolor=[[105,30,90],[160,125,210],[175,155,195],[130,105,205],[230,165,255],[180,105,185],[250,210,245],[75,60,140]]
 grouping={complete:false,add:false,create:2,screen:[],size:[],star:[],dot:[]}
 screen={main:[],active:[],fade:[],error:[],flash:[],generate:[],trigger:false,start:[0,0],position:[0,0],complete:false}

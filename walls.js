@@ -9,6 +9,7 @@ class wall extends entity{
         this.anim={main:0}
         this.collide=[entities.players]
         this.collideInfo={x:0,y:0}
+        this.base={width:this.width,height:this.height}
         if(this.type<=0){
             if(this.id==1){
                 this.trigger.start=true
@@ -46,6 +47,9 @@ class wall extends entity{
             break
             case 5:
                 this.height*=0.25
+            break
+            case 8:
+                this.position.x-=80
             break
         }
     }
@@ -117,6 +121,16 @@ class wall extends entity{
                     this.layer.rect(0,-this.height/2+e*10+5,max(0,this.width-6),2)
                 }
             break
+            case 6:
+                this.layer.noStroke()
+                this.layer.fill(100,105,110)
+                this.layer.rect(0,0,this.width+1,this.height+1,10)
+            break
+            case 8: case 9:
+                this.layer.noStroke()
+                this.layer.fill(160,200,240)
+                this.layer.rect(0,0,this.width,this.height,10)
+            break
         }
         if(dev.box){
             this.layer.noFill()
@@ -138,7 +152,7 @@ class wall extends entity{
             }
             switch(this.type){
                 case 5:
-                    if(this.anim.main<120){
+                    if(this.anim.main<this.base.width/2){
                         this.position.x--
                         this.width-=2
                         this.anim.main++
@@ -152,14 +166,16 @@ class wall extends entity{
         if(this.type<=0&&this.complete&&this.completeAnim<1){
             this.completeAnim=round(this.completeAnim*20+1)/20
         }
-        for(e=0,le=this.collide.length;e<le;e++){
-            for(f=0,lf=this.collide[e].length;f<lf;f++){
-                if(circleInsideBox(this,this.collide[e][f])){
-                    this.collideInfo=circleCollideBox(this,this.collide[e][f])
-					this.collide[e][f].position.x=this.collideInfo.x
-					this.collide[e][f].position.y=this.collideInfo.y
-                    this.collide[e][f].speed*=0.9
-				}
+        if(this.type!=6&&this.type!=8){
+            for(e=0,le=this.collide.length;e<le;e++){
+                for(f=0,lf=this.collide[e].length;f<lf;f++){
+                    if(circleInsideBox(this,this.collide[e][f])){
+                        this.collideInfo=circleCollideBox(this,this.collide[e][f])
+                        this.collide[e][f].position.x=this.collideInfo.x
+                        this.collide[e][f].position.y=this.collideInfo.y
+                        this.collide[e][f].speed*=0.9
+                    }
+                }
             }
         }
     }
