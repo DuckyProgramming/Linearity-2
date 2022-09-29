@@ -246,7 +246,7 @@ function keyPressed(){
                                     screen.error[a][b]=1
                                 }
                             break
-                            case '3':
+                            case '#':
                                 if(!(screen.active[a-1][b]==1&&screen.active[a][b-1]==1||
                                     screen.active[a][b-1]==1&&screen.active[a+1][b]==1||
                                     screen.active[a+1][b]==1&&screen.active[a][b+1]==1||
