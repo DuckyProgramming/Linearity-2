@@ -68,6 +68,7 @@ function displayBasePlate(color,color2){
 			graphics.base.rect(1340,380,250,250,10)
 			graphics.base.rect(1660,460,250,250,10)
 			graphics.base.rect(1260,700,250,250,10)
+			graphics.base.fill(color2[0],color2[1],color2[2])
 		break
 		case 1:
 			graphics.base.rect(game.edge.x/2+100,game.edge.y/2+100,game.edge.x+10,game.edge.y+10,10)
@@ -228,6 +229,12 @@ function displayScreen(layer,screen){
 				break
 				case 'I': case 'J': case 'K': case 'L': case 'M': case 'N': case 'O': case 'P':
 					minusDots(layer,10+j*20,10+i*20,-dotNumber(screen.main[i][j]),0,screen.flash[i][j])
+				break
+				case '#':
+					layer.fill(errorLerp([240,240,240],screen.flash[i][j]))
+					layer.ellipse(10+j*20,10+i*20,20,20)
+					layer.fill(255,100,150)
+					layer.ellipse(12+j*20,8+i*20,16,16)
 				break
 			}
 		}

@@ -252,6 +252,15 @@ function keyPressed(){
                                     screen.error[a][b]=1
                                 }
                             break
+                            case '3':
+                                if(!(screen.active[a-1][b]==1&&screen.active[a][b-1]==1||
+                                    screen.active[a][b-1]==1&&screen.active[a+1][b]==1||
+                                    screen.active[a+1][b]==1&&screen.active[a][b+1]==1||
+                                    screen.active[a][b+1]==1&&screen.active[a-1][b]==1)){
+                                    screen.complete=false
+                                    screen.error[a][b]=1
+                                }
+                            break
                         }
                     }
                 }
