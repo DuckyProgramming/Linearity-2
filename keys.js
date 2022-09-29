@@ -125,12 +125,6 @@ function keyPressed(){
                         grouping.screen[a].push(-1)
                     }
                 }
-                for(a=0,la=entities.walls.length;a<la;a++){
-                    entities.walls[a].activate(game.enter.id)
-                }
-                for(a=0,la=entities.screens.length;a<la;a++){
-                    entities.screens[a].activate(game.enter.id)
-                }
                 grouping.screen[0][0]=0
                 grouping.size=[0]
                 grouping.star=[[0,0,0,0,0,0,0,0]]
@@ -266,6 +260,12 @@ function keyPressed(){
                 }
                 if(screen.complete){
                     entities.screens[game.enter.select].complete=true
+                    for(a=0,la=entities.walls.length;a<la;a++){
+                        entities.walls[a].activate(game.enter.id)
+                    }
+                    for(a=0,la=entities.screens.length;a<la;a++){
+                        entities.screens[a].activate(game.enter.id)
+                    }
                 }
             }
             if(keyCode==BACKSPACE){
