@@ -3,8 +3,9 @@ function draw(){
     switch(stage.scene){
         case 'level':
             graphics.full.push()
-            graphics.full.translate(graphics.full.width/2-stage.focus.x,graphics.full.height/2-stage.focus.y)
+            graphics.full.translate(graphics.full.width/2,graphics.full.height/2)
             graphics.full.scale(stage.zoom)
+            graphics.full.translate(-stage.focus.x,-stage.focus.y)
             graphics.full.image(graphics.base,-100,-100)
             for(a=0,la=run.fore.length;a<la;a++){
                 for(b=0,lb=run.fore[a].length;b<lb;b++){
