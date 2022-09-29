@@ -32,12 +32,14 @@ function mousePressed(){
                                     screen.trigger=true
                                     screen.position=[a,b]
                                     screen.start=[a,b]
+                                    inputs.previous.push([screen.position[0],screen.position[1]])
                                 }
                             break
                         }
                     }
                 }
             }
+            clearPrevious()
         break;
     }
 }

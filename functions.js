@@ -13,6 +13,7 @@ function setupScreen(base){
 	screen.trigger=base.screen.trigger
 	screen.start=base.screen.start
 	screen.position=base.screen.position
+	screen.symmetry=base.screen.symmetry
 }
 function generateScreens(screens){
 	for(i=0,li=screens.main.length;i<li;i++){
@@ -20,6 +21,7 @@ function generateScreens(screens){
 		screens.trigger.push(false)
 		screens.start.push([0,0])
 		screens.position.push([0,0])
+		screens.symmetry.push(0)
 		screens.generate=[screens.active,screens.fade,screens.error,screens.flash]
 		for(j=0,lj=screens.generate.length;j<lj;j++){
 			screens.generate[j].push([])
@@ -31,6 +33,9 @@ function generateScreens(screens){
 			}
 		}
 	}
+	for(i=0;i<9;i++){
+		screens.symmetry[i+211]=1
+	}
 }
 function resetScreen(){
 	for(i=0,li=screen.active.length;i<li;i++){
@@ -39,6 +44,23 @@ function resetScreen(){
 		}
 	}
 	screen.trigger=false
+}
+function clearPrevious(){
+	if(inputs.previous.length>0){
+		for(a=0,la=inputs.previous.length;a<la;a++){
+			switch(screen.symmetry){
+				case 1:
+					if(screen.active[inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]]!=screen.active[inputs.previous[a][0]][inputs.previous[a][1]]&&legalMove(screen.main[inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]])){
+						screen.active[inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]]=screen.active[inputs.previous[a][0]][inputs.previous[a][1]]
+					}
+					else{
+						resetScreen()
+					}
+				break
+			}
+		}
+		inputs.previous=[]
+	}
 }
 function displayTransition(layer,transition){
 	layer.noStroke()
@@ -127,6 +149,11 @@ function displayScreen(layer,screen){
 				if(screen.main[i][j]=='('&&screen.start[0] == i&&screen.start[1] == j){
 					layer.stroke(255,200,225,screen.fade[i][j])
 					layer.strokeWeight(13)
+					layer.point(10+j*20,10+i*20)
+				}
+				if(screen.symmetry==1&&screen.main[i][j]=='('&&screen.start[0] == i&&screen.start[1] == screen.main[0].length-1-j){
+					layer.stroke(255,200,225,screen.fade[i][j])
+					layer.strokeWeight(10)
 					layer.point(10+j*20,10+i*20)
 				}
 				if(screen.main[i][j]==')'){
