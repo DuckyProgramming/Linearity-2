@@ -33,7 +33,7 @@ function generateScreens(screens){
 			}
 		}
 	}
-	for(i=0;i<9;i++){
+	for(i=0;i<13;i++){
 		screens.symmetry[i+211]=1
 	}
 }

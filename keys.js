@@ -54,6 +54,7 @@ function keyPressed(){
                     screen.active[screen.position[0]-2][screen.position[1]]=1
                     screen.position[0]-=2
                     inputs.previous.push([screen.position[0],screen.position[1]])
+                    inputs.previous.push([screen.position[0]+1,screen.position[1]])
                 }
                 else if(legalMove(screen.main[screen.position[0]-1][screen.position[1]])&&
                 legalMove(screen.main[screen.position[0]-2][screen.position[1]])&&
@@ -63,8 +64,8 @@ function keyPressed(){
                     screen.active[screen.position[0]-1][screen.position[1]]=0
                     screen.position[0]-=2
                     inputs.previous.push([screen.position[0]+2,screen.position[1]])
+                    inputs.previous.push([screen.position[0]+1,screen.position[1]])
                 }
-                inputs.previous.push([screen.position[0]+1,screen.position[1]])
             }
             if((key=="s"||keyCode==DOWN_ARROW)&&screen.position[0]<screen.main.length-2&&screen.main[screen.position[0]][screen.position[1]]!=')'){
                 if(legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
@@ -75,6 +76,7 @@ function keyPressed(){
                     screen.active[screen.position[0]+2][screen.position[1]]=1
                     screen.position[0]+=2
                     inputs.previous.push([screen.position[0],screen.position[1]])
+                    inputs.previous.push([screen.position[0]-1,screen.position[1]])
                 }
                 else if(legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
                 legalMove(screen.main[screen.position[0]+1][screen.position[1]])&&
@@ -84,8 +86,8 @@ function keyPressed(){
                     screen.active[screen.position[0]+1][screen.position[1]]=0
                     screen.position[0]+=2
                     inputs.previous.push([screen.position[0]-2,screen.position[1]])
+                    inputs.previous.push([screen.position[0]-1,screen.position[1]])
                 }
-                inputs.previous.push([screen.position[0]-1,screen.position[1]])
             }
             if((key=="a"||keyCode==LEFT_ARROW)&&screen.position[1]>0&&screen.main[screen.position[0]][screen.position[1]]!=')'){
                 if(legalMove(screen.main[screen.position[0]][screen.position[1]-1])&&
@@ -96,6 +98,7 @@ function keyPressed(){
                     screen.active[screen.position[0]][screen.position[1]-2]=1
                     screen.position[1]-=2
                     inputs.previous.push([screen.position[0],screen.position[1]])
+                    inputs.previous.push([screen.position[0],screen.position[1]+1])
                 }
                 else if(legalMove(screen.main[screen.position[0]][screen.position[1]-1])&&
                 legalMove(screen.main[screen.position[0]][screen.position[1]-2])&&
@@ -105,8 +108,8 @@ function keyPressed(){
                     screen.active[screen.position[0]][screen.position[1]-1]=0
                     screen.position[1]-=2
                     inputs.previous.push([screen.position[0],screen.position[1]+2])
+                    inputs.previous.push([screen.position[0],screen.position[1]+1])
                 }
-                inputs.previous.push([screen.position[0],screen.position[1]+1])
             }
             if((key=="d"||keyCode==RIGHT_ARROW)&&screen.position[1]<screen.main[0].length-2&&screen.main[screen.position[0]][screen.position[1]]!=')'){
                 if(legalMove(screen.main[screen.position[0]][screen.position[1]+1])&&
@@ -117,6 +120,7 @@ function keyPressed(){
                     screen.active[screen.position[0]][screen.position[1]+2]=1
                     screen.position[1]+=2
                     inputs.previous.push([screen.position[0],screen.position[1]])
+                    inputs.previous.push([screen.position[0],screen.position[1]-1])
                 }
                 else if(legalMove(screen.main[screen.position[0]][screen.position[1]+1])&&
                 legalMove(screen.main[screen.position[0]][screen.position[1]+2])&&
@@ -126,8 +130,8 @@ function keyPressed(){
                     screen.active[screen.position[0]][screen.position[1]+1]=0
                     screen.position[1]+=2
                     inputs.previous.push([screen.position[0],screen.position[1]-2])
+                    inputs.previous.push([screen.position[0],screen.position[1]-1])
                 }
-                inputs.previous.push([screen.position[0],screen.position[1]-1])
             }
             clearPrevious()
             if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]==')'){
