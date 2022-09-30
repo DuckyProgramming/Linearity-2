@@ -153,36 +153,36 @@ class wall extends entity{
             break
             case 5:
                 this.layer.noStroke()
-                this.layer.fill(120,110,100)
+                this.layer.fill(170,140,115)
                 this.layer.rect(0,0,max(0,this.width-6),this.height)
-                this.layer.fill(80,70,60)
+                this.layer.fill(150,120,100)
                 for(e=0,le=this.height/10;e<le;e++){
                     this.layer.rect(0,-this.height/2+e*10+5,max(0,this.width-6),2)
                 }
             break
             case 6:
                 this.layer.noStroke()
-                this.layer.fill(130,120,110)
+                this.layer.fill(175,150,135)
                 this.layer.rect(0,0,max(0,this.width-16),this.height)
-                this.layer.fill(90,80,70)
+                this.layer.fill(120,95,100)
                 for(e=0,le=4;e<le;e++){
                     this.layer.rect(0,-this.height/2+e*this.height/4+this.height/8,max(0,this.width-16),2)
                 }
             break
             case 9: case 10:
                 this.layer.noStroke()
-                this.layer.fill(110,100,90)
+                this.layer.fill(165,145,140)
                 this.layer.rect(0,0,this.width,this.height)
-                this.layer.fill(70,60,50)
+                this.layer.fill(105,90,95)
                 for(e=0,le=4;e<le;e++){
                     this.layer.rect(0,-this.height/2+e*this.height/4+this.height/8,this.width,2)
                 }
             break
             case 13:
                 this.layer.noStroke()
-                this.layer.fill(130,120,110)
+                this.layer.fill(175,150,135)
                 this.layer.rect(0,0,this.width,max(0,this.height-16))
-                this.layer.fill(90,80,70)
+                this.layer.fill(120,95,100)
                 for(e=0,le=4;e<le;e++){
                     this.layer.rect(-this.width/2+e*this.width/4+this.width/8,0,2,max(0,this.height-16))
                 }

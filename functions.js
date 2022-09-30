@@ -265,10 +265,17 @@ function displayScreen(layer,screen){
 					minusDots(layer,10+j*20,10+i*20,-dotNumber(screen.main[i][j]),0,screen.flash[i][j])
 				break
 				case '#':
-					layer.fill(errorLerp([240,240,240],screen.flash[i][j]))
+					layer.fill(errorLerp([250,215,235],screen.flash[i][j]))
 					layer.ellipse(10+j*20,10+i*20,20,20)
 					layer.fill(255,100,150)
 					layer.ellipse(12+j*20,8+i*20,16,16)
+				break
+				case '$':
+					layer.stroke(190,65,85)
+					layer.strokeWeight(4);
+					for(k=0;k<3;k++){
+						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
+					}
 				break
 			}
 		}
