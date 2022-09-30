@@ -67,6 +67,9 @@ function generateRememberScreen(){
 function generateGroup(){
 	grouping.complete=false
 	grouping.screen=[]
+	grouping.size=[0]
+	grouping.star=[[0,0,0,0,0,0,0,0]]
+	grouping.dot=[0]
 	for(a=0,la=screen.main.length/2-1;a<la;a++){
 		grouping.screen.push([])
 		for(b=0,lb=screen.main[a].length/2-1;b<lb;b++){
@@ -74,9 +77,6 @@ function generateGroup(){
 		}
 	}
 	grouping.screen[0][0]=0
-	grouping.size=[0]
-	grouping.star=[[0,0,0,0,0,0,0,0]]
-	grouping.dot=[0]
 	grouping.create=1
 	while(!grouping.complete){
 		grouping.complete=true
@@ -121,6 +121,17 @@ function generateGroup(){
 	}
 }
 function checkScreen(screen){
+	for(a=0,la=grouping.size.length;a<la;a++){
+		grouping.size[a]=0
+	}
+	for(a=0,la=grouping.star.length;a<la;a++){
+		for(b=0,lb=grouping.star[a].length;b<lb;b++){
+			grouping.star[a][b]=0
+		}
+	}
+	for(a=0,la=grouping.dot.length;a<la;a++){
+		grouping.dot[a]=0
+	}
 	screen.complete=true
 	for(a=0,la=grouping.screen.length;a<la;a++){
 		for(b=0,lb=grouping.screen[a].length;b<lb;b++){
