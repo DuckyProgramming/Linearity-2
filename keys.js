@@ -152,8 +152,10 @@ function keyPressed(){
                                         if(!screen.complete&&grouping.screen[o][p]==grouping.screen[(m-1)/2][(n-1)/2]){
                                             generateScreenRemember()
                                             screen.main[o*2+1][p*2+1]=" "
-                                            screen.disable[o*2+1][p*2+1]=1
                                             checkScreen(screen)
+                                            if(screen.complete){
+                                                screen.disable[o*2+1][p*2+1]=1
+                                            }
                                         }
                                     }
                                 }
