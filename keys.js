@@ -152,11 +152,16 @@ function keyPressed(){
                                         if(!screen.complete&&grouping.screen[o][p]==grouping.screen[(m-1)/2][(n-1)/2]){
                                             generateScreenRemember()
                                             screen.main[o*2+1][p*2+1]=" "
-                                            print(screen.main[o*2+1][p*2+1])
-                                            print(screen.main)
+                                            screen.disable[o*2+1][p*2+1]=1
                                             checkScreen(screen)
-                                            print(screen.complete)
                                         }
+                                    }
+                                }
+                            }
+                            if(screen.complete){
+                                for(o=0,lo=screen.error.length;o<lo;o++){
+                                    for(p=0,lp=screen.error[o].length;p<lp;p++){
+                                        screen.error[o][p]=0
                                     }
                                 }
                             }
