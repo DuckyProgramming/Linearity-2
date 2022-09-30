@@ -136,24 +136,31 @@ function keyPressed(){
             clearPrevious()
             if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]==')'){
                 generateRememberScreen()
-                screen.complete=false
                 grouping.fail=false
                 generateGroup()
                 for(m=0,lm=screen.main.length;m<lm;m++){
                     for(n=0,ln=screen.main[m].length;n<ln;n++){
                         if(screen.main[m][n]=='$'){
-                            for(o=0,lo=(screen.main.length-1)/2;o<lo;o++){
-                                for(p=0,lp=(screen.main[o].length-1)/2;p<lp;p++){
-                                    if(!screen.complete&&grouping.screen[o][p]==grouping.screen[(m-1)/2][(n-1)/2]){
-                                        generateScreenRemember()
-                                        screen.main[o*2+1][p*2+1]=" "
-                                        checkScreen(screen)
+                            checkScreen(screen)
+                            if(screen.complete){
+                                screen.complete=false
+                                screen.error[m][n]=1
+                            }
+                            else{
+                                for(o=0,lo=(screen.main.length-1)/2;o<lo;o++){
+                                    for(p=0,lp=(screen.main[o].length-1)/2;p<lp;p++){
+                                        if(!screen.complete&&grouping.screen[o][p]==grouping.screen[(m-1)/2][(n-1)/2]){
+                                            generateScreenRemember()
+                                            screen.main[o*2+1][p*2+1]=" "
+                                            print(screen.main[o*2+1][p*2+1])
+                                            print(screen.main)
+                                            checkScreen(screen)
+                                            print(screen.complete)
+                                        }
                                     }
                                 }
                             }
-                            if(!screen.complete){
-                                grouping.fail=true
-                            }
+                            grouping.fail=true
                         }
                     }
                 }
