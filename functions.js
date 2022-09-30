@@ -33,9 +33,8 @@ function generateScreens(screens){
 			}
 		}
 	}
-	for(i=0;i<13;i++){
-		screens.symmetry[i+211]=1
-	}
+	for(i=0;i<13;i++){screens.symmetry[i+211]=1}
+	for(i=0;i<14;i++){screens.symmetry[i+224]=2}
 }
 function resetScreen(){
 	for(i=0,li=screen.active.length;i<li;i++){
@@ -52,6 +51,14 @@ function clearPrevious(){
 				case 1:
 					if(screen.active[inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]]!=screen.active[inputs.previous[a][0]][inputs.previous[a][1]]&&legalMove(screen.main[inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]])){
 						screen.active[inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]]=screen.active[inputs.previous[a][0]][inputs.previous[a][1]]
+					}
+					else{
+						resetScreen()
+					}
+				break
+				case 2:
+					if(screen.active[screen.main.length-1-inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]]!=screen.active[inputs.previous[a][0]][inputs.previous[a][1]]&&legalMove(screen.main[screen.main.length-1-inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]])){
+						screen.active[screen.main.length-1-inputs.previous[a][0]][screen.main[0].length-1-inputs.previous[a][1]]=screen.active[inputs.previous[a][0]][inputs.previous[a][1]]
 					}
 					else{
 						resetScreen()
@@ -151,7 +158,7 @@ function displayScreen(layer,screen){
 					layer.strokeWeight(13)
 					layer.point(10+j*20,10+i*20)
 				}
-				if(screen.symmetry==1&&screen.main[i][j]=='('&&screen.start[0] == i&&screen.start[1] == screen.main[0].length-1-j){
+				if(screen.main[i][j]=='('&&(screen.symmetry==1&&screen.start[0] == i&&screen.start[1] == screen.main[0].length-1-j||screen.symmetry==2&&screen.start[0] == screen.main.length-1-i&&screen.start[1] == screen.main[0].length-1-j)){
 					layer.stroke(255,200,225,screen.fade[i][j])
 					layer.strokeWeight(10)
 					layer.point(10+j*20,10+i*20)
