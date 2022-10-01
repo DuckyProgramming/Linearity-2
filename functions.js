@@ -718,6 +718,16 @@ function resetMap(){
 		}
 	}
 }
+function godMode(){
+	for(b=0;b<screens.main.length;b++){
+        for(a=0,la=entities.walls.length;a<la;a++){
+            entities.walls[a].activate(b)
+        }
+        for(a=0,la=entities.screens.length;a<la;a++){
+            entities.screens[a].activate(b)
+        }
+    }
+}
 function generateWorld(level){
 	game.edge.x=level.main[0].length*80
 	game.edge.y=level.main.length*80
