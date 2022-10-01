@@ -137,6 +137,7 @@ function keyPressed(){
             if(keyCode==ENTER&&screen.main[screen.position[0]][screen.position[1]]==')'){
                 generateRememberScreen()
                 grouping.fail=false
+                screen.complete=false
                 generateGroup()
                 for(m=0,lm=screen.main.length;m<lm;m++){
                     for(n=0,ln=screen.main[m].length;n<ln;n++){
@@ -174,6 +175,7 @@ function keyPressed(){
                 generateScreenRemember()
                 if(!screen.complete&&!grouping.fail){
                     checkScreen(screen)
+                    print(screen.complete)
                 }
                 if(screen.complete){
                     entities.screens[game.enter.select].complete=true
