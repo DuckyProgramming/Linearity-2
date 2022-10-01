@@ -86,6 +86,14 @@ class wall extends entity{
                     }
                 }
             break
+            case 15:
+                this.width*=1.5
+                this.height*=0.2
+            break
+            case 16:
+                this.width*=0.2
+                this.height*=1.5
+            break
         }
     }
     displayScreen(){
@@ -187,6 +195,12 @@ class wall extends entity{
                 for(e=0,le=4;e<le;e++){
                     this.layer.rect(-this.width/2+e*this.width/4+this.width/8,0,2,max(0,this.height-16))
                 }
+            break
+            case 15: case 16:
+                this.layer.fill(245,250,255)
+                this.layer.stroke(170,110,135)
+                this.layer.strokeWeight(4)
+                this.layer.rect(0,0,this.width,this.height)
             break
         }
         if(dev.box||this.type==7||this.type==8){
