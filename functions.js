@@ -466,6 +466,12 @@ function displayScreen(layer,screen){
 						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
 					}
 				break
+				case 'q': case 'r': case 's': case 't':
+					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
+					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
+						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,7,7)
+					}
+				break
 			}
 		}
 	}
@@ -603,6 +609,20 @@ function legalMove(move){
 		return false
 	}
 }
+function block(id){
+	switch(id){
+		case 1: return [[0,0]]; break
+		case 2: return [[0,0],[1,0]]; break
+		case 3: return [[0,0],[1,0],[1,1]]; break
+	}
+}
+function blockCap(id){
+	switch(id){
+		case 1: return [0,0]; break
+		case 2: return [1,0]; break
+		case 3: return [1,1]; break
+	}
+}
 function capital(letter){
 	switch(letter){
 		case 'a': return 'A'; break
@@ -657,6 +677,18 @@ function dotNumber(letter){
 		case 'P': return -8; break
 	}
 	return 0
+}
+function blockId(letter){
+	switch(letter){
+		case 'q': return 1; break
+		case 'r': return 2; break
+		case 's': return 3; break
+		case 't': return 4; break
+		case 'u': return 5; break
+		case 'v': return 6; break
+		case 'w': return 7; break
+		case 'x': return 8; break
+	}
 }
 function setMouse(){
 	inputs.mouse.x=mouseX
