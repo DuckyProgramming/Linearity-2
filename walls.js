@@ -26,7 +26,7 @@ class wall extends entity{
             this.displayScreen()
         }
         switch(this.type){
-            case 1:
+            case 1: case 17:
                 this.ellipse=[]
                 this.control=[]
                 for(e=0,le=this.width/80;e<le;e++){
@@ -129,8 +129,8 @@ class wall extends entity{
             this.layer.rect(0,0,70,70,3)
         }
         switch(this.type){
-            case 1: case 14:
-                if(this.type==1){
+            case 1: case 14: case 17:
+                if(this.type==1||this.type==17){
                     this.layer.fill(250,230,240)
                 }
                 else if(this.type==14){
@@ -146,6 +146,11 @@ class wall extends entity{
                         this.layer.rotate(this.control[e][f]*-360)
                         this.layer.translate(this.width/2-40-e*80,this.height/2-40-f*80)
                     }
+                }
+                if(this.type==17){
+                    this.layer.scale(3)
+                    dots(this.layer,0,0,2,0,0,0)
+                    this.layer.scale(1/3)
                 }
             break
             case 2:
