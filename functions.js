@@ -38,6 +38,7 @@ function generateScreens(screens){
 	for(i=0;i<13;i++){screens.symmetry[i+211]=1}
 	for(i=0;i<14;i++){screens.symmetry[i+224]=2}
 	for(i=0;i<8;i++){screens.symmetry[i+316]=2}
+	for(i=0;i<5;i++){screens.symmetry[i+325]=2}
 }
 function resetScreen(){
 	for(i=0,li=screen.active.length;i<li;i++){
