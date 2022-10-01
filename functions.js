@@ -249,15 +249,25 @@ function clearPrevious(){
 function displayTransition(layer,transition){
 	layer.noStroke()
 	layer.fill(0)
+	layer.rect(transition.anim*layer.width/4,layer.height/2,transition.anim*layer.width/2,layer.height);
+	layer.rect(layer.width-transition.anim*layer.width/4,layer.height/2,transition.anim*layer.width/2,layer.height);
+	layer.rect(layer.width/2,transition.anim*layer.height/4,layer.width,transition.anim*layer.height/2);
+	layer.rect(layer.width/2,layer.height-transition.anim*layer.height/4,layer.width,transition.anim*layer.height/2);
 	if(transition.trigger){
-		transition.anim=round(transition.anim+10+1)/10
-		if(transition.anim>=1){
+		transition.anim=round(transition.anim*10+1)/10
+		if(transition.anim>1.1){
 			transition.trigger = false;
 			stage.scene = transition.scene;
+			if(stage.scene=='map'){
+				generateMap()
+			}
+			if(stage.scene=='level'){
+				resetMap()
+			}
 		}
 	}
 	else if(transition.anim>0){
-		transition.anim=round(transition.anim+10-1)/10
+		transition.anim=round(transition.anim*10-1)/10
 	}
 }
 function displayBasePlate(color,color2){
@@ -651,6 +661,28 @@ function setMouse(){
 	inputs.mouse.y=mouseY
 	inputs.rel.x=(inputs.mouse.x-graphics.full.width/2)/stage.zoom+stage.focus.x
 	inputs.rel.y=(inputs.mouse.y-graphics.full.height/2)/stage.zoom+stage.focus.y
+}
+function generateMap(){
+	graphics.map=createGraphics(game.edge.x+100,game.edge.y+100)
+	setupLayer(graphics.map)
+	graphics.map.background(160,200,240)
+	graphics.map.push()
+	graphics.map.translate(50,50)
+	graphics.map.image(graphics.base,-100,-100)
+	for(a=0,la=run.fore.length;a<la;a++){
+		for(b=0,lb=run.fore[a].length;b<lb;b++){
+			run.fore[a][b].layer=graphics.map
+			run.fore[a][b].display()
+		}
+	}
+	graphics.map.pop()
+}
+function resetMap(){
+	for(a=0,la=run.fore.length;a<la;a++){
+		for(b=0,lb=run.fore[a].length;b<lb;b++){
+			run.fore[a][b].layer=graphics.full
+		}
+	}
 }
 function generateWorld(level){
 	game.edge.x=level.main[0].length*80

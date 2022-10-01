@@ -1,6 +1,9 @@
 function draw(){
     graphics.full.background(160,200,240)
     switch(stage.scene){
+        case 'map':
+            graphics.full.image(graphics.map,100,0,600,600)
+        break
         case 'level':
             graphics.full.push()
             graphics.full.translate(graphics.full.width/2,graphics.full.height/2)
