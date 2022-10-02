@@ -740,6 +740,9 @@ function block(id){
 		case 6: return [[0,0],[0,1]]; break
 		case 7: return [[0,0],[0,1],[0,2]]; break
 		case 8: return [[0,0],[1,0],[2,0],[1,1]]; break
+		case 9: return [[0,0],[1,0],[2,0],[0,1]]; break
+		case 10: return [[0,0],[1,0],[2,0],[2,1]]; break
+		case 11: return [[0,0],[1,0],[2,0],[1,-1]]; break
 	}
 }
 function blockCap(id){
@@ -750,7 +753,8 @@ function blockCap(id){
 		case 5: return [2,0]; break
 		case 6: return [0,1]; break
 		case 7: return [0,2]; break
-		case 8: return [2,1]; break
+		case 8: case 9: case 10: return [2,1]; break
+		case 11: return [2,-1]; break
 	}
 }
 function capital(letter){
