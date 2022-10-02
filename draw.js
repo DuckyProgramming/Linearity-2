@@ -24,6 +24,9 @@ function draw(){
                     }
                 }
             }
+            if(dev.wire){
+                graphics.full.image(graphics.wire,-100,-100)
+            }
             graphics.full.pop()
             displayInScreen(graphics.full,game)
         break

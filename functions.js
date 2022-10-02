@@ -659,6 +659,29 @@ function displayInScreen(layer,game){
 		layer.pop()
 	}
 }
+function displayWire(){
+	graphics.wire=createGraphics(game.edge.x+200,game.edge.y+200)
+	setupLayer(graphics.wire)
+	dev.screenPositions=[]
+	for(a=0,la=screens.main.length;a<la;a++){
+		dev.screenPositions.push([0,0])
+	}
+	for(a=0,la=entities.screens.length;a<la;a++){
+		dev.screenPositions[-entities.screens[a].type]=[entities.screens[a].position.x,entities.screens[a].position.y]
+	}
+	graphics.wire.stroke(255,0,0,0.25)
+	graphics.wire.strokeWeight(20)
+	for(a=0,la=entities.screens.length;a<la;a++){
+		if(entities.screens[a].id<=0){
+			graphics.wire.line(dev.screenPositions[-entities.screens[a].id][0]+100,dev.screenPositions[-entities.screens[a].id][1]+100,entities.screens[a].position.x+100,entities.screens[a].position.y+100)
+		}
+	}
+	for(a=0,la=entities.walls.length;a<la;a++){
+		if(entities.walls[a].id<=0){
+			graphics.wire.line(dev.screenPositions[-entities.walls[a].id][0]+100,dev.screenPositions[-entities.walls[a].id][1]+100,entities.walls[a].position.x+100,entities.walls[a].position.y+100)
+		}
+	}
+}
 function regTriangle(layer,x,y,radius,direction){
 	layer.triangle(x+sin(direction)*radius,y+cos(direction)*radius,x+sin(direction+120)*radius,y+cos(direction+120)*radius,x+sin(direction+240)*radius,y+cos(direction+240)*radius);
 }
@@ -856,6 +879,9 @@ function generateMap(){
 			run.fore[a][b].layer=graphics.map
 			run.fore[a][b].display()
 		}
+	}
+	if(dev.wire){
+		graphics.map.image(graphics.wire,-100,-100)
 	}
 	graphics.map.pop()
 }

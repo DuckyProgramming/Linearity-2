@@ -11,6 +11,9 @@ function setup(){
     generateWorld(levels[stage.level])
     displayBasePlate([100,105,110],[160,200,240])
     displayPath(graphics.base,levels[stage.level],[175,175,180])
+    if(dev.wire){
+        displayWire()
+    }
 }
 function windowResized(){
     cnv.position((windowWidth-width)/2,(windowHeight-height)/2)
