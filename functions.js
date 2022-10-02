@@ -69,9 +69,12 @@ function generateRememberScreen(){
 function generateGroup(){
 	grouping.complete=false
 	grouping.screen=[]
+	grouping.groups=1
 	grouping.size=[0]
 	grouping.star=[[0,0,0,0,0,0,0,0]]
 	grouping.dot=[0]
+	grouping.shape=[[]]
+	grouping.shapes=[[]]
 	for(a=0,la=screen.main.length/2-1;a<la;a++){
 		grouping.screen.push([])
 		for(b=0,lb=screen.main[a].length/2-1;b<lb;b++){
@@ -112,10 +115,13 @@ function generateGroup(){
 					if(grouping.screen[a][b]<0&&grouping.add){
 						grouping.screen[a][b]=grouping.create
 						grouping.create++
+						grouping.groups++
 						grouping.add=false
 						grouping.size.push(0)
 						grouping.star.push([0,0,0,0,0,0,0,0])
 						grouping.dot.push(0)
+						grouping.shape.push([])
+						grouping.shapes.push([])
 					}
 				}
 			}
@@ -134,15 +140,65 @@ function checkScreen(screen){
 	for(a=0,la=grouping.dot.length;a<la;a++){
 		grouping.dot[a]=0
 	}
+	for(a=0,la=grouping.shape.length;a<la;a++){
+		grouping.shape[a]=[]
+	}
+	for(a=0,la=grouping.shapes.length;a<la;a++){
+		grouping.shapes[a]=[]
+	}
 	screen.complete=true
 	for(a=0,la=grouping.screen.length;a<la;a++){
 		for(b=0,lb=grouping.screen[a].length;b<lb;b++){
 			grouping.size[grouping.screen[a][b]]++
+			grouping.shape[grouping.screen[a][b]].push([a,b])
 			if(colorNumber(screen.main[a*2+1][b*2+1])>=0){
 				grouping.star[grouping.screen[a][b]][colorNumber(screen.main[a*2+1][b*2+1])]++
 			}
 			if(dotNumber(screen.main[a*2+1][b*2+1])!=0){
 				grouping.dot[grouping.screen[a][b]]+=dotNumber(screen.main[a*2+1][b*2+1])
+			}  
+			if(blockId(screen.main[a*2+1][b*2+1])!=0){
+				grouping.shapes[grouping.screen[a][b]].push(block(blockId(screen.main[a*2+1][b*2+1])))
+			}
+		}
+	}
+	for(a=0;a<grouping.groups;a++){
+		if(screen.complete&&grouping.shapes[a].length>0){
+			grouping.add=false
+			if(grouping.shapes[a].length==1){
+				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){//every possible shape position
+					grouping.check=[]
+					for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){
+						grouping.check.push(1)
+					}
+					grouping.cancel=false
+					for(i2=0,li2=grouping.shapes[a][0].length;i2<li2;i2++){//every piece of shape
+						grouping.block=false
+						for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//cross-check piece position with group position
+							if(grouping.shape[a][i3][0]==grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]&&grouping.shape[a][i3][1]==grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]){
+								grouping.check[i3]=0
+								grouping.block=true
+							}
+						}
+						if(grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]>=grouping.screen.length||grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]>=grouping.screen[0].length||!grouping.block){
+							grouping.cancel=true
+						}
+					}
+					grouping.works=true
+					for(i2=0,li2=grouping.check.length;i2<li2;i2++){
+						if(grouping.check[i2]==1){
+							grouping.works=false
+						}
+					}
+					if(grouping.works&&!grouping.cancel){
+						grouping.add=true
+					}
+				}
+			}
+			if(!grouping.add){
+				if(screen.complete){
+					screen.complete=false
+				}
 			}
 		}
 	}
@@ -469,7 +525,7 @@ function displayScreen(layer,screen){
 				case 'q': case 'r': case 's': case 't':
 					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
 					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
-						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,7,7)
+						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,6.5,6.5)
 					}
 				break
 			}
@@ -689,6 +745,7 @@ function blockId(letter){
 		case 'w': return 7; break
 		case 'x': return 8; break
 	}
+	return 0
 }
 function setMouse(){
 	inputs.mouse.x=mouseX

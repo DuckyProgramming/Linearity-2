@@ -177,7 +177,6 @@ function keyPressed(){
                         generateScreenRemember()
                         if(!screen.complete&&!grouping.fail){
                             checkScreen(screen)
-                            print(screen.complete)
                         }
                         if(screen.complete){
                             entities.screens[game.enter.select].complete=true
