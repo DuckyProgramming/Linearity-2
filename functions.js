@@ -163,7 +163,7 @@ function checkScreen(screen){
 		}
 	}
 	for(a=0;a<grouping.groups;a++){
-		if(screen.complete&&grouping.shapes[a].length>0){
+		if(grouping.shapes[a].length>0){
 			grouping.add=false
 			if(grouping.shapes[a].length==1){
 				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){//every possible shape position
@@ -219,32 +219,37 @@ function checkScreen(screen){
 						for(i2=0,li2=grouping.check.length;i2<li2;i2++){
 							grouping.checkRemember.push(grouping.check[i2])
 						}
-						grouping.check=[]//copy existing blocks
-						for(i2=0,li2=grouping.checkRemember.length;i2<li2;i2++){
-							grouping.check.push(grouping.checkRemember[i2])
-						}
 						for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){//every position for second piece
-							grouping.cancel2=false
-							for(i3=0,li3=grouping.shapes[a][1].length;i3<li3;i3++){//every piece of shape
-								grouping.block=false
-								for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//cross-check piece position with group position
-									if(grouping.shape[a][i4][0]==grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]&&grouping.shape[a][i4][1]==grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]){
-										grouping.check[i4]=0
-										grouping.block=true
+							if(grouping.checkRemember[i2]==1){
+								grouping.check=[]//copy existing blocks
+								for(i3=0,li3=grouping.checkRemember.length;i3<li3;i3++){
+									grouping.check.push(grouping.checkRemember[i3])
+								}
+								grouping.cancel2=false
+								for(i3=0,li3=grouping.shapes[a][1].length;i3<li3;i3++){//every piece of shape
+									grouping.block=false
+									for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//cross-check piece position with group position
+										if(grouping.shape[a][i4][0]==grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]&&grouping.shape[a][i4][1]==grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]){
+											grouping.check[i4]=0
+											grouping.block=true
+											if(grouping.checkRemember[i4]==0){
+												grouping.cancel2=true
+											}
+										}
+									}
+									if(grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]>=grouping.screen.length||grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]>=grouping.screen[0].length||!grouping.block){
+										grouping.cancel2=true
 									}
 								}
-								if(grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]>=grouping.screen.length||grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]>=grouping.screen[0].length||!grouping.block){
-									grouping.cancel2=true
+								grouping.works=true
+								for(i3=0,li3=grouping.check.length;i3<li3;i3++){
+									if(grouping.check[i3]==1){
+										grouping.works=false
+									}
 								}
-							}
-							grouping.works=true
-							for(i3=0,li3=grouping.check.length;i3<li3;i3++){
-								if(grouping.check[i3]==1){
-									grouping.works=false
+								if(grouping.works&&!grouping.cancel&&!grouping.cancel2){
+									grouping.add=true
 								}
-							}
-							if(grouping.works&&!grouping.cancel&&!grouping.cancel2){
-								grouping.add=true
 							}
 						}
 					}
@@ -256,8 +261,6 @@ function checkScreen(screen){
 						screen.error[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1]=1
 					}
 				}
-			}
-			if(!grouping.add){
 				if(screen.complete){
 					screen.complete=false
 				}
@@ -584,7 +587,7 @@ function displayScreen(layer,screen){
 						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
 					}
 				break
-				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'Y': case 'V': case 'W': case 'X': case 'Y': case 'Z':
 					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
 					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
 						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,6.5,6.5)
@@ -736,6 +739,7 @@ function block(id){
 		case 5: return [[0,0],[1,0],[2,0]]; break
 		case 6: return [[0,0],[0,1]]; break
 		case 7: return [[0,0],[0,1],[0,2]]; break
+		case 8: return [[0,0],[1,0],[2,0],[1,1]]; break
 	}
 }
 function blockCap(id){
@@ -746,6 +750,7 @@ function blockCap(id){
 		case 5: return [2,0]; break
 		case 6: return [0,1]; break
 		case 7: return [0,2]; break
+		case 8: return [2,1]; break
 	}
 }
 function capital(letter){
@@ -813,6 +818,18 @@ function blockId(letter){
 		case 'v': return 6; break
 		case 'w': return 7; break
 		case 'x': return 8; break
+		case 'y': return 9; break
+		case 'z': return 10; break
+		case 'Q': return 11; break
+		case 'R': return 12; break
+		case 'S': return 13; break
+		case 'Y': return 14; break
+		case 'U': return 15; break
+		case 'W': return 16; break
+		case 'W': return 17; break
+		case 'X': return 18; break
+		case 'Y': return 19; break
+		case 'Z': return 20; break
 	}
 	return 0
 }
