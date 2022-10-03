@@ -256,6 +256,97 @@ function checkScreen(screen){
 					}
 				}
 			}
+			else if(grouping.shapes[a].length==3){
+				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){//every possible shape position
+					grouping.check=[]
+					for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){
+						grouping.check.push(1)
+					}
+					grouping.cancel=false
+					for(i2=0,li2=grouping.shapes[a][0].length;i2<li2;i2++){//every piece of shape
+						grouping.block=false
+						for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//cross-check piece position with group position
+							if(grouping.shape[a][i3][0]==grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]&&grouping.shape[a][i3][1]==grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]){
+								grouping.check[i3]=0
+								grouping.block=true
+							}
+						}
+						if(grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]>=grouping.screen.length||grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]>=grouping.screen[0].length||!grouping.block){
+							grouping.cancel=true
+						}
+					}
+					if(!grouping.cancel){
+						grouping.checkRemember=[]//remember existing blocks
+						for(i2=0,li2=grouping.check.length;i2<li2;i2++){
+							grouping.checkRemember.push(grouping.check[i2])
+						}
+						for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){//every position for second piece
+							if(grouping.checkRemember[i2]==1){
+								grouping.check=[]//copy existing blocks
+								for(i3=0,li3=grouping.checkRemember.length;i3<li3;i3++){
+									grouping.check.push(grouping.checkRemember[i3])
+								}
+								grouping.cancel2=false
+								for(i3=0,li3=grouping.shapes[a][1].length;i3<li3;i3++){//every piece of shape
+									grouping.block=false
+									for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//cross-check piece position with group position
+										if(grouping.shape[a][i4][0]==grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]&&grouping.shape[a][i4][1]==grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]){
+											grouping.check[i4]=0
+											grouping.block=true
+											if(grouping.checkRemember[i4]==0){
+												grouping.cancel2=true
+											}
+										}
+									}
+									if(grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]>=grouping.screen.length||grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]>=grouping.screen[0].length||!grouping.block){
+										grouping.cancel2=true
+									}
+								}
+								if(!grouping.cancel2){
+									grouping.checkRemember2=[]//remember existing blocks
+									for(i3=0,li3=grouping.check.length;i3<li3;i3++){
+										grouping.checkRemember2.push(grouping.check[i3])
+									}
+									for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//every position for third piece
+										if(grouping.checkRemember2[i3]==1){
+											grouping.check=[]//copy existing blocks
+											for(i4=0,li4=grouping.checkRemember2.length;i4<li4;i4++){
+												grouping.check.push(grouping.checkRemember2[i4])
+											}
+											print(grouping.check)
+											grouping.cancel2=false
+											for(i4=0,li4=grouping.shapes[a][2].length;i4<li4;i4++){//every piece of shape
+												grouping.block=false
+												for(i5=0,li5=grouping.shape[a].length;i5<li5;i5++){//cross-check piece position with group position
+													if(grouping.shape[a][i5][0]==grouping.shapes[a][2][i4][0]+grouping.shape[a][i3][0]&&grouping.shape[a][i5][1]==grouping.shapes[a][2][i4][1]+grouping.shape[a][i3][1]){
+														grouping.check[i5]=0
+														grouping.block=true
+														if(grouping.checkRemember[i5]==0){
+															grouping.cancel3=true
+														}
+													}
+												}
+												if(grouping.shapes[a][2][i4][0]+grouping.shape[a][i3][0]>=grouping.screen.length||grouping.shapes[a][2][i4][1]+grouping.shape[a][i3][1]>=grouping.screen[0].length||!grouping.block){
+													grouping.cancel3=true
+												}
+											}
+											grouping.works=true
+											for(i4=0,li4=grouping.check.length;i4<li4;i4++){
+												if(grouping.check[i4]==1){
+													grouping.works=false
+												}
+											}
+											if(grouping.works&&!grouping.cancel&&!grouping.cancel2&&!grouping.cancel3){
+												grouping.add=true
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 			if(!grouping.add){
 				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){
 					if(blockId(screen.main[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1])>0){
