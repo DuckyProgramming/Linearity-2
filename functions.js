@@ -826,7 +826,7 @@ function pointInsideBox(point,box){
 	}
 }
 function circleCollideBox(box,circle){
-	return pushPoint(circle.position,{x:constrain(circle.position.x,box.position.x-box.width/2,box.position.x+box.width/2),y:constrain(circle.position.y,box.position.y-box.height/2,box.position.y+box.height/2)},circle.size)
+	return pushPoint(circle.position,{x:constrain(circle.position.x,box.position.x-box.width/2,box.position.x+box.width/2),y:constrain(circle.position.y,box.position.y-box.height/2,box.position.y+box.height/2)},circle.size+1)
 }
 function circleInsideBox(box,circle){
 	if(dist(circle.position.x,circle.position.y,constrain(circle.position.x,box.position.x-box.width/2,box.position.x+box.width/2),constrain(circle.position.y,box.position.y-box.height/2,box.position.y+box.height/2))<circle.size){
@@ -863,13 +863,14 @@ function block(id){
 		case 15: return [[0,0],[1,0],[2,0],[3,0]]; break
 		case 16: return [[0,0],[0,1],[0,2],[1,2]]; break
 		case 17: return [[0,0],[1,0],[2,0],[1,1],[1,-1]]; break
+		case 18: return [[0,0],[1,0],[0,1]]; break
 	}
 }
 function blockCap(id){
 	switch(id){
 		case 1: return [0,0]; break
 		case 2: return [1,0]; break
-		case 3: case 4: case 12: return [1,1]; break
+		case 3: case 4: case 12: case 18: return [1,1]; break
 		case 5: case 17: return [2,0]; break
 		case 6: return [0,1]; break
 		case 7: return [0,2]; break

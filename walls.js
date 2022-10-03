@@ -270,7 +270,7 @@ class wall extends entity{
                         this.collide[e][f].position.x=this.collideInfo.x
                         this.collide[e][f].position.y=this.collideInfo.y
                         this.collide[e][f].speed*=0.9
-                        if(this.type<0&&!game.enter.trigger&&this.trigger.start&&dist(0,0,this.collide[e][f].vel.x,this.collide[e][f].vel.y)>1){
+                        if(this.type<=0&&!game.enter.trigger&&this.trigger.start&&dist(0,0,this.collide[e][f].vel.x,this.collide[e][f].vel.y)>2){
                             game.enter.trigger=true
                             game.enter.id=-this.type
                             game.enter.select=b
