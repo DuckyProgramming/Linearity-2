@@ -313,8 +313,7 @@ function checkScreen(screen){
 											for(i4=0,li4=grouping.checkRemember2.length;i4<li4;i4++){
 												grouping.check.push(grouping.checkRemember2[i4])
 											}
-											print(grouping.check)
-											grouping.cancel2=false
+											grouping.cancel3=false
 											for(i4=0,li4=grouping.shapes[a][2].length;i4<li4;i4++){//every piece of shape
 												grouping.block=false
 												for(i5=0,li5=grouping.shape[a].length;i5<li5;i5++){//cross-check piece position with group position
@@ -679,7 +678,7 @@ function displayScreen(layer,screen){
 						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
 					}
 				break
-				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'Y': case 'V': case 'W': case 'X': case 'Y': case 'Z':
+				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z':
 					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
 					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
 						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,6.5,6.5)
@@ -858,18 +857,28 @@ function block(id){
 		case 9: return [[0,0],[1,0],[2,0],[0,1]]; break
 		case 10: return [[0,0],[1,0],[2,0],[2,1]]; break
 		case 11: return [[0,0],[1,0],[2,0],[1,-1]]; break
+		case 12: return [[0,0],[1,1]]; break
+		case 13: return [[0,0],[1,-1]]; break
+		case 14: return [[0,0],[0,1],[0,2],[0,3]]; break
+		case 15: return [[0,0],[1,0],[2,0],[3,0]]; break
+		case 16: return [[0,0],[0,1],[0,2],[1,2]]; break
+		case 17: return [[0,0],[1,0],[2,0],[1,1],[1,-1]]; break
 	}
 }
 function blockCap(id){
 	switch(id){
 		case 1: return [0,0]; break
 		case 2: return [1,0]; break
-		case 3: case 4: return [1,1]; break
-		case 5: return [2,0]; break
+		case 3: case 4: case 12: return [1,1]; break
+		case 5: case 17: return [2,0]; break
 		case 6: return [0,1]; break
 		case 7: return [0,2]; break
 		case 8: case 9: case 10: return [2,1]; break
 		case 11: return [2,-1]; break
+		case 13: return [1,-1]; break
+		case 14: return [0,3]; break
+		case 15: return [3,0]; break
+		case 16: return [1,2]; break
 	}
 }
 function capital(letter){
@@ -942,9 +951,9 @@ function blockId(letter){
 		case 'Q': return 11; break
 		case 'R': return 12; break
 		case 'S': return 13; break
-		case 'Y': return 14; break
+		case 'T': return 14; break
 		case 'U': return 15; break
-		case 'W': return 16; break
+		case 'V': return 16; break
 		case 'W': return 17; break
 		case 'X': return 18; break
 		case 'Y': return 19; break
