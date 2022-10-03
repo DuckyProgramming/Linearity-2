@@ -270,6 +270,14 @@ class wall extends entity{
                         this.collide[e][f].position.x=this.collideInfo.x
                         this.collide[e][f].position.y=this.collideInfo.y
                         this.collide[e][f].speed*=0.9
+                        if(this.type<0&&!game.enter.trigger&&this.trigger.start&&dist(0,0,this.collide[e][f].vel.x,this.collide[e][f].vel.y)>1){
+                            game.enter.trigger=true
+                            game.enter.id=-this.type
+                            game.enter.select=b
+                            game.enter.position.x=(this.position.x-stage.focus.x)*stage.zoom+graphics.full.width/2
+                            game.enter.position.y=(this.position.y-stage.focus.y)*stage.zoom+graphics.full.height/2
+                            setupScreen(this)
+                        }
                     }
                 }
             }
