@@ -1021,7 +1021,7 @@ function generateWorld(level){
             if(level.main[m][n]>=100&&level.main[m][n]<10000&&(floor(level.main[m][n]/100)==6||floor(level.main[m][n]/100)==13)){
                 entities.base.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
-            else if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)!=1){
+            else if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)!=1&&floor(level.main[m][n]/100)!=2){
                 entities.walls.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
             else if(level.main[m][n]>=-1000&&level.main[m][n]<=0){
@@ -1036,7 +1036,7 @@ function generateWorld(level){
     }
 	for(m=0,lm=level.main.length;m<lm;m++){
         for(n=0,ln=level.main[m].length;n<ln;n++){
-            if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)==1){
+            if(level.main[m][n]>=100&&level.main[m][n]<10000&&(floor(level.main[m][n]/100)==1||floor(level.main[m][n]/100)==2)){
                 entities.walls.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
         }
