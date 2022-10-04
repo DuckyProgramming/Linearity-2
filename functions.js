@@ -678,7 +678,7 @@ function displayScreen(layer,screen){
 						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
 					}
 				break
-				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z':
+				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z': case '~': case '`':
 					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
 					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
 						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,6.5,6.5)
@@ -864,6 +864,10 @@ function block(id){
 		case 16: return [[0,0],[0,1],[0,2],[1,2]]; break
 		case 17: return [[0,0],[1,0],[2,0],[1,1],[1,-1]]; break
 		case 18: return [[0,0],[1,0],[0,1]]; break
+		case 19: return [[0,0],[1,0],[1,1],[1,2]]; break
+		case 20: return [[0,0],[1,0],[0,1],[0,2]]; break
+		case 21: return [[0,0],[1,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2]]; break
+		case 22: return [[0,0],[1,0],[-1,1]]; break
 	}
 }
 function blockCap(id){
@@ -872,14 +876,15 @@ function blockCap(id){
 		case 2: return [1,0]; break
 		case 3: case 4: case 12: case 18: return [1,1]; break
 		case 5: case 17: return [2,0]; break
-		case 6: return [0,1]; break
+		case 6: case 22: return [0,1]; break
 		case 7: return [0,2]; break
 		case 8: case 9: case 10: return [2,1]; break
 		case 11: return [2,-1]; break
 		case 13: return [1,-1]; break
 		case 14: return [0,3]; break
 		case 15: return [3,0]; break
-		case 16: return [1,2]; break
+		case 16: case 19: case 20: return [1,2]; break
+		case 21: return [2,2]; break
 	}
 }
 function capital(letter){
@@ -959,6 +964,8 @@ function blockId(letter){
 		case 'X': return 18; break
 		case 'Y': return 19; break
 		case 'Z': return 20; break
+		case '~': return 21; break
+		case '`': return 22; break
 	}
 	return 0
 }
