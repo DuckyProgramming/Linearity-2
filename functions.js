@@ -868,6 +868,7 @@ function block(id){
 		case 20: return [[0,0],[1,0],[0,1],[0,2]]; break
 		case 21: return [[0,0],[1,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2]]; break
 		case 22: return [[0,0],[1,0],[-1,1]]; break
+		case 23: return [[0,0],[0,1],[-1,1]]; break
 	}
 }
 function blockCap(id){
@@ -880,7 +881,7 @@ function blockCap(id){
 		case 7: return [0,2]; break
 		case 8: case 9: case 10: return [2,1]; break
 		case 11: return [2,-1]; break
-		case 13: return [1,-1]; break
+		case 13: case 23: return [1,-1]; break
 		case 14: return [0,3]; break
 		case 15: return [3,0]; break
 		case 16: case 19: case 20: return [1,2]; break
@@ -966,6 +967,7 @@ function blockId(letter){
 		case 'Z': return 20; break
 		case '~': return 21; break
 		case '`': return 22; break
+		case '|': return 23; break
 	}
 	return 0
 }
