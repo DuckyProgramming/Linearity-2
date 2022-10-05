@@ -286,7 +286,7 @@ class wall extends entity{
                         for(g=0,lg=this.height/80;g<lg;g++){
                             for(h=0,lh=this.width/80;h<lh;h++){
                                 if(this.collide[e][f].position.x>this.position.x-this.width/2-10+h*80&&this.collide[e][f].position.x<this.position.x-this.width/2+90+h*80&&
-                                this.collide[e][f].position.y>this.position.y-this.height/2-10+g*80&&this.collide[e][f].position.y<this.position.y-this.height/2+90+g*80&&entities.screens[game.puzzle.id[this.type-18]].screen.trigger){
+                                this.collide[e][f].position.y>this.position.y-this.height/2-10+g*80&&this.collide[e][f].position.y<this.position.y-this.height/2+90+g*80&&entities.screens[game.puzzle.id[this.type-18]].screen.trigger&&game.enter.anim<=0){
                                     entities.screens[game.puzzle.id[this.type-18]].screen.active[g][h]=true
                                     entities.screens[game.puzzle.id[this.type-18]].screen.position=[g,h]
                                 }
