@@ -9,6 +9,7 @@ function setup(){
     setupLayer(graphics.full)
     generateScreens(screens)
     generateWorld(levels[stage.level])
+    setupPuzzleId(entities.screens)
     displayBasePlate([100,105,110],[160,200,240])
     displayPath(graphics.base,levels[stage.level],[175,175,180])
     if(dev.wire){

@@ -15,7 +15,7 @@ function keyPressed(){
         case 'level':
             if(game.enter.anim>=1){
                 inputs.previous=[]
-                if((key=='e'||key=='E')&&(!screen.trigger||screen.position[0]==screen.start[0]&&screen.position[1]==screen.start[1])){
+                if((key=='e'||key=='E')&&(!screen.trigger||screen.position[0]==screen.start[0]&&screen.position[1]==screen.start[1])&&(game.enter.id<628||game.enter.id>=632)){
                     for(a=0,la=screen.main.length;a<la;a++){
                         for(b=0,lb=screen.main[a].length;b<lb;b++){
                             if(screen.main[(screen.position[0]+a+1)%screen.main.length][(screen.position[1]+b)%screen.main[a].length]=='('){

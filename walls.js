@@ -207,6 +207,14 @@ class wall extends entity{
                 this.layer.strokeWeight(4)
                 this.layer.rect(0,0,this.width,this.height)
             break
+            case 18: case 19: case 20: case 21:
+                for(e=0,le=this.height/80;e<le;e++){
+                    for(f=0,lf=this.width/80;f<lf;f++){
+                        this.layer.fill(entities.screens[game.puzzle.id[this.type-18]].screen.fade[e][f]*255)
+                        this.layer.ellipse(-this.width/2+40+f*80,-this.height/2+40+e*80,40,40)
+                    }
+                }
+            break
         }
         if(dev.box||this.type==7||this.type==8){
             this.layer.noFill()
@@ -262,7 +270,7 @@ class wall extends entity{
         if(this.type<=0&&this.complete&&this.completeAnim<1){
             this.completeAnim=round(this.completeAnim*20+1)/20
         }
-        if(this.type!=6&&this.type!=13){
+        if(this.type!=6&&this.type!=13&&this.type!=18&&this.type!=19&&this.type!=20&&this.type!=21){
             for(e=0,le=this.collide.length;e<le;e++){
                 for(f=0,lf=this.collide[e].length;f<lf;f++){
                     if(circleInsideBox(this,this.collide[e][f])){

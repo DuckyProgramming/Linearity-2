@@ -17,6 +17,22 @@ function setupScreen(base){
 	screen.position=base.screen.position
 	screen.symmetry=base.screen.symmetry
 }
+function setupPuzzleId(screens){
+	for(a=0,la=screens.length;a<la;a++){
+		if(screens[a].type==-628){
+			game.puzzle.id[0]=a
+		}
+		if(screens[a].type==-629){
+			game.puzzle.id[1]=a
+		}
+		if(screens[a].type==-630){
+			game.puzzle.id[2]=a
+		}
+		if(screens[a].type==-631){
+			game.puzzle.id[3]=a
+		}
+	}
+}
 function generateScreens(screens){
 	for(i=0,li=screens.main.length;i<li;i++){
 		screens.complete.push(false)
@@ -1019,10 +1035,10 @@ function generateWorld(level){
 	game.edge.y=level.main.length*80
 	for(m=0,lm=level.main.length;m<lm;m++){
         for(n=0,ln=level.main[m].length;n<ln;n++){
-            if(level.main[m][n]>=100&&level.main[m][n]<10000&&(floor(level.main[m][n]/100)==6||floor(level.main[m][n]/100)==13)){
+            if(level.main[m][n]>=100&&level.main[m][n]<10000&&(floor(level.main[m][n]/100)==6||floor(level.main[m][n]/100)==13||floor(level.main[m][n]/100)==18||floor(level.main[m][n]/100)==19||floor(level.main[m][n]/100)==20||floor(level.main[m][n]/100)==21)){
                 entities.base.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
-            else if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)!=1&&floor(level.main[m][n]/100)!=2){
+            else if(level.main[m][n]>=100&&level.main[m][n]<10000&&floor(level.main[m][n]/100)!=1&&floor(level.main[m][n]/100)!=2&&floor(level.main[m][n]/100)!=18&&floor(level.main[m][n]/100)!=19&&floor(level.main[m][n]/100)!=20&&floor(level.main[m][n]/100)!=21){
                 entities.walls.push(new wall(graphics.full,n*80+floor((level.main[m][n]%100)/10)*40+40,m*80+(level.main[m][n]%10)*40+40,floor(level.main[m][n]/100),floor((level.main[m][n]%100)/10)*80+80,(level.main[m][n]%10)*80+80,level.id[m][n]))
             }
             else if(level.main[m][n]>=-1000&&level.main[m][n]<=0){
