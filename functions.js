@@ -460,8 +460,8 @@ function checkScreen(screen){
 																	}
 																}
 															}
-															if(grouping.shapes[a][2][i5][0]+grouping.shape[a][i4][0]>=grouping.screen.length||grouping.shapes[a][2][i5][1]+grouping.shape[a][i4][1]>=grouping.screen[0].length||!grouping.block){
-																grouping.cancel3=true
+															if(grouping.shapes[a][3][i5][0]+grouping.shape[a][i4][0]>=grouping.screen.length||grouping.shapes[a][3][i5][1]+grouping.shape[a][i4][1]>=grouping.screen[0].length||!grouping.block){
+																grouping.cancel4=true
 															}
 														}
 														grouping.works=true
@@ -1026,6 +1026,34 @@ function blockCap(id){
 		case 21: return [2,2]; break
 	}
 }
+function blockId(letter){
+	switch(letter){
+		case 'q': return 1; break
+		case 'r': return 2; break
+		case 's': return 3; break
+		case 't': return 4; break
+		case 'u': return 5; break
+		case 'v': return 6; break
+		case 'w': return 7; break
+		case 'x': return 8; break
+		case 'y': return 9; break
+		case 'z': return 10; break
+		case 'Q': return 11; break
+		case 'R': return 12; break
+		case 'S': return 13; break
+		case 'T': return 14; break
+		case 'U': return 15; break
+		case 'V': return 16; break
+		case 'W': return 17; break
+		case 'X': return 18; break
+		case 'Y': return 19; break
+		case 'Z': return 20; break
+		case '~': return 21; break
+		case '`': return 22; break
+		case '|': return 23; break
+	}
+	return 0
+}
 function capital(letter){
 	switch(letter){
 		case 'a': return 'A'; break
@@ -1078,34 +1106,6 @@ function dotNumber(letter){
 		case 'N': return -6; break
 		case 'O': return -7; break
 		case 'P': return -8; break
-	}
-	return 0
-}
-function blockId(letter){
-	switch(letter){
-		case 'q': return 1; break
-		case 'r': return 2; break
-		case 's': return 3; break
-		case 't': return 4; break
-		case 'u': return 5; break
-		case 'v': return 6; break
-		case 'w': return 7; break
-		case 'x': return 8; break
-		case 'y': return 9; break
-		case 'z': return 10; break
-		case 'Q': return 11; break
-		case 'R': return 12; break
-		case 'S': return 13; break
-		case 'T': return 14; break
-		case 'U': return 15; break
-		case 'V': return 16; break
-		case 'W': return 17; break
-		case 'X': return 18; break
-		case 'Y': return 19; break
-		case 'Z': return 20; break
-		case '~': return 21; break
-		case '`': return 22; break
-		case '|': return 23; break
 	}
 	return 0
 }
