@@ -28,7 +28,7 @@ function mousePressed(){
                                     min(30/screen.main[0].length/10*(1+game.enter.anim*41/7),
                                     30/screen.main.length/10*(1+game.enter.anim*41/7))+graphics.full.height/2)<
                                     6*min(30/screen.main[0].length/10*(1+game.enter.anim*41/7),
-                                    30/screen.main.length/10*(1+game.enter.anim*41/7))){
+                                    30/screen.main.length/10*(1+game.enter.anim*41/7))&&(game.enter.id<628||game.enter.id>=632)){
                                     screen.active[a][b]=true
                                     screen.trigger=true
                                     screen.position=[a,b]

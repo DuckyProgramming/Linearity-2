@@ -15,7 +15,7 @@ function draw(){
                     if(run.fore[a][b].position.x+run.fore[a][b].width/2>-graphics.full.width/2-100+stage.focus.x&&
                     run.fore[a][b].position.x-run.fore[a][b].width/2<graphics.full.width/2+100+stage.focus.x&&
                     run.fore[a][b].position.y+run.fore[a][b].height/2>-graphics.full.height/2-100+stage.focus.y&&
-                    run.fore[a][b].position.y-run.fore[a][b].height/2<graphics.full.height/2+100+stage.focus.y||dev.view){
+                    run.fore[a][b].position.y-run.fore[a][b].height/2<graphics.full.height/2+100+stage.focus.y||dev.view||run.fore[a][b].type<=-628&&run.fore[a][b].type>-632){
                         run.fore[a][b].display()
                         run.fore[a][b].update()
                     }

@@ -270,10 +270,30 @@ class wall extends entity{
         if(this.type<=0&&this.complete&&this.completeAnim<1){
             this.completeAnim=round(this.completeAnim*20+1)/20
         }
-        if(this.type!=6&&this.type!=13&&this.type!=18&&this.type!=19&&this.type!=20&&this.type!=21){
+        if(this.type!=6&&this.type!=13){
             for(e=0,le=this.collide.length;e<le;e++){
                 for(f=0,lf=this.collide[e].length;f<lf;f++){
-                    if(circleInsideBox(this,this.collide[e][f])){
+                    if(this.type==18||this.type==19||this.type==20||this.type==21){
+                        if(this.collide[e][f].position.x>this.position.x-this.width/2-10&&this.collide[e][f].position.x<this.position.x-this.width/2+90&&
+                        this.collide[e][f].position.y>this.position.y-this.height/2-10&&this.collide[e][f].position.y<this.position.y-this.height/2+90&&!entities.screens[game.puzzle.id[this.type-18]].screen.trigger){
+                            entities.screens[game.puzzle.id[this.type-18]].screen.trigger=true
+                            entities.screens[game.puzzle.id[this.type-18]].screen.active[0][0]=true
+                            entities.screens[game.puzzle.id[this.type-18]].screen.trigger=true
+                            entities.screens[game.puzzle.id[this.type-18]].screen.position=[0,0]
+                            entities.screens[game.puzzle.id[this.type-18]].screen.start=[0,0]
+                            updateScreen(entities.screens[game.puzzle.id[this.type-18]].screen)
+                        }
+                        for(g=0,lg=this.height/80;g<lg;g++){
+                            for(h=0,lh=this.width/80;h<lh;h++){
+                                if(this.collide[e][f].position.x>this.position.x-this.width/2-10+h*80&&this.collide[e][f].position.x<this.position.x-this.width/2+90+h*80&&
+                                this.collide[e][f].position.y>this.position.y-this.height/2-10+g*80&&this.collide[e][f].position.y<this.position.y-this.height/2+90+g*80&&entities.screens[game.puzzle.id[this.type-18]].screen.trigger){
+                                    entities.screens[game.puzzle.id[this.type-18]].screen.active[g][h]=true
+                                    entities.screens[game.puzzle.id[this.type-18]].screen.position=[g,h]
+                                }
+                            }
+                        }
+                    }
+                    else if(circleInsideBox(this,this.collide[e][f])){
                         this.collideInfo=circleCollideBox(this,this.collide[e][f])
                         this.collide[e][f].position.x=this.collideInfo.x
                         this.collide[e][f].position.y=this.collideInfo.y
