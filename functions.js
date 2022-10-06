@@ -94,6 +94,8 @@ function generateGroup(){
 	grouping.dot=[0]
 	grouping.shape=[[]]
 	grouping.shapes=[[]]
+	grouping.Nshapes=[[]]
+	grouping.all=[]
 	for(a=0,la=screen.main.length/2-1;a<la;a++){
 		grouping.screen.push([])
 		for(b=0,lb=screen.main[a].length/2-1;b<lb;b++){
@@ -141,6 +143,7 @@ function generateGroup(){
 						grouping.dot.push(0)
 						grouping.shape.push([])
 						grouping.shapes.push([])
+						grouping.Nshapes.push([])
 					}
 				}
 			}
@@ -165,24 +168,31 @@ function checkScreen(screen){
 	for(a=0,la=grouping.shapes.length;a<la;a++){
 		grouping.shapes[a]=[]
 	}
+	for(a=0,la=grouping.Nshapes.length;a<la;a++){
+		grouping.Nshapes[a]=[]
+	}
 	screen.complete=true
 	for(a=0,la=grouping.screen.length;a<la;a++){
 		for(b=0,lb=grouping.screen[a].length;b<lb;b++){
 			grouping.size[grouping.screen[a][b]]++
 			grouping.shape[grouping.screen[a][b]].push([a,b])
+			grouping.all.push([a,b])
 			if(colorNumber(screen.main[a*2+1][b*2+1])>=0){
 				grouping.star[grouping.screen[a][b]][colorNumber(screen.main[a*2+1][b*2+1])]++
 			}
 			if(dotNumber(screen.main[a*2+1][b*2+1])!=0){
 				grouping.dot[grouping.screen[a][b]]+=dotNumber(screen.main[a*2+1][b*2+1])
 			}  
-			if(blockId(screen.main[a*2+1][b*2+1])!=0){
+			if(blockId(screen.main[a*2+1][b*2+1])>0){
 				grouping.shapes[grouping.screen[a][b]].push(block(blockId(screen.main[a*2+1][b*2+1])))
+			}
+			if(blockId(screen.main[a*2+1][b*2+1])<0){
+				grouping.Nshapes[grouping.screen[a][b]].push(block(-blockId(screen.main[a*2+1][b*2+1])))
 			}
 		}
 	}
 	for(a=0;a<grouping.groups;a++){
-		if(grouping.shapes[a].length>0){
+		if(grouping.shapes[a].length>0&&grouping.Nshapes[a].length==0){
 			grouping.add=false
 			if(grouping.shapes[a].length==1){
 				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){//every possible shape position
@@ -487,6 +497,79 @@ function checkScreen(screen){
 			if(!grouping.add){
 				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){
 					if(blockId(screen.main[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1])>0){
+						screen.error[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1]=1
+					}
+				}
+				if(screen.complete){
+					screen.complete=false
+				}
+			}
+		}
+		if(grouping.shapes[a].length>0&&grouping.Nshapes[a].length==1){
+			grouping.add=false
+			if(grouping.shapes[a].length==1){
+				for(i1=0,li1=grouping.all.length;i1<li1;i1++){//every possible shape position
+					grouping.check=[]
+					for(i2=0,li2=grouping.all.length;i2<li2;i2++){
+						grouping.check.push(1)
+					}
+					grouping.cancel=false
+					for(i2=0,li2=grouping.shapes[a][0].length;i2<li2;i2++){//every piece of shape
+						grouping.block=false
+						for(i3=0,li3=grouping.all.length;i3<li3;i3++){//cross-check piece position with group position
+							if(grouping.all[i3][0]==grouping.shapes[a][0][i2][0]+grouping.all[i1][0]&&grouping.all[i3][1]==grouping.shapes[a][0][i2][1]+grouping.all[i1][1]){
+								grouping.check[i3]=0
+								grouping.block=true
+							}
+						}
+						if(grouping.shapes[a][0][i2][0]+grouping.all[i1][0]>=grouping.screen.length||grouping.shapes[a][0][i2][1]+grouping.all[i1][1]>=grouping.screen[0].length||!grouping.block){
+							grouping.cancel=true
+						}
+					}
+					if(!grouping.cancel){
+						grouping.checkRemember=[]//remember existing blocks
+						for(i2=0,li2=grouping.check.length;i2<li2;i2++){
+							grouping.checkRemember.push(grouping.check[i2])
+						}
+						for(i2=0,li2=grouping.all.length;i2<li2;i2++){//every position for first negative piece
+							if(grouping.checkRemember[i2]==0){
+								grouping.check=[]//copy existing blocks
+								for(i3=0,li3=grouping.checkRemember.length;i3<li3;i3++){
+									grouping.check.push(grouping.checkRemember[i3])
+								}
+								grouping.cancel2=false
+								for(i3=0,li3=grouping.Nshapes[a][0].length;i3<li3;i3++){//every piece of shape
+									grouping.block=false
+									for(i4=0,li4=grouping.all.length;i4<li4;i4++){//cross-check piece position with group position
+										if(grouping.all[i4][0]==grouping.Nshapes[a][0][i3][0]+grouping.all[i2][0]&&grouping.all[i4][1]==grouping.Nshapes[a][0][i3][1]+grouping.all[i2][1]){
+											grouping.check[i4]=1
+											grouping.block=true
+											if(grouping.checkRemember[i4]==1){
+												grouping.cancel2=true
+											}
+										}
+									}
+									if(grouping.Nshapes[a][0][i3][0]+grouping.all[i2][0]>=grouping.screen.length||grouping.Nshapes[a][0][i3][1]+grouping.all[i2][1]>=grouping.screen[0].length||!grouping.block){
+										grouping.cancel2=true
+									}
+								}
+								grouping.works=true
+								for(i3=0,li3=grouping.check.length;i3<li3;i3++){
+									if(grouping.check[i3]==1&&grouping.screen[grouping.all[i3][0]][grouping.all[i3][1]]==a||grouping.check[i3]==0&&grouping.screen[grouping.all[i3][0]][grouping.all[i3][1]]!=a){
+										grouping.works=false
+									}
+								}
+								if(grouping.works&&!grouping.cancel&&!grouping.cancel2){
+									grouping.add=true
+								}
+							}
+						}
+					}
+				}
+			}
+			if(!grouping.add){
+				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){
+					if(blockId(screen.main[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1])!=0){
 						screen.error[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1]=1
 					}
 				}
@@ -816,10 +899,18 @@ function displayScreen(layer,screen){
 						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
 					}
 				break
-				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z': case '~': case '`':
+				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z': case '~': case '`': case 24: case 25: case 26: case 27:
 					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
 					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
 						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,6.5,6.5)
+					}
+				break
+				case -1: case -2: case -3: case -6: case -12: case -27:
+					layer.noFill()
+					layer.strokeWeight(1.5)
+					layer.stroke(errorLerp([95,60,95],screen.flash[i][j],screen.deactivate[i][j]))
+					for(k=0,lk=block(-blockId(screen.main[i][j])).length;k<lk;k++){
+						layer.rect(10+j*20-blockCap(-blockId(screen.main[i][j]))[1]*4+block(-blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(-blockId(screen.main[i][j]))[0]*4+block(-blockId(screen.main[i][j]))[k][0]*8,5,5)
 					}
 				break
 			}
@@ -1007,6 +1098,10 @@ function block(id){
 		case 21: return [[0,0],[1,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2]]; break
 		case 22: return [[0,0],[1,0],[-1,1]]; break
 		case 23: return [[0,0],[0,1],[-1,1]]; break
+		case 24: return [[0,0],[1,0],[2,0],[3,0],[0,1],[0,2],[3,1],[3,2],[0,3],[1,3],[2,3],[3,3]]; break
+		case 25: return [[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[0,3],[1,3],[2,3],[3,3]]; break
+		case 26: return [[0,0],[1,0],[1,1],[2,0],[2,1]]; break
+		case 27: return [[0,0],[0,1],[1,1],[2,1]]; break
 	}
 }
 function blockCap(id){
@@ -1017,13 +1112,14 @@ function blockCap(id){
 		case 5: case 17: return [2,0]; break
 		case 6: case 22: return [0,1]; break
 		case 7: return [0,2]; break
-		case 8: case 9: case 10: return [2,1]; break
+		case 8: case 9: case 10: case 26: case 27: return [2,1]; break
 		case 11: return [2,-1]; break
 		case 13: case 23: return [1,-1]; break
 		case 14: return [0,3]; break
 		case 15: return [3,0]; break
 		case 16: case 19: case 20: return [1,2]; break
 		case 21: return [2,2]; break
+		case 24: case 25: return [3,3]; break
 	}
 }
 function blockId(letter){
@@ -1051,6 +1147,7 @@ function blockId(letter){
 		case '~': return 21; break
 		case '`': return 22; break
 		case '|': return 23; break
+		case -1: case -2: case -3: case -6: case -12: case -27: case 24: case 25: case 26: case 27: return letter; break
 	}
 	return 0
 }
