@@ -494,6 +494,361 @@ function checkScreen(screen){
 					}
 				}
 			}
+			else if(grouping.shapes[a].length==5){
+				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){//every possible shape position
+					grouping.check=[]
+					for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){
+						grouping.check.push(1)
+					}
+					grouping.cancel=false
+					for(i2=0,li2=grouping.shapes[a][0].length;i2<li2;i2++){//every piece of shape
+						grouping.block=false
+						for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//cross-check piece position with group position
+							if(grouping.shape[a][i3][0]==grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]&&grouping.shape[a][i3][1]==grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]){
+								grouping.check[i3]=0
+								grouping.block=true
+							}
+						}
+						if(grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]>=grouping.screen.length||grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]>=grouping.screen[0].length||!grouping.block){
+							grouping.cancel=true
+						}
+					}
+					if(!grouping.cancel){
+						grouping.checkRemember=[]//remember existing blocks
+						for(i2=0,li2=grouping.check.length;i2<li2;i2++){
+							grouping.checkRemember.push(grouping.check[i2])
+						}
+						for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){//every position for second piece
+							if(grouping.checkRemember[i2]==1){
+								grouping.check=[]//copy existing blocks
+								for(i3=0,li3=grouping.checkRemember.length;i3<li3;i3++){
+									grouping.check.push(grouping.checkRemember[i3])
+								}
+								grouping.cancel2=false
+								for(i3=0,li3=grouping.shapes[a][1].length;i3<li3;i3++){//every piece of shape
+									grouping.block=false
+									for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//cross-check piece position with group position
+										if(grouping.shape[a][i4][0]==grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]&&grouping.shape[a][i4][1]==grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]){
+											grouping.check[i4]=0
+											grouping.block=true
+											if(grouping.checkRemember[i4]==0){
+												grouping.cancel2=true
+											}
+										}
+									}
+									if(grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]>=grouping.screen.length||grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]>=grouping.screen[0].length||!grouping.block){
+										grouping.cancel2=true
+									}
+								}
+								if(!grouping.cancel2){
+									grouping.checkRemember2=[]//remember existing blocks
+									for(i3=0,li3=grouping.check.length;i3<li3;i3++){
+										grouping.checkRemember2.push(grouping.check[i3])
+									}
+									for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//every position for third piece
+										if(grouping.checkRemember2[i3]==1){
+											grouping.check=[]//copy existing blocks
+											for(i4=0,li4=grouping.checkRemember2.length;i4<li4;i4++){
+												grouping.check.push(grouping.checkRemember2[i4])
+											}
+											grouping.cancel3=false
+											for(i4=0,li4=grouping.shapes[a][2].length;i4<li4;i4++){//every piece of shape
+												grouping.block=false
+												for(i5=0,li5=grouping.shape[a].length;i5<li5;i5++){//cross-check piece position with group position
+													if(grouping.shape[a][i5][0]==grouping.shapes[a][2][i4][0]+grouping.shape[a][i3][0]&&grouping.shape[a][i5][1]==grouping.shapes[a][2][i4][1]+grouping.shape[a][i3][1]){
+														grouping.check[i5]=0
+														grouping.block=true
+														if(grouping.checkRemember[i5]==0){
+															grouping.cancel3=true
+														}
+													}
+												}
+												if(grouping.shapes[a][2][i4][0]+grouping.shape[a][i3][0]>=grouping.screen.length||grouping.shapes[a][2][i4][1]+grouping.shape[a][i3][1]>=grouping.screen[0].length||!grouping.block){
+													grouping.cancel3=true
+												}
+											}
+											if(!grouping.cancel3){
+												grouping.checkRemember3=[]//remember existing blocks
+												for(i4=0,li4=grouping.check.length;i4<li4;i4++){
+													grouping.checkRemember3.push(grouping.check[i4])
+												}
+												for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//every position for fourth piece
+													if(grouping.checkRemember3[i4]==1){
+														grouping.check=[]//copy existing blocks
+														for(i5=0,li5=grouping.checkRemember3.length;i5<li5;i5++){
+															grouping.check.push(grouping.checkRemember3[i5])
+														}
+														grouping.cancel4=false
+														for(i5=0,li5=grouping.shapes[a][3].length;i5<li5;i5++){//every piece of shape
+															grouping.block=false
+															for(i6=0,li6=grouping.shape[a].length;i6<li6;i6++){//cross-check piece position with group position
+																if(grouping.shape[a][i6][0]==grouping.shapes[a][3][i5][0]+grouping.shape[a][i4][0]&&grouping.shape[a][i6][1]==grouping.shapes[a][3][i5][1]+grouping.shape[a][i4][1]){
+																	grouping.check[i6]=0
+																	grouping.block=true
+																	if(grouping.checkRemember[i6]==0){
+																		grouping.cancel4=true
+																	}
+																}
+															}
+															if(grouping.shapes[a][3][i5][0]+grouping.shape[a][i4][0]>=grouping.screen.length||grouping.shapes[a][3][i5][1]+grouping.shape[a][i4][1]>=grouping.screen[0].length||!grouping.block){
+																grouping.cancel4=true
+															}
+														}
+														if(!grouping.cancel4){
+															grouping.checkRemember4=[]//remember existing blocks
+															for(i5=0,li5=grouping.check.length;i5<li5;i5++){
+																grouping.checkRemember4.push(grouping.check[i5])
+															}
+															for(i5=0,li5=grouping.shape[a].length;i5<li5;i5++){//every position for fifth piece
+																if(grouping.checkRemember4[i5]==1){
+																	grouping.check=[]//copy existing blocks
+																	for(i6=0,li6=grouping.checkRemember4.length;i6<li6;i6++){
+																		grouping.check.push(grouping.checkRemember4[i6])
+																	}
+																	grouping.cancel5=false
+																	for(i6=0,li6=grouping.shapes[a][4].length;i6<li6;i6++){//every piece of shape
+																		grouping.block=false
+																		for(i7=0,li7=grouping.shape[a].length;i7<li7;i7++){//cross-check piece position with group position
+																			if(grouping.shape[a][i7][0]==grouping.shapes[a][4][i6][0]+grouping.shape[a][i5][0]&&grouping.shape[a][i7][1]==grouping.shapes[a][4][i6][1]+grouping.shape[a][i5][1]){
+																				grouping.check[i7]=0
+																				grouping.block=true
+																				if(grouping.checkRemember[i7]==0){
+																					grouping.cancel5=true
+																				}
+																			}
+																		}
+																		if(grouping.shapes[a][4][i6][0]+grouping.shape[a][i5][0]>=grouping.screen.length||grouping.shapes[a][4][i6][1]+grouping.shape[a][i5][1]>=grouping.screen[0].length||!grouping.block){
+																			grouping.cancel5=true
+																		}
+																	}
+																	grouping.works=true
+																	for(i6=0,li6=grouping.check.length;i6<li6;i6++){
+																		if(grouping.check[i6]==1){
+																			grouping.works=false
+																		}
+																	}
+																	if(grouping.works&&!grouping.cancel&&!grouping.cancel2&&!grouping.cancel3&&!grouping.cancel4&&!grouping.cancel5){
+																		grouping.add=true
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else if(grouping.shapes[a].length==6){
+				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){//every possible shape position
+					grouping.check=[]
+					for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){
+						grouping.check.push(1)
+					}
+					grouping.cancel=false
+					for(i2=0,li2=grouping.shapes[a][0].length;i2<li2;i2++){//every piece of shape
+						grouping.block=false
+						for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//cross-check piece position with group position
+							if(grouping.shape[a][i3][0]==grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]&&grouping.shape[a][i3][1]==grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]){
+								grouping.check[i3]=0
+								grouping.block=true
+							}
+						}
+						if(grouping.shapes[a][0][i2][0]+grouping.shape[a][i1][0]>=grouping.screen.length||grouping.shapes[a][0][i2][1]+grouping.shape[a][i1][1]>=grouping.screen[0].length||!grouping.block){
+							grouping.cancel=true
+						}
+					}
+					if(!grouping.cancel){
+						grouping.checkRemember=[]//remember existing blocks
+						for(i2=0,li2=grouping.check.length;i2<li2;i2++){
+							grouping.checkRemember.push(grouping.check[i2])
+						}
+						for(i2=0,li2=grouping.shape[a].length;i2<li2;i2++){//every position for second piece
+							if(grouping.checkRemember[i2]==1){
+								grouping.check=[]//copy existing blocks
+								for(i3=0,li3=grouping.checkRemember.length;i3<li3;i3++){
+									grouping.check.push(grouping.checkRemember[i3])
+								}
+								grouping.cancel2=false
+								for(i3=0,li3=grouping.shapes[a][1].length;i3<li3;i3++){//every piece of shape
+									grouping.block=false
+									for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//cross-check piece position with group position
+										if(grouping.shape[a][i4][0]==grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]&&grouping.shape[a][i4][1]==grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]){
+											grouping.check[i4]=0
+											grouping.block=true
+											if(grouping.checkRemember[i4]==0){
+												grouping.cancel2=true
+												break
+											}
+										}
+									}
+									if(grouping.cancel2){
+										break
+									}
+									if(grouping.shapes[a][1][i3][0]+grouping.shape[a][i2][0]>=grouping.screen.length||grouping.shapes[a][1][i3][1]+grouping.shape[a][i2][1]>=grouping.screen[0].length||!grouping.block){
+										grouping.cancel2=true
+										break
+									}
+								}
+								if(!grouping.cancel2){
+									grouping.checkRemember2=[]//remember existing blocks
+									for(i3=0,li3=grouping.check.length;i3<li3;i3++){
+										grouping.checkRemember2.push(grouping.check[i3])
+									}
+									for(i3=0,li3=grouping.shape[a].length;i3<li3;i3++){//every position for third piece
+										if(grouping.checkRemember2[i3]==1){
+											grouping.check=[]//copy existing blocks
+											for(i4=0,li4=grouping.checkRemember2.length;i4<li4;i4++){
+												grouping.check.push(grouping.checkRemember2[i4])
+											}
+											grouping.cancel3=false
+											for(i4=0,li4=grouping.shapes[a][2].length;i4<li4;i4++){//every piece of shape
+												grouping.block=false
+												for(i5=0,li5=grouping.shape[a].length;i5<li5;i5++){//cross-check piece position with group position
+													if(grouping.shape[a][i5][0]==grouping.shapes[a][2][i4][0]+grouping.shape[a][i3][0]&&grouping.shape[a][i5][1]==grouping.shapes[a][2][i4][1]+grouping.shape[a][i3][1]){
+														grouping.check[i5]=0
+														grouping.block=true
+														if(grouping.checkRemember[i5]==0){
+															grouping.cancel3=true
+															break
+														}
+													}
+												}
+												if(grouping.cancel3){
+													break
+												}
+												if(grouping.shapes[a][2][i4][0]+grouping.shape[a][i3][0]>=grouping.screen.length||grouping.shapes[a][2][i4][1]+grouping.shape[a][i3][1]>=grouping.screen[0].length||!grouping.block){
+													grouping.cancel3=true
+													break
+												}
+											}
+											if(!grouping.cancel3){
+												grouping.checkRemember3=[]//remember existing blocks
+												for(i4=0,li4=grouping.check.length;i4<li4;i4++){
+													grouping.checkRemember3.push(grouping.check[i4])
+												}
+												for(i4=0,li4=grouping.shape[a].length;i4<li4;i4++){//every position for fourth piece
+													if(grouping.checkRemember3[i4]==1){
+														grouping.check=[]//copy existing blocks
+														for(i5=0,li5=grouping.checkRemember3.length;i5<li5;i5++){
+															grouping.check.push(grouping.checkRemember3[i5])
+														}
+														grouping.cancel4=false
+														for(i5=0,li5=grouping.shapes[a][3].length;i5<li5;i5++){//every piece of shape
+															grouping.block=false
+															for(i6=0,li6=grouping.shape[a].length;i6<li6;i6++){//cross-check piece position with group position
+																if(grouping.shape[a][i6][0]==grouping.shapes[a][3][i5][0]+grouping.shape[a][i4][0]&&grouping.shape[a][i6][1]==grouping.shapes[a][3][i5][1]+grouping.shape[a][i4][1]){
+																	grouping.check[i6]=0
+																	grouping.block=true
+																	if(grouping.checkRemember[i6]==0){
+																		grouping.cancel4=true
+																		break
+																	}
+																}
+															}
+															if(grouping.cancel4){
+																break
+															}
+															if(grouping.shapes[a][3][i5][0]+grouping.shape[a][i4][0]>=grouping.screen.length||grouping.shapes[a][3][i5][1]+grouping.shape[a][i4][1]>=grouping.screen[0].length||!grouping.block){
+																grouping.cancel4=true
+																break
+															}
+														}
+														if(!grouping.cancel4){
+															grouping.checkRemember4=[]//remember existing blocks
+															for(i5=0,li5=grouping.check.length;i5<li5;i5++){
+																grouping.checkRemember4.push(grouping.check[i5])
+															}
+															for(i5=0,li5=grouping.shape[a].length;i5<li5;i5++){//every position for fifth piece
+																if(grouping.checkRemember4[i5]==1){
+																	grouping.check=[]//copy existing blocks
+																	for(i6=0,li6=grouping.checkRemember4.length;i6<li6;i6++){
+																		grouping.check.push(grouping.checkRemember4[i6])
+																	}
+																	grouping.cancel5=false
+																	for(i6=0,li6=grouping.shapes[a][4].length;i6<li6;i6++){//every piece of shape
+																		grouping.block=false
+																		for(i7=0,li7=grouping.shape[a].length;i7<li7;i7++){//cross-check piece position with group position
+																			if(grouping.shape[a][i7][0]==grouping.shapes[a][4][i6][0]+grouping.shape[a][i5][0]&&grouping.shape[a][i7][1]==grouping.shapes[a][4][i6][1]+grouping.shape[a][i5][1]){
+																				grouping.check[i7]=0
+																				grouping.block=true
+																				if(grouping.checkRemember[i7]==0){
+																					grouping.cancel5=true
+																					break
+																				}
+																			}
+																		}
+																		if(grouping.cancel5){
+																			break
+																		}
+																		if(grouping.shapes[a][4][i6][0]+grouping.shape[a][i5][0]>=grouping.screen.length||grouping.shapes[a][4][i6][1]+grouping.shape[a][i5][1]>=grouping.screen[0].length||!grouping.block){
+																			grouping.cancel5=true
+																			break
+																		}
+																	}
+																	if(!grouping.cancel5){
+																		grouping.checkRemember5=[]//remember existing blocks
+																		for(i6=0,li6=grouping.check.length;i6<li6;i6++){
+																			grouping.checkRemember5.push(grouping.check[i6])
+																		}
+																		for(i6=0,li6=grouping.shape[a].length;i6<li6;i6++){//every position for sixth piece
+																			if(grouping.checkRemember5[i6]==1){
+																				grouping.check=[]//copy existing blocks
+																				for(i7=0,li7=grouping.checkRemember5.length;i7<li7;i7++){
+																					grouping.check.push(grouping.checkRemember5[i7])
+																				}
+																				grouping.cancel6=false
+																				for(i7=0,li7=grouping.shapes[a][5].length;i7<li7;i7++){//every piece of shape
+																					grouping.block=false
+																					for(i8=0,li8=grouping.shape[a].length;i8<li8;i8++){//cross-check piece position with group position
+																						if(grouping.shape[a][i8][0]==grouping.shapes[a][5][i7][0]+grouping.shape[a][i6][0]&&grouping.shape[a][i8][1]==grouping.shapes[a][5][i7][1]+grouping.shape[a][i6][1]){
+																							grouping.check[i8]=0
+																							grouping.block=true
+																							if(grouping.checkRemember[i8]==0){
+																								grouping.cancel6=true
+																								break
+																							}
+																						}
+																					}
+																					if(grouping.cancel6){
+																						break
+																					}
+																					if(grouping.shapes[a][5][i7][0]+grouping.shape[a][i6][0]>=grouping.screen.length||grouping.shapes[a][5][i7][1]+grouping.shape[a][i6][1]>=grouping.screen[0].length||!grouping.block){
+																						grouping.cancel6=true
+																						break
+																					}
+																				}
+																				grouping.works=true
+																				for(i7=0,li7=grouping.check.length;i7<li7;i7++){
+																					if(grouping.check[i7]==1){
+																						grouping.works=false
+																					}
+																				}
+																				if(grouping.works&&!grouping.cancel&&!grouping.cancel2&&!grouping.cancel3&&!grouping.cancel4&&!grouping.cancel5&&!grouping.cancel6){
+																					grouping.add=true
+																				}
+																			}
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 			if(!grouping.add){
 				for(i1=0,li1=grouping.shape[a].length;i1<li1;i1++){
 					if(blockId(screen.main[grouping.shape[a][i1][0]*2+1][grouping.shape[a][i1][1]*2+1])>0){
@@ -641,6 +996,113 @@ function checkScreen(screen){
 										}
 										if(grouping.works&&!grouping.cancel&&!grouping.cancel2&&!grouping.cancel3){
 											grouping.add=true
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else if(grouping.shapes[a].length==3){
+				for(i1=0,li1=grouping.all.length;i1<li1;i1++){//every possible shape position
+					grouping.check=[]
+					for(i2=0,li2=grouping.all.length;i2<li2;i2++){
+						grouping.check.push(1)
+					}
+					grouping.cancel=false
+					for(i2=0,li2=grouping.shapes[a][0].length;i2<li2;i2++){//every piece of shape
+						grouping.block=false
+						for(i3=0,li3=grouping.all.length;i3<li3;i3++){//cross-check piece position with group position
+							if(grouping.all[i3][0]==grouping.shapes[a][0][i2][0]+grouping.all[i1][0]&&grouping.all[i3][1]==grouping.shapes[a][0][i2][1]+grouping.all[i1][1]){
+								grouping.check[i3]=0
+								grouping.block=true
+							}
+						}
+						if(grouping.shapes[a][0][i2][0]+grouping.all[i1][0]>=grouping.screen.length||grouping.shapes[a][0][i2][1]+grouping.all[i1][1]>=grouping.screen[0].length||!grouping.block){
+							grouping.cancel=true
+						}
+					}
+					if(!grouping.cancel){
+						grouping.checkRemember=[]//remember existing blocks
+						for(i2=0,li2=grouping.check.length;i2<li2;i2++){
+							grouping.checkRemember.push(grouping.check[i2])
+						}
+						for(i2=0,li2=grouping.all.length;i2<li2;i2++){//every position for second piece
+							grouping.check=[]//copy existing blocks
+							for(i3=0,li3=grouping.checkRemember.length;i3<li3;i3++){
+								grouping.check.push(grouping.checkRemember[i3])
+							}
+							grouping.cancel2=false
+							for(i3=0,li3=grouping.shapes[a][1].length;i3<li3;i3++){//every piece of shape
+								grouping.block=false
+								for(i4=0,li4=grouping.all.length;i4<li4;i4++){//cross-check piece position with group position
+									if(grouping.all[i4][0]==grouping.shapes[a][1][i3][0]+grouping.all[i2][0]&&grouping.all[i4][1]==grouping.shapes[a][1][i3][1]+grouping.all[i2][1]){
+										grouping.check[i4]--
+										grouping.block=true
+									}
+								}
+								if(grouping.shapes[a][1][i3][0]+grouping.all[i2][0]>=grouping.screen.length||grouping.shapes[a][1][i3][1]+grouping.all[i2][1]>=grouping.screen[0].length||!grouping.block){
+									grouping.cancel2=true
+								}
+							}
+							if(!grouping.cancel){
+								grouping.checkRemember2=[]//remember existing blocks
+								for(i3=0,li3=grouping.check.length;i3<li3;i3++){
+									grouping.checkRemember2.push(grouping.check[i3])
+								}
+								for(i3=0,li3=grouping.all.length;i3<li3;i3++){//every position for third piece
+									grouping.check=[]//copy existing blocks
+									for(i4=0,li4=grouping.checkRemember2.length;i4<li4;i4++){
+										grouping.check.push(grouping.checkRemember2[i4])
+									}
+									grouping.cancel3=false
+									for(i4=0,li4=grouping.shapes[a][1].length;i4<li4;i4++){//every piece of shape
+										grouping.block=false
+										for(i5=0,li5=grouping.all.length;i5<li5;i5++){//cross-check piece position with group position
+											if(grouping.all[i5][0]==grouping.shapes[a][2][i4][0]+grouping.all[i3][0]&&grouping.all[i5][1]==grouping.shapes[a][2][i4][1]+grouping.all[i3][1]){
+												grouping.check[i5]--
+												grouping.block=true
+											}
+										}
+										if(grouping.shapes[a][2][i4][0]+grouping.all[i3][0]>=grouping.screen.length||grouping.shapes[a][2][i4][1]+grouping.all[i3][1]>=grouping.screen[0].length||!grouping.block){
+											grouping.cancel3=true
+										}
+									}
+									if(!grouping.cancel2){
+										grouping.checkRemember3=[]//remember existing blocks
+										for(i4=0,li4=grouping.check.length;i4<li4;i4++){
+											grouping.checkRemember3.push(grouping.check[i4])
+										}
+										for(i4=0,li4=grouping.all.length;i4<li4;i4++){//every position for first negative piece
+											if(grouping.checkRemember3[i4]<1){
+												grouping.check=[]//copy existing blocks
+												for(i5=0,li5=grouping.checkRemember3.length;i5<li5;i5++){
+													grouping.check.push(grouping.checkRemember3[i5])
+												}
+												grouping.cancel4=false
+												for(i5=0,li5=grouping.Nshapes[a][0].length;i5<li5;i5++){//every piece of shape
+													grouping.block=false
+													for(i6=0,li6=grouping.all.length;i6<li6;i6++){//cross-check piece position with group position
+														if(grouping.all[i6][0]==grouping.Nshapes[a][0][i5][0]+grouping.all[i4][0]&&grouping.all[i6][1]==grouping.Nshapes[a][0][i5][1]+grouping.all[i4][1]){
+															grouping.check[i6]++
+															grouping.block=true
+														}
+													}
+													if(grouping.Nshapes[a][0][i5][0]+grouping.all[i4][0]>=grouping.screen.length||grouping.Nshapes[a][0][i5][1]+grouping.all[i4][1]>=grouping.screen[0].length||!grouping.block){
+														grouping.cancel4=true
+													}
+												}
+												grouping.works=true
+												for(i5=0,li5=grouping.check.length;i5<li5;i5++){
+													if(grouping.check[i5]==1&&grouping.screen[grouping.all[i5][0]][grouping.all[i5][1]]==a||grouping.check[i4]==0&&grouping.screen[grouping.all[i5][0]][grouping.all[i5][1]]!=a){
+														grouping.works=false
+													}
+												}
+												if(grouping.works&&!grouping.cancel&&!grouping.cancel2&&!grouping.cancel3&&!grouping.cancel4){
+													grouping.add=true
+												}
+											}
 										}
 									}
 								}
@@ -981,13 +1443,13 @@ function displayScreen(layer,screen){
 						layer.line(10+j*20,10+i*20,10+j*20+sin(k*120)*8,10+i*20-cos(k*120)*8)
 					}
 				break
-				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z': case '~': case '`': case 24: case 25: case 26: case 27:
+				case 'q': case 'r': case 's': case 't': case 'u': case 'v': case 'w': case 'x': case 'y': case 'z': case 'Q': case 'R': case 'S': case 'T': case 'U': case 'V': case 'W': case 'X': case 'Y': case 'Z': case '~': case '`': case '|': case 24: case 25: case 26: case 27: case 28: case 29: case 30: case 31: case 32: case 33: case 34: case 35: case 36: case 37:
 					layer.fill(errorLerp([210,200,210],screen.flash[i][j],screen.deactivate[i][j]))
 					for(k=0,lk=block(blockId(screen.main[i][j])).length;k<lk;k++){
 						layer.rect(10+j*20-blockCap(blockId(screen.main[i][j]))[1]*4+block(blockId(screen.main[i][j]))[k][1]*8,10+i*20-blockCap(blockId(screen.main[i][j]))[0]*4+block(blockId(screen.main[i][j]))[k][0]*8,6.5,6.5)
 					}
 				break
-				case -1: case -2: case -3: case -4: case -6: case -12: case -27:
+				case -1: case -2: case -3: case -4: case -6: case -12: case -27: case -34:
 					layer.noFill()
 					layer.strokeWeight(1.5)
 					layer.stroke(errorLerp([95,60,95],screen.flash[i][j],screen.deactivate[i][j]))
@@ -1179,29 +1641,40 @@ function block(id){
 		case 20: return [[0,0],[1,0],[0,1],[0,2]]; break
 		case 21: return [[0,0],[1,0],[2,0],[0,1],[2,1],[0,2],[1,2],[2,2]]; break
 		case 22: return [[0,0],[1,0],[-1,1]]; break
-		case 23: return [[0,0],[0,1],[-1,1]]; break
+		case 23: return [[0,0],[1,0],[0,-1]]; break
 		case 24: return [[0,0],[1,0],[2,0],[3,0],[0,1],[0,2],[3,1],[3,2],[0,3],[1,3],[2,3],[3,3]]; break
 		case 25: return [[0,0],[1,0],[2,0],[3,0],[0,1],[1,1],[2,1],[3,1],[0,2],[1,2],[2,2],[3,2],[0,3],[1,3],[2,3],[3,3]]; break
 		case 26: return [[0,0],[1,0],[1,1],[2,0],[2,1]]; break
 		case 27: return [[0,0],[0,1],[1,1],[2,1]]; break
+		case 28: return [[0,0],[1,1],[-1,1]]; break
+		case 29: return [[0,0],[1,-1],[1,1]]; break
+		case 30: return [[0,0],[1,0],[2,0],[0,1],[2,-1]]; break
+		case 31: return [[0,0],[0,1],[0,2],[-1,2]]; break
+		case 32: return [[0,0],[1,1],[2,2],[3,3],[2,0],[3,1],[0,2],[1,3]]; break
+		case 33: return [[0,0],[0,1],[0,2],[1,1]]; break
+		case 34: return [[0,0],[2,2]]; break
+		case 35: return [[0,0],[0,1],[0,2],[-1,1]]; break
+		case 36: return [[0,0],[1,1],[1,0],[2,1]]; break
+		case 37: return [[0,0],[1,1],[0,1],[1,2]]; break
 	}
 }
 function blockCap(id){
 	switch(id){
 		case 1: return [0,0]; break
-		case 2: return [1,0]; break
+		case 2: case 29: return [1,0]; break
 		case 3: case 4: case 12: case 18: return [1,1]; break
-		case 5: case 17: return [2,0]; break
-		case 6: case 22: return [0,1]; break
+		case 5: case 17: case 30: return [2,0]; break
+		case 6: case 22: case 28: return [0,1]; break
 		case 7: return [0,2]; break
-		case 8: case 9: case 10: case 26: case 27: return [2,1]; break
+		case 8: case 9: case 10: case 26: case 27: case 36: return [2,1]; break
 		case 11: return [2,-1]; break
 		case 13: case 23: return [1,-1]; break
 		case 14: return [0,3]; break
 		case 15: return [3,0]; break
-		case 16: case 19: case 20: return [1,2]; break
-		case 21: return [2,2]; break
-		case 24: case 25: return [3,3]; break
+		case 16: case 19: case 20: case 33: case 37: return [1,2]; break
+		case 21: case 34: return [2,2]; break
+		case 24: case 25: case 32: return [3,3]; break
+		case 31: case 35: return [-1,2]; break
 	}
 }
 function blockId(letter){
@@ -1229,9 +1702,8 @@ function blockId(letter){
 		case '~': return 21; break
 		case '`': return 22; break
 		case '|': return 23; break
-		case -1: case -2: case -3: case -4: case -6: case -12: case -27: case 24: case 25: case 26: case 27: return letter; break
 	}
-	return 0
+	return letter
 }
 function capital(letter){
 	switch(letter){
