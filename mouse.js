@@ -19,7 +19,6 @@ function mousePressed(){
                     for(b=0,lb=screen.main[a].length;b<lb;b++){
                         switch(screen.main[a][b]){
                             case '(':
-                                print(game.enter.id)
                                 if(dist(inputs.mouse.x,inputs.mouse.y,
                                     (10+b*20-screen.main[0].length*10)*
                                     min(30/screen.main[0].length/10*(1+game.enter.anim*41/7),
