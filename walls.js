@@ -216,7 +216,7 @@ class wall extends entity{
                 }
             break
         }
-        if(dev.box||this.type==7||this.type==8){
+        if(dev.box||this.type==7&&false||this.type==8&&false){
             this.layer.noFill()
             this.layer.stroke(0,255,0)
             this.layer.strokeWeight(3)

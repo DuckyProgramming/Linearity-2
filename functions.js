@@ -1532,8 +1532,8 @@ function displayWire(){
 	for(a=0,la=entities.screens.length;a<la;a++){
 		dev.screenPositions[-entities.screens[a].type]=[entities.screens[a].position.x,entities.screens[a].position.y]
 	}
-	graphics.wire.stroke(255,0,0,0.25)
-	graphics.wire.strokeWeight(20)
+	graphics.wire.stroke(0)
+	graphics.wire.strokeWeight(4)
 	for(a=0,la=entities.screens.length;a<la;a++){
 		if(entities.screens[a].id<=0){
 			graphics.wire.line(dev.screenPositions[-entities.screens[a].id][0]+100,dev.screenPositions[-entities.screens[a].id][1]+100,entities.screens[a].position.x+100,entities.screens[a].position.y+100)

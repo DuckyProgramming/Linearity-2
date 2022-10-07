@@ -10,6 +10,9 @@ function draw(){
             graphics.full.scale(stage.zoom)
             graphics.full.translate(-stage.focus.x,-stage.focus.y)
             graphics.full.image(graphics.base,-100,-100)
+            if(dev.wire){
+                graphics.full.image(graphics.wire,-100,-100)
+            }
             for(a=0,la=run.fore.length;a<la;a++){
                 for(b=0,lb=run.fore[a].length;b<lb;b++){
                     if(run.fore[a][b].position.x+run.fore[a][b].width/2>-graphics.full.width/2-100+stage.focus.x&&
@@ -23,9 +26,6 @@ function draw(){
                         run.fore[a].splice(b,1)
                     }
                 }
-            }
-            if(dev.wire){
-                graphics.full.image(graphics.wire,-100,-100)
             }
             graphics.full.pop()
             displayInScreen(graphics.full,game)
